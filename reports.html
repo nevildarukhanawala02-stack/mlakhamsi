@@ -826,7 +826,10 @@
         .active-nav { color: var(--color-gold) !important; }
 
         /* ===== SHARED INNER-PAGE PATTERNS ===== */
-        .page-hero { background-color: var(--color-navy); color: var(--color-white); padding: var(--space-20) 0 var(--space-16); text-align: center; }
+        .page-hero { position: relative; color: var(--color-white); padding: var(--space-20) 0 var(--space-16); text-align: center; overflow: hidden; }
+        .page-hero-bg { position: absolute; inset: 0; background-image: url('/images/reports_hero.jpg'); background-size: cover; background-position: center; z-index: 0; }
+        .page-hero-overlay { position: absolute; inset: 0; background: rgba(27, 58, 92, 0.78); z-index: 1; }
+        .page-hero > .container { position: relative; z-index: 2; }
         .page-hero .eyebrow { color: var(--color-gold); letter-spacing: 0.12em; font-weight: 600; font-size: 11px; text-transform: uppercase; }
         .page-hero h1 { font-family: var(--font-serif); font-weight: 700; font-size: clamp(30px,5vw,46px); line-height:1.15; margin: var(--space-4) 0; }
         .page-hero p { font-size: 16px; color: rgba(255,255,255,0.82); max-width: 720px; margin: 0 auto var(--space-8); line-height:1.7; }
@@ -1022,6 +1025,8 @@
     
     <!-- ===== PAGE HERO ===== -->
     <section class="page-hero">
+        <div class="page-hero-bg"></div>
+        <div class="page-hero-overlay"></div>
         <div class="container">
             <div class="breadcrumb"><a href="index.html">Home</a> / Market Reports</div>
             <div class="eyebrow">Updated Quarterly</div>
