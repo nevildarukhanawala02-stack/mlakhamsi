@@ -1,0 +1,15 @@
+{
+  "name": "mlakhamsi-website",
+  "version": "1.0.0",
+  "description": "M Lakhamsi Industries Limited — corporate website (Home + About Us)",
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
