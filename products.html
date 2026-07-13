@@ -897,6 +897,22 @@
 
         .active-nav { color: var(--color-gold) !important; }
 
+        /* Custom request / "Others" enquiry section */
+        .custom-request-block { max-width: 640px; margin: 0 auto; text-align: center; }
+        .custom-request-block .eyebrow { color: var(--color-gold); letter-spacing:0.12em; font-weight:600; font-size:11px; text-transform:uppercase; }
+        .custom-request-block h2 { font-family:var(--font-serif); font-weight:500; font-size: clamp(24px,3vw,30px); color: var(--color-navy); margin: 10px 0 14px; }
+        .custom-request-block p { font-size:15.5px; line-height:1.75; color: var(--color-charcoal); margin-bottom: var(--space-8); }
+        .custom-form-card { background: var(--color-white); border:0.5px solid #D0CCC6; border-radius: var(--radius-lg); padding: var(--space-8); text-align:left; }
+        .custom-form-card .form-row { margin-bottom: var(--space-4); }
+        .custom-form-card .form-row label { display:block; font-family:var(--font-sans); font-weight:500; font-size:12px; color: var(--color-navy); margin-bottom:6px; }
+        .custom-form-card .form-row label .req { color: var(--color-gold); }
+        .custom-form-card .form-row input, .custom-form-card .form-row textarea { width:100%; border:1px solid #D0CCC6; border-radius: var(--radius-md); padding:10px 14px; font-family:var(--font-sans); font-size:14px; background:#fff; color: var(--color-charcoal); box-sizing:border-box; }
+        .custom-form-card .form-row input:focus, .custom-form-card .form-row textarea:focus { outline:none; border-color: var(--color-navy); border-width:2px; }
+        .custom-form-card .form-row textarea { min-height:110px; resize:vertical; }
+        .custom-form-two { display:grid; grid-template-columns:1fr 1fr; gap: var(--space-4); }
+        @media (max-width:560px){ .custom-form-two{ grid-template-columns:1fr; } }
+        .custom-form-card .form-note { font-size:12px; color: var(--color-gray); margin-top: var(--space-4); text-align:center; }
+
     </style>
 </head>
 <body>
@@ -1014,6 +1030,7 @@
             <button class="filter-btn" data-filter="spices" onclick="filterCat(this,'spices')">Spices</button>
             <button class="filter-btn" data-filter="oils" onclick="filterCat(this,'oils')">Oils & Oil Cakes</button>
             <button class="filter-btn" data-filter="others" onclick="filterCat(this,'others')">Raisins & Others</button>
+            <button class="filter-btn" data-filter="custom-request" onclick="filterCat(this,'custom-request')">Others</button>
             </div>
         </div>
     </div>
@@ -1431,8 +1448,48 @@
         </div>
     </section>
 
+    <!-- ===== CUSTOM REQUEST / "OTHERS" ===== -->
+    <section class="cat-block" id="custom-request" data-cat="custom-request">
+        <div class="container">
+            <div class="custom-request-block">
+                <div class="eyebrow">Don't See What You Need?</div>
+                <h2>We source more than what's on this page.</h2>
+                <p>Our full catalog runs to 50+ commodities, but if your requirement isn't listed here, tell us what you're looking for. We'll check what we can source and get back to you with details.</p>
+                <div class="custom-form-card">
+                    <form onsubmit="event.preventDefault(); alert('Thank you — this form will be connected to our trade team inbox before launch.');">
+                        <div class="custom-form-two">
+                            <div class="form-row">
+                                <label>Your Name <span class="req">*</span></label>
+                                <input type="text" required placeholder="Full name">
+                            </div>
+                            <div class="form-row">
+                                <label>Company Name <span class="req">*</span></label>
+                                <input type="text" required placeholder="Company name">
+                            </div>
+                        </div>
+                        <div class="custom-form-two">
+                            <div class="form-row">
+                                <label>Email <span class="req">*</span></label>
+                                <input type="email" required placeholder="you@company.com">
+                            </div>
+                            <div class="form-row">
+                                <label>Country</label>
+                                <input type="text" placeholder="Your country">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <label>What are you looking for? <span class="req">*</span></label>
+                            <textarea required placeholder="Tell us the product, grade, volume, and destination port — we'll check what we can source"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width:100%; text-align:center; border:none;">Send Enquiry</button>
+                        <p class="form-note">No automated responses. Your enquiry goes directly to our trade team.</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <!-- ===== PACKAGING BAND ===== -->
+
     <section class="pack-band">
         <div class="container">
             <h2>Packed for your market, not just your order.</h2>
