@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Quarterly market intelligence on Indian agri-exports — groundnut and sesame price trends, export data, and regulatory updates from M Lakhamsi Industries.">
+    <meta name="description" content="Monthly sesame and groundnut market reports from M Lakhamsi Industries — real, downloadable market intelligence published since 2023.">
     <title>Market Reports — M Lakhamsi Industries Limited</title>
     
     <!-- Google Fonts -->
@@ -825,7 +825,8 @@
 
         .active-nav { color: var(--color-gold) !important; }
 
-        /* ===== SHARED INNER-PAGE PATTERNS ===== */
+        .active-nav { color: var(--color-gold) !important; }
+
         .page-hero { position: relative; color: var(--color-white); padding: var(--space-20) 0 var(--space-16); text-align: center; overflow: hidden; }
         .page-hero-bg { position: absolute; inset: 0; background-image: url('/images/reports_hero.jpg'); background-size: cover; background-position: center; z-index: 0; }
         .page-hero-overlay { position: absolute; inset: 0; background: rgba(27, 58, 92, 0.78); z-index: 1; }
@@ -833,7 +834,6 @@
         .page-hero .eyebrow { color: var(--color-gold); letter-spacing: 0.12em; font-weight: 600; font-size: 11px; text-transform: uppercase; }
         .page-hero h1 { font-family: var(--font-serif); font-weight: 700; font-size: clamp(30px,5vw,46px); line-height:1.15; margin: var(--space-4) 0; color: var(--color-white); }
         .page-hero p { font-size: 16px; color: rgba(255,255,255,0.82); max-width: 720px; margin: 0 auto var(--space-8); line-height:1.7; }
-        .page-hero .hero-ctas { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
         .breadcrumb { font-size:13px; color: rgba(255,255,255,0.65); margin-bottom: var(--space-4); }
         .breadcrumb a { color: rgba(255,255,255,0.65); text-decoration:none; }
         .breadcrumb a:hover { color: var(--color-gold); }
@@ -841,50 +841,12 @@
         .band { padding: var(--space-16) 0; }
         .band.offwhite { background: var(--color-offwhite); }
         .band.white { background: var(--color-white); }
-        .band.paleblue { background: var(--color-pale-blue); }
-        .band.palegold { background: var(--color-gold-pale); }
-        .band.navy { background: var(--color-navy); color: var(--color-white); }
-
         .band-head { max-width: 780px; margin: 0 auto var(--space-8); text-align:center; }
         .band-head.left { text-align:left; margin: 0 0 var(--space-8); }
         .band-head .eyebrow { color: var(--color-gold); letter-spacing:0.12em; font-weight:600; font-size:11px; text-transform:uppercase; }
         .band-head h2 { font-family:var(--font-serif); font-weight:500; font-size: clamp(24px,3vw,30px); color: var(--color-navy); margin: 8px 0 12px; }
-        .band.navy .band-head h2 { color: var(--color-white); }
         .band-head p { font-size:15.5px; line-height:1.75; color: var(--color-charcoal); }
-        .band.navy .band-head p { color: rgba(255,255,255,0.85); }
 
-        .two-col { display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-10); align-items:start; }
-        @media (max-width:768px){ .two-col{ grid-template-columns:1fr; } }
-
-        .info-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap: var(--space-6); }
-        .info-card { background: var(--color-white); border:0.5px solid #D0CCC6; border-radius: var(--radius-lg); padding: var(--space-6); }
-        .band.paleblue .info-card, .band.navy .info-card { background: var(--color-white); }
-        .info-card i { font-size:28px; color: var(--color-navy); margin-bottom:10px; display:block; }
-        .info-card h3 { font-family: var(--font-sans); font-weight:600; font-size:15px; color: var(--color-charcoal); margin-bottom:6px; }
-        .info-card p { font-size:13.5px; color: var(--color-gray); line-height:1.65; }
-
-        .proof-chips { display:flex; gap:var(--space-6); justify-content:center; flex-wrap:wrap; }
-        .proof-chip { display:flex; align-items:center; gap:10px; background:var(--color-white); border:0.5px solid #D0CCC6; border-radius: var(--radius-lg); padding: 14px 20px; font-size:14px; color: var(--color-charcoal); }
-        .proof-chip i { font-size:24px; color: var(--color-navy); }
-        .proof-chip strong { color: var(--color-navy); }
-
-        /* Certification grid (reused pattern from about.html) */
-        .cert-grid-page { display:grid; grid-template-columns: repeat(auto-fit,minmax(160px,1fr)); gap: var(--space-6); }
-        .cert-card { background: var(--color-white); border:0.5px solid #D0CCC6; border-radius: var(--radius-lg); padding: var(--space-6); text-align:center; }
-        .cert-card img { height:64px; width:auto; margin: 0 auto 14px; display:block; }
-        .cert-card h4 { font-family: var(--font-sans); font-weight:600; font-size:14px; color: var(--color-navy); margin-bottom:8px; }
-        .cert-card a { font-size:12px; color: var(--color-gold); font-weight:500; text-decoration:none; }
-        .cert-card a:hover { text-decoration:underline; }
-
-        /* Document list (for Investors / CSR-adjacent) */
-        .doc-group { margin-bottom: var(--space-10); }
-        .doc-group h3 { font-family: var(--font-serif); font-weight:500; font-size:19px; color: var(--color-navy); margin-bottom: var(--space-4); padding-bottom:8px; border-bottom: 1px solid #E5E1DB; }
-        .doc-list { list-style:none; display:grid; gap:2px; }
-        .doc-list li { }
-        .doc-list a { display:flex; align-items:center; justify-content:space-between; gap:16px; padding: 12px 16px; background: var(--color-white); border:0.5px solid #E5E1DB; border-radius: var(--radius-md); text-decoration:none; color: var(--color-charcoal); font-size:13.5px; transition: all 150ms ease; }
-        .doc-list a:hover { border-color: var(--color-navy); box-shadow: 0 2px 12px rgba(27,58,92,0.08); }
-        .doc-list a .doc-name { flex:1; }
-        .doc-list a .doc-icon { color: var(--color-gold); font-size:16px; flex-shrink:0; }
         .doc-featured { display:grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap: var(--space-6); margin-bottom: var(--space-10); }
         .doc-featured-card { background: var(--color-navy); color:#fff; border-radius: var(--radius-lg); padding: var(--space-6); }
         .doc-featured-card .tag { font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color: var(--color-gold); font-weight:600; margin-bottom:10px; display:block; }
@@ -892,60 +854,23 @@
         .doc-featured-card a { display:inline-flex; align-items:center; gap:6px; color:#fff; font-size:13px; font-weight:500; text-decoration:none; border:1.5px solid rgba(255,255,255,0.4); border-radius: var(--radius-md); padding:8px 14px; transition: all 150ms ease; }
         .doc-featured-card a:hover { background: rgba(255,255,255,0.12); border-color:#fff; }
 
-        /* Accordion for archive sections */
-        .accordion-item { border:0.5px solid #E5E1DB; border-radius: var(--radius-lg); margin-bottom:10px; overflow:hidden; background:#fff; }
-        .accordion-toggle { width:100%; display:flex; align-items:center; justify-content:space-between; padding:16px 20px; background:none; border:none; cursor:pointer; font-family:var(--font-sans); font-weight:600; font-size:14.5px; color: var(--color-navy); text-align:left; }
-        .accordion-toggle i { transition: transform 200ms ease; color: var(--color-gold); }
-        .accordion-toggle.open i { transform: rotate(180deg); }
-        .accordion-body { max-height:0; overflow:hidden; transition: max-height 250ms ease; padding: 0 20px; }
-        .accordion-body.open { padding: 0 20px 18px; }
+        .report-columns { display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-10); }
+        @media (max-width:768px){ .report-columns{ grid-template-columns:1fr; } }
+        .report-col h3 { font-family: var(--font-serif); font-weight:500; font-size:20px; color: var(--color-navy); margin-bottom: var(--space-4); padding-bottom:10px; border-bottom: 2px solid var(--color-gold); }
+        .report-list { list-style:none; display:grid; gap:2px; max-height: 620px; overflow-y:auto; padding-right:6px; }
+        .report-list a { display:flex; align-items:center; justify-content:space-between; gap:12px; padding: 12px 14px; background: var(--color-white); border:0.5px solid #E5E1DB; border-radius: var(--radius-md); text-decoration:none; color: var(--color-charcoal); font-size:13.5px; transition: all 150ms ease; }
+        .report-list a:hover { border-color: var(--color-navy); box-shadow: 0 2px 12px rgba(27,58,92,0.08); }
+        .report-list a .doc-icon { color: var(--color-gold); font-size:16px; flex-shrink:0; }
+        .report-count { font-size:12px; color: var(--color-gray); margin-top:10px; }
 
-        /* Timeline (CSR / milestones reuse) */
-        .csr-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap: var(--space-6); }
-        .csr-card { background: var(--color-white); border:0.5px solid #D0CCC6; border-radius: var(--radius-lg); padding: var(--space-6); }
-        .csr-card .role { font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color: var(--color-gold); font-weight:600; margin-bottom:8px; display:block; }
-        .csr-card h4 { font-family: var(--font-serif); font-weight:500; font-size:16px; color: var(--color-navy); margin-bottom:4px; }
-        .csr-card p { font-size:13px; color: var(--color-gray); }
-
-        /* Contact page */
-        .contact-grid { display:grid; grid-template-columns: 1fr 1.2fr; gap: var(--space-10); }
-        @media (max-width:768px){ .contact-grid{ grid-template-columns:1fr; } }
-        .contact-info-block { display:flex; gap:14px; margin-bottom: var(--space-8); }
-        .contact-info-block i { font-size:22px; color: var(--color-navy); flex-shrink:0; margin-top:2px; }
-        .contact-info-block h4 { font-family: var(--font-sans); font-weight:600; font-size:14px; color: var(--color-navy); margin-bottom:4px; }
-        .contact-info-block p, .contact-info-block a { font-size:14px; color: var(--color-charcoal); line-height:1.6; text-decoration:none; }
-        .contact-info-block a:hover { color: var(--color-navy); }
-
-        .form-card { background: var(--color-white); border:0.5px solid #D0CCC6; border-radius: var(--radius-lg); padding: var(--space-8); }
-        .form-row { margin-bottom: var(--space-4); }
-        .form-row label { display:block; font-family:var(--font-sans); font-weight:500; font-size:12px; color: var(--color-navy); margin-bottom:6px; }
-        .form-row label .req { color: var(--color-gold); }
-        .form-row input, .form-row select, .form-row textarea { width:100%; border:1px solid #D0CCC6; border-radius: var(--radius-md); padding:10px 14px; font-family:var(--font-sans); font-size:14px; background:#fff; color: var(--color-charcoal); }
-        .form-row input:focus, .form-row select:focus, .form-row textarea:focus { outline:none; border-color: var(--color-navy); border-width:2px; }
-        .form-row textarea { min-height:110px; resize:vertical; }
-        .form-two { display:grid; grid-template-columns:1fr 1fr; gap: var(--space-4); }
-        @media (max-width:560px){ .form-two{ grid-template-columns:1fr; } }
-        .form-note { font-size:12px; color: var(--color-gray); margin-top: var(--space-4); }
+        .subscribe-box { max-width:520px; margin:0 auto; display:flex; gap:10px; }
+        .subscribe-box input { flex:1; border:1px solid #D0CCC6; border-radius: var(--radius-md); padding:12px 16px; font-family:var(--font-sans); font-size:14px; }
+        @media (max-width:520px){ .subscribe-box{ flex-direction:column; } }
 
         .close-cta { background: var(--color-gold-pale); padding: var(--space-16) 0; text-align:center; }
         .close-cta h2 { font-family:var(--font-serif); font-weight:500; font-size: clamp(24px,3vw,30px); color: var(--color-navy); margin-bottom: var(--space-4); }
         .close-cta p { max-width: 640px; margin: 0 auto var(--space-8); font-size:16px; line-height:1.7; color: var(--color-charcoal); }
         .close-cta .hero-ctas { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
-
-
-        .report-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap: var(--space-6); }
-        .report-card { background: var(--color-pale-blue); border-radius: var(--radius-lg); padding: var(--space-6); transition: background 150ms ease; }
-        .report-card:hover { background: #D8E8F4; }
-        .report-card .tag { font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color: var(--color-navy); font-weight:600; background:#fff; display:inline-block; padding:4px 10px; border-radius: var(--radius-full); margin-bottom:12px; }
-        .report-card .date { font-size:12px; color: var(--color-gray); margin-bottom:8px; }
-        .report-card h3 { font-family: var(--font-serif); font-weight:500; font-size:17px; color: var(--color-navy); margin-bottom:10px; line-height:1.4; }
-        .report-card p { font-size:13.5px; color: var(--color-charcoal); line-height:1.6; margin-bottom:14px; }
-        .report-card a { font-size:13px; font-weight:500; color: var(--color-navy); text-decoration:none; }
-        .report-card a:hover { text-decoration:underline; }
-
-        .subscribe-box { max-width:520px; margin:0 auto; display:flex; gap:10px; }
-        .subscribe-box input { flex:1; border:1px solid #D0CCC6; border-radius: var(--radius-md); padding:12px 16px; font-family:var(--font-sans); font-size:14px; }
-        @media (max-width:520px){ .subscribe-box{ flex-direction:column; } }
 
     </style>
 </head>
@@ -1029,57 +954,92 @@
         <div class="page-hero-overlay"></div>
         <div class="container">
             <div class="breadcrumb"><a href="index.html">Home</a> / Market Reports</div>
-            <div class="eyebrow">Updated Quarterly</div>
+            <div class="eyebrow">Updated Monthly Since 2023</div>
             <h1>Market intelligence. Direct from the source.</h1>
-            <p>Price trends, regulatory updates, and company news — for buyers who want to understand the market, not just source from it.</p>
+            <p>Monthly sesame and groundnut market reports — real data, published consistently since 2023. No sign-up, no request form.</p>
         </div>
     </section>
 
-    <!-- ===== REPORT GRID ===== -->
+    <!-- ===== FEATURED / LATEST ===== -->
+    <section class="band white">
+        <div class="container">
+            <div class="band-head left">
+                <div class="eyebrow">Latest Reports</div>
+                <h2>Start here.</h2>
+            </div>
+            <div class="doc-featured">
+                <div class="doc-featured-card">
+                    <span class="tag">Sesame · May 2026</span>
+                    <h4>Indian Sesame Seed Markets — May 2026</h4>
+                    <a href="https://m.lakhamsi.com/wp-content/uploads/2026/marketupdate/Indian%20Sesame%20Seed%20Markets%20-%20May%202026.pdf" target="_blank" rel="noopener"><i class="ti ti-download"></i> Download PDF</a>
+                </div>
+                <div class="doc-featured-card">
+                    <span class="tag">Groundnuts · Current</span>
+                    <h4>Groundnut Market Report: Current Scenario &amp; Outlook</h4>
+                    <a href="https://m.lakhamsi.com/wp-content/uploads/2026/marketupdate/Indian_Groundnut_Market_Report-Current_Scenario_and_Outlook.pdf" target="_blank" rel="noopener"><i class="ti ti-download"></i> Download PDF</a>
+                </div>
+                <div class="doc-featured-card">
+                    <span class="tag">Groundnuts · Jan 2026</span>
+                    <h4>Indian Groundnut Markets — January 2026</h4>
+                    <a href="https://m.lakhamsi.com/wp-content/uploads/2026/marketupdate/Indian_Groundnut_Markets-Jan2026.pdf" target="_blank" rel="noopener"><i class="ti ti-download"></i> Download PDF</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FULL ARCHIVE — TWO COLUMNS ===== -->
     <section class="band offwhite">
         <div class="container">
-            <div class="report-grid">
-                <div class="report-card">
-                    <span class="tag">REPORT</span>
-                    <div class="date">Q2 2026</div>
-                    <h3>India Groundnut Export Outlook — Q2 2026</h3>
-                    <p>Prices, key buyer market updates, and the current aflatoxin compliance situation.</p>
-                    <a href="#">Read Report →</a>
+            <div class="band-head left">
+                <div class="eyebrow">Full Archive</div>
+                <h2>Every report, back to January 2023.</h2>
+                <p>Organised by commodity. Each report is a real, downloadable PDF — no request form, no waiting.</p>
+            </div>
+            <div class="report-columns">
+                <div class="report-col">
+                    <h3>Sesame Seed Markets</h3>
+                    <ul class="report-list">
+                        <li><a href="https://m.lakhamsi.com/wp-content/uploads/2026/marketupdate/Indian%20Sesame%20Seed%20Markets%20-%20May%202026.pdf" target="_blank" rel="noopener"><span>Indian Sesame Seed Markets - May 2026</span><i class="ti ti-download doc-icon"></i></a></li>
+                        <li><a href="https://m.lakhamsi.com/wp-content/uploads/2026/marketupdate/Indian%20Sesame%20Markets%20-%20March%202026.pdf" target="_blank" rel="noopener"><span>Indian Sesame Seed Markets - March 2026</span><i class="ti ti-download doc-icon"></i></a></li>
+                        <li><a href="https://m.lakhamsi.com/wp-content/uploads/2026/marketupdate/Sesame%20Seed%20Markets%20-%20March%202026.pdf" target="_blank" rel="noopener"><span>Sesame Markets - March 2026</span><i class="ti ti-download doc-icon"></i></a></li>
+                        <li><a href="https://m.lakhamsi.com/wp-content/uploads/2026/marketupdate/Indian%20Sesame%20Markets%20-%20Feb%202026.pdf" target="_blank" rel="noopener"><span>Indian Sesame Markets - Feb 2026</span><i class="ti ti-download doc-icon"></i></a></li>
+                        <li><a href="https://m.lakhamsi.com/wp-content/uploads/2025/marketupdate/Indian%20Sesame%20Seed%20Markets%20-%20Nov%202025.pdf" target="_blank" rel="noopener"><span>Indian Sesame Seed Markets - Nov 2025</span><i class="ti ti-download doc-icon"></i></a></li>
+                        <li><a href="https://m.lakhamsi.com/wp-content/uploads/2025/marketupdate/Indian%20Sesame%20Seed%20Markets%20-%20October%202025.pdf" target="_blank" rel="noopener"><span>Indian Sesame Seed Markets - October 2025</span><i class="ti ti-download doc-icon"></i></a></li>
+                        <li><a href="https://m.lakhamsi.com/wp-content/uploads/2025/marketupdate/Indian%20Sesame%20Seed%20Markets%20-%20August%202025.pdf" target="_blank" rel="noopener"><span>Indian Sesame Seed Markets - August 2025</span><i class="ti ti-download doc-icon"></i></a></li>
+                        <li><a href="https://m.lakhamsi.com/wp-content/uploads/2025/marketupdate/Indian%20Sesame%20Seed%20Markets%20-%20June%202025.pdf" target="_blank" rel="noopener"><span>Indian Sesame Seed Markets - June 2025</span><i class="ti ti-download doc-icon"></i></a></li>
+                        <li><a href="https://m.lakhamsi.com/wp-content/uploads/2025/marketupdate/Indian%20Sesame%20Seed%20Markets%20-%20May%202025.pdf" target="_blank" rel="noopener"><span>Indian Sesame Seed Markets - May 2025</span><i class="ti ti-download doc-icon"></i></a></li>
+                        <li><a href="https://m.lakhamsi.com/wp-content/uploads/2025/marketupdate/Indian%20Sesame%20Seed%20Markets%20-%20Gulfood%202025%20Special.pdf" target="_blank" rel="noopener"><span>Indian Sesame Seed Markets - Gulfood 2025 Special</span><i class="ti ti-download doc-icon"></i></a></li>
+                        <li><a href="https://m.lakhamsi.com/wp-content/uploads/2025/marketupdate/Indian%20Sesame%20Seed%20Markets%20-%20Jan%202025.pdf" target="_blank" rel="noopener"><span>Indian Sesame Seed Markets - January 2025</span><i class="ti ti-download doc-icon"></i></a></li>
+                        <li><a href="https://m.lakhamsi.com/wp-content/uploads/2024/marketupdate/Indian%20Sesame%20Seed%20Market%20Report%20-%20Nov%202024.pdf" target="_blank" rel="noopener"><span>Indian Sesame Seed Markets - November 2024</span><i class="ti ti-download doc-icon"></i></a></li>
+                        <li><a href="https://m.lakhamsi.com/wp-content/uploads/2024/marketupdate/Indian%20Sesame%20Seed%20Markets%20-%20September%202024.pdf" target="_blank" rel="noopener"><span>Indian Sesame Seed Markets - September 2024</span><i class="ti ti-download doc-icon"></i></a></li>
+                        <li><a href="https://m.lakhamsi.com/wp-content/uploads/2024/marketupdate/Indian%20Sesame%20Markets%20-%20July%202024.pdf" target="_blank" rel="noopener"><span>Indian Sesame Markets - July 2024</span><i class="ti ti-download doc-icon"></i></a></li>
+                        <li><a href="https://m.lakhamsi.com/wp-content/uploads/2024/marketupdate/Indian%20Sesame%20Seed%20Market%20-%20May%20-%20June%202024.pdf" target="_blank" rel="noopener"><span>Indian Sesame Seed Market - May-June 2024</span><i class="ti ti-download doc-icon"></i></a></li>
+                        <li><a href="https://m.lakhamsi.com/wp-content/uploads/2024/marketupdate/Indian%20Sesame%20Seed%20Market%20-%20March%202024.pdf" target="_blank" rel="noopener"><span>Indian Sesame Seed Market - March 2024</span><i class="ti ti-download doc-icon"></i></a></li>
+                        <li><a href="https://m.lakhamsi.com/wp-content/uploads/2023/marketupdate/Indian%20Sesame%20Seed%20Markets%20-%20Dec%202023.pdf" target="_blank" rel="noopener"><span>Indian Sesame Seed Markets - Dec 2023</span><i class="ti ti-download doc-icon"></i></a></li>
+                        <li><a href="https://m.lakhamsi.com/wp-content/uploads/2023/marketupdate/Indian%20Sesame%20Markets%20-%20Oct%202023.pdf" target="_blank" rel="noopener"><span>Indian Sesame Markets - Oct 2023</span><i class="ti ti-download doc-icon"></i></a></li>
+                        <li><a href="https://m.lakhamsi.com/wp-content/uploads/2023/marketupdate/Summer%20Crop%20Sesame%20Situation%20-%20May%20-%20June%202023.pdf" target="_blank" rel="noopener"><span>Summer Crop Sesame Situation - May-June 2023</span><i class="ti ti-download doc-icon"></i></a></li>
+                        <li><a href="https://m.lakhamsi.com/wp-content/uploads/2023/marketupdate/Indian%20Sesame%20Markets%20-%20Jan%202023.pdf" target="_blank" rel="noopener"><span>Indian Peanut Markets - Jan 2023 (Sesame section)</span><i class="ti ti-download doc-icon"></i></a></li>
+                    </ul>
+                    <div class="report-count">20 reports</div>
                 </div>
-                <div class="report-card">
-                    <span class="tag">UPDATE</span>
-                    <div class="date">June 2026</div>
-                    <h3>EU Aflatoxin Regulations: What Groundnut Buyers Need to Know</h3>
-                    <p>A plain-language summary of the current EU maximum levels and what compliant exporters must provide.</p>
-                    <a href="#">Read Report →</a>
-                </div>
-                <div class="report-card">
-                    <span class="tag">NEWS</span>
-                    <div class="date">2026</div>
-                    <h3>M Lakhamsi at Gulfood 2026</h3>
-                    <p>We exhibited at Gulfood in Dubai. Here's what we discussed with buyers.</p>
-                    <a href="#">Read Report →</a>
-                </div>
-                <div class="report-card">
-                    <span class="tag">REPORT</span>
-                    <div class="date">Q1 2026</div>
-                    <h3>Sesame Market Update — Falling Prices, Rising Volume</h3>
-                    <p>How the shift from $1.38/kg to $0.94/kg is reshaping buyer strategy across Asia.</p>
-                    <a href="#">Read Report →</a>
-                </div>
-                <div class="report-card">
-                    <span class="tag">UPDATE</span>
-                    <div class="date">2026</div>
-                    <h3>Indonesia Groundnut Ban — Where Things Stand</h3>
-                    <p>A factual update on the ongoing import restriction and what it means for Southeast Asian buyers.</p>
-                    <a href="#">Read Report →</a>
-                </div>
-                <div class="report-card">
-                    <span class="tag">REPORT</span>
-                    <div class="date">Q4 2025</div>
-                    <h3>India-UK FTA: What It Means for Peanut Exporters</h3>
-                    <p>Projected +16% growth in UK/Europe peanut exports and how Halal + Kosher certification positions us.</p>
-                    <a href="#">Read Report →</a>
+                <div class="report-col">
+                    <h3>Groundnut Markets</h3>
+                    <ul class="report-list">
+                        <li><a href="https://m.lakhamsi.com/wp-content/uploads/2026/marketupdate/Indian_Groundnut_Market_Report-Current_Scenario_and_Outlook.pdf" target="_blank" rel="noopener"><span>Indian Groundnut Market Report: Current Scenario & Outlook</span><i class="ti ti-download doc-icon"></i></a></li>
+                        <li><a href="https://m.lakhamsi.com/wp-content/uploads/2026/marketupdate/Indian_Groundnut_Markets-Jan2026.pdf" target="_blank" rel="noopener"><span>Indian Groundnut Markets - January 2026</span><i class="ti ti-download doc-icon"></i></a></li>
+                        <li><a href="https://m.lakhamsi.com/wp-content/uploads/2025/marketupdate/Indian_Groundnut_Markets-Sept2025.pdf" target="_blank" rel="noopener"><span>Indian Groundnut Markets - Sept 2025</span><i class="ti ti-download doc-icon"></i></a></li>
+                        <li><a href="https://m.lakhamsi.com/wp-content/uploads/2025/marketupdate/Indian_Groundnut_Markets-May2025.pdf" target="_blank" rel="noopener"><span>Indian Groundnut Markets - May 2025</span><i class="ti ti-download doc-icon"></i></a></li>
+                        <li><a href="https://m.lakhamsi.com/wp-content/uploads/2025/marketupdate/Indian%20Groundnut%20Markets%20-%20March%202025.pdf" target="_blank" rel="noopener"><span>Indian Groundnut Market - March 2025</span><i class="ti ti-download doc-icon"></i></a></li>
+                        <li><a href="https://m.lakhamsi.com/wp-content/uploads/2025/marketupdate/Indian%20Groundnut%20Markets%20-%20Jan%202025.pdf" target="_blank" rel="noopener"><span>Indian Groundnut Market - January 2025</span><i class="ti ti-download doc-icon"></i></a></li>
+                        <li><a href="https://m.lakhamsi.com/wp-content/uploads/2024/marketupdate/Indian%20Groundnuts%20-%20New%20Crop%202024-25.pdf" target="_blank" rel="noopener"><span>Indian Groundnuts - New Crop 2024-25</span><i class="ti ti-download doc-icon"></i></a></li>
+                        <li><a href="https://m.lakhamsi.com/wp-content/uploads/2024/marketupdate/Indian%20Groundnut%20Market%20-%20August%202024.pdf" target="_blank" rel="noopener"><span>Indian Groundnut Market - August 2024</span><i class="ti ti-download doc-icon"></i></a></li>
+                        <li><a href="https://m.lakhamsi.com/wp-content/uploads/2024/marketupdate/Indian%20Groundnut%20Markets%20-%20April%202024.pdf" target="_blank" rel="noopener"><span>Indian Groundnut Markets - April 2024</span><i class="ti ti-download doc-icon"></i></a></li>
+                        <li><a href="https://m.lakhamsi.com/wp-content/uploads/2024/marketupdate/Indian%20Groundnut%20Markets%20-%20Feb%202024.pdf" target="_blank" rel="noopener"><span>Indian Groundnut Markets - Feb 2024</span><i class="ti ti-download doc-icon"></i></a></li>
+                        <li><a href="https://m.lakhamsi.com/wp-content/uploads/2024/marketupdate/Indian%20Peanut%20Markets%20-%20Jan%202024.pdf" target="_blank" rel="noopener"><span>Indian Peanut Markets - Jan 2024</span><i class="ti ti-download doc-icon"></i></a></li>
+                        <li><a href="https://m.lakhamsi.com/wp-content/uploads/2023/marketupdate/Indian%20Groundnut%20Situation%20-%20Oct%202023.pdf" target="_blank" rel="noopener"><span>Indian Groundnut Situation - October 2023</span><i class="ti ti-download doc-icon"></i></a></li>
+                        <li><a href="https://m.lakhamsi.com/wp-content/uploads/2023/marketupdate/Indian%20Groundnut%20Markets%20-%20August%202023.pdf" target="_blank" rel="noopener"><span>Indian Groundnut Markets - August 2023</span><i class="ti ti-download doc-icon"></i></a></li>
+                    </ul>
+                    <div class="report-count">13 reports</div>
                 </div>
             </div>
         </div>
@@ -1103,7 +1063,7 @@
     <section class="close-cta">
         <div class="container">
             <h2>Looking for something specific?</h2>
-            <p>If you need data on a particular commodity, region, or regulation, our trade team can point you to the right report — or put one together.</p>
+            <p>If you need data on a particular commodity, region, or regulation not covered above, our trade team can help directly.</p>
             <div class="hero-ctas">
                 <a href="contact.html" class="btn btn-primary">Contact Us</a>
                 <a href="products.html" class="btn btn-secondary">View Products →</a>
