@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="M Lakhamsi Industries - India's most accountable agri-export partner. BSE & NSE listed. 50+ years. 75+ countries.">
-    <title>M Lakhamsi Industries - Agri-Exports Verified</title>
+    <meta name="description" content="Follow M Lakhamsi Industries on LinkedIn and Twitter/X for market updates, product news, and industry developments.">
+    <title>Social — M Lakhamsi Industries Limited</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -822,6 +822,122 @@
         .mt-8 { margin-top: var(--space-8); }
         .mt-10 { margin-top: var(--space-10); }
         .mb-0 { margin-bottom: 0; }
+
+        .active-nav { color: var(--color-gold) !important; }
+
+        /* ===== SHARED INNER-PAGE PATTERNS ===== */
+        .page-hero { background-color: var(--color-navy); color: var(--color-white); padding: var(--space-20) 0 var(--space-16); text-align: center; }
+        .page-hero .eyebrow { color: var(--color-gold); letter-spacing: 0.12em; font-weight: 600; font-size: 11px; text-transform: uppercase; }
+        .page-hero h1 { font-family: var(--font-serif); font-weight: 700; font-size: clamp(30px,5vw,46px); line-height:1.15; margin: var(--space-4) 0; }
+        .page-hero p { font-size: 16px; color: rgba(255,255,255,0.82); max-width: 720px; margin: 0 auto var(--space-8); line-height:1.7; }
+        .page-hero .hero-ctas { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+        .breadcrumb { font-size:13px; color: rgba(255,255,255,0.65); margin-bottom: var(--space-4); }
+        .breadcrumb a { color: rgba(255,255,255,0.65); text-decoration:none; }
+        .breadcrumb a:hover { color: var(--color-gold); }
+
+        .band { padding: var(--space-16) 0; }
+        .band.offwhite { background: var(--color-offwhite); }
+        .band.white { background: var(--color-white); }
+        .band.paleblue { background: var(--color-pale-blue); }
+        .band.palegold { background: var(--color-gold-pale); }
+        .band.navy { background: var(--color-navy); color: var(--color-white); }
+
+        .band-head { max-width: 780px; margin: 0 auto var(--space-8); text-align:center; }
+        .band-head.left { text-align:left; margin: 0 0 var(--space-8); }
+        .band-head .eyebrow { color: var(--color-gold); letter-spacing:0.12em; font-weight:600; font-size:11px; text-transform:uppercase; }
+        .band-head h2 { font-family:var(--font-serif); font-weight:500; font-size: clamp(24px,3vw,30px); color: var(--color-navy); margin: 8px 0 12px; }
+        .band.navy .band-head h2 { color: var(--color-white); }
+        .band-head p { font-size:15.5px; line-height:1.75; color: var(--color-charcoal); }
+        .band.navy .band-head p { color: rgba(255,255,255,0.85); }
+
+        .two-col { display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-10); align-items:start; }
+        @media (max-width:768px){ .two-col{ grid-template-columns:1fr; } }
+
+        .info-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap: var(--space-6); }
+        .info-card { background: var(--color-white); border:0.5px solid #D0CCC6; border-radius: var(--radius-lg); padding: var(--space-6); }
+        .band.paleblue .info-card, .band.navy .info-card { background: var(--color-white); }
+        .info-card i { font-size:28px; color: var(--color-navy); margin-bottom:10px; display:block; }
+        .info-card h3 { font-family: var(--font-sans); font-weight:600; font-size:15px; color: var(--color-charcoal); margin-bottom:6px; }
+        .info-card p { font-size:13.5px; color: var(--color-gray); line-height:1.65; }
+
+        .proof-chips { display:flex; gap:var(--space-6); justify-content:center; flex-wrap:wrap; }
+        .proof-chip { display:flex; align-items:center; gap:10px; background:var(--color-white); border:0.5px solid #D0CCC6; border-radius: var(--radius-lg); padding: 14px 20px; font-size:14px; color: var(--color-charcoal); }
+        .proof-chip i { font-size:24px; color: var(--color-navy); }
+        .proof-chip strong { color: var(--color-navy); }
+
+        /* Certification grid (reused pattern from about.html) */
+        .cert-grid-page { display:grid; grid-template-columns: repeat(auto-fit,minmax(160px,1fr)); gap: var(--space-6); }
+        .cert-card { background: var(--color-white); border:0.5px solid #D0CCC6; border-radius: var(--radius-lg); padding: var(--space-6); text-align:center; }
+        .cert-card img { height:64px; width:auto; margin: 0 auto 14px; display:block; }
+        .cert-card h4 { font-family: var(--font-sans); font-weight:600; font-size:14px; color: var(--color-navy); margin-bottom:8px; }
+        .cert-card a { font-size:12px; color: var(--color-gold); font-weight:500; text-decoration:none; }
+        .cert-card a:hover { text-decoration:underline; }
+
+        /* Document list (for Investors / CSR-adjacent) */
+        .doc-group { margin-bottom: var(--space-10); }
+        .doc-group h3 { font-family: var(--font-serif); font-weight:500; font-size:19px; color: var(--color-navy); margin-bottom: var(--space-4); padding-bottom:8px; border-bottom: 1px solid #E5E1DB; }
+        .doc-list { list-style:none; display:grid; gap:2px; }
+        .doc-list li { }
+        .doc-list a { display:flex; align-items:center; justify-content:space-between; gap:16px; padding: 12px 16px; background: var(--color-white); border:0.5px solid #E5E1DB; border-radius: var(--radius-md); text-decoration:none; color: var(--color-charcoal); font-size:13.5px; transition: all 150ms ease; }
+        .doc-list a:hover { border-color: var(--color-navy); box-shadow: 0 2px 12px rgba(27,58,92,0.08); }
+        .doc-list a .doc-name { flex:1; }
+        .doc-list a .doc-icon { color: var(--color-gold); font-size:16px; flex-shrink:0; }
+        .doc-featured { display:grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap: var(--space-6); margin-bottom: var(--space-10); }
+        .doc-featured-card { background: var(--color-navy); color:#fff; border-radius: var(--radius-lg); padding: var(--space-6); }
+        .doc-featured-card .tag { font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color: var(--color-gold); font-weight:600; margin-bottom:10px; display:block; }
+        .doc-featured-card h4 { font-family:var(--font-serif); font-size:18px; font-weight:500; margin-bottom:14px; line-height:1.4; }
+        .doc-featured-card a { display:inline-flex; align-items:center; gap:6px; color:#fff; font-size:13px; font-weight:500; text-decoration:none; border:1.5px solid rgba(255,255,255,0.4); border-radius: var(--radius-md); padding:8px 14px; transition: all 150ms ease; }
+        .doc-featured-card a:hover { background: rgba(255,255,255,0.12); border-color:#fff; }
+
+        /* Accordion for archive sections */
+        .accordion-item { border:0.5px solid #E5E1DB; border-radius: var(--radius-lg); margin-bottom:10px; overflow:hidden; background:#fff; }
+        .accordion-toggle { width:100%; display:flex; align-items:center; justify-content:space-between; padding:16px 20px; background:none; border:none; cursor:pointer; font-family:var(--font-sans); font-weight:600; font-size:14.5px; color: var(--color-navy); text-align:left; }
+        .accordion-toggle i { transition: transform 200ms ease; color: var(--color-gold); }
+        .accordion-toggle.open i { transform: rotate(180deg); }
+        .accordion-body { max-height:0; overflow:hidden; transition: max-height 250ms ease; padding: 0 20px; }
+        .accordion-body.open { padding: 0 20px 18px; }
+
+        /* Timeline (CSR / milestones reuse) */
+        .csr-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap: var(--space-6); }
+        .csr-card { background: var(--color-white); border:0.5px solid #D0CCC6; border-radius: var(--radius-lg); padding: var(--space-6); }
+        .csr-card .role { font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color: var(--color-gold); font-weight:600; margin-bottom:8px; display:block; }
+        .csr-card h4 { font-family: var(--font-serif); font-weight:500; font-size:16px; color: var(--color-navy); margin-bottom:4px; }
+        .csr-card p { font-size:13px; color: var(--color-gray); }
+
+        /* Contact page */
+        .contact-grid { display:grid; grid-template-columns: 1fr 1.2fr; gap: var(--space-10); }
+        @media (max-width:768px){ .contact-grid{ grid-template-columns:1fr; } }
+        .contact-info-block { display:flex; gap:14px; margin-bottom: var(--space-8); }
+        .contact-info-block i { font-size:22px; color: var(--color-navy); flex-shrink:0; margin-top:2px; }
+        .contact-info-block h4 { font-family: var(--font-sans); font-weight:600; font-size:14px; color: var(--color-navy); margin-bottom:4px; }
+        .contact-info-block p, .contact-info-block a { font-size:14px; color: var(--color-charcoal); line-height:1.6; text-decoration:none; }
+        .contact-info-block a:hover { color: var(--color-navy); }
+
+        .form-card { background: var(--color-white); border:0.5px solid #D0CCC6; border-radius: var(--radius-lg); padding: var(--space-8); }
+        .form-row { margin-bottom: var(--space-4); }
+        .form-row label { display:block; font-family:var(--font-sans); font-weight:500; font-size:12px; color: var(--color-navy); margin-bottom:6px; }
+        .form-row label .req { color: var(--color-gold); }
+        .form-row input, .form-row select, .form-row textarea { width:100%; border:1px solid #D0CCC6; border-radius: var(--radius-md); padding:10px 14px; font-family:var(--font-sans); font-size:14px; background:#fff; color: var(--color-charcoal); }
+        .form-row input:focus, .form-row select:focus, .form-row textarea:focus { outline:none; border-color: var(--color-navy); border-width:2px; }
+        .form-row textarea { min-height:110px; resize:vertical; }
+        .form-two { display:grid; grid-template-columns:1fr 1fr; gap: var(--space-4); }
+        @media (max-width:560px){ .form-two{ grid-template-columns:1fr; } }
+        .form-note { font-size:12px; color: var(--color-gray); margin-top: var(--space-4); }
+
+        .close-cta { background: var(--color-gold-pale); padding: var(--space-16) 0; text-align:center; }
+        .close-cta h2 { font-family:var(--font-serif); font-weight:500; font-size: clamp(24px,3vw,30px); color: var(--color-navy); margin-bottom: var(--space-4); }
+        .close-cta p { max-width: 640px; margin: 0 auto var(--space-8); font-size:16px; line-height:1.7; color: var(--color-charcoal); }
+        .close-cta .hero-ctas { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+
+
+        .social-embed-grid { display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); }
+        @media (max-width:768px){ .social-embed-grid{ grid-template-columns:1fr; } }
+        .social-col h3 { font-family: var(--font-sans); font-weight:600; font-size:15px; color: var(--color-navy); margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+        .social-placeholder { background: var(--color-white); border:0.5px solid #D0CCC6; border-radius: var(--radius-lg); padding: var(--space-10); text-align:center; min-height:400px; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+        .social-placeholder i { font-size:48px; color: var(--color-navy); opacity:0.3; margin-bottom:16px; }
+        .social-placeholder p { font-size:13px; color: var(--color-gray); max-width:280px; }
+        .staging-banner { background: var(--color-gold-pale); border:1px solid var(--color-gold); border-radius: var(--radius-md); padding: 14px 20px; text-align:center; font-size:13px; color: var(--color-navy); margin-bottom: var(--space-8); }
+
     </style>
 </head>
 <body>
@@ -856,12 +972,11 @@
             <ul class="nav-links">
                 <li><a href="about.html">About Us</a></li>
                 <li><a href="products.html">Products</a></li>
-                <li><a href="quality.html">Quality & Compliance</a></li>
-                <li><a href="reports.html">Market Reports</a></li>
-                <li><a href="investors.html">Investors</a>
-                        <a href="csr.html">CSR</a></li>
+                <li><a href="#quality">Quality & Compliance</a></li>
+                <li><a href="#reports">Market Reports</a></li>
+                <li><a href="#investors">Investors</a></li>
                 <li><a href="#social">Social</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
             <div class="hamburger">
                 <span></span><span></span><span></span>
@@ -897,378 +1012,61 @@
         </div>
     </div>
 
-    <!-- ===== SECTION 1: HERO ===== -->
-    <section class="hero">
-        <div class="hero-bg"></div>
-        <div class="hero-overlay"></div>
+    
+    <!-- ===== PAGE HERO ===== -->
+    <section class="page-hero">
         <div class="container">
-            <div class="hero-content">
-                <h1>India's agri-exports.<br>Verified.</h1>
-                <p class="subheadline">M Lakhamsi Industries has been exporting groundnuts, sesame seeds, and agricultural commodities from India since the 1970 — to buyers in 75 countries across six continents. BSE and NSE listed. Star Export House. Every certificate downloadable.</p>
-                <div class="btn-group">
-                    <a href="#products" class="btn btn-primary">Explore Products</a>
-                    <a href="#contact" class="btn btn-secondary" style="color: white; border-color: rgba(255,255,255,0.6);">Request a Quote</a>
-                </div>
+            <div class="breadcrumb"><a href="index.html">Home</a> / Social</div>
+            <div class="eyebrow">Follow Our Work</div>
+            <h1>Where we're active.</h1>
+            <p>Market updates, product news, and industry developments — from our LinkedIn and Twitter/X feeds.</p>
+        </div>
+    </section>
+
+    <!-- ===== STAGING NOTICE (remove before enabling in nav) ===== -->
+    <section class="band offwhite">
+        <div class="container">
+            <div class="staging-banner">
+                <i class="ti ti-alert-circle"></i> This page is built but intentionally unlinked from navigation. Per brand guidelines, it goes live only once both LinkedIn and Twitter/X have posts within the last 30 days.
             </div>
         </div>
     </section>
 
-    <!-- ===== SECTION 2: PRODUCTS SNAPSHOT ===== -->
-    <section class="bg-white" id="products">
+    <!-- ===== EMBEDS ===== -->
+    <section class="band white">
         <div class="container">
-            <div class="section-intro">
-                <span class="eyebrow">What We Export</span>
-                <h2>25 products. One source.</h2>
-            </div>
-            <div class="card-grid-4">
-                <div class="card">
-                    <img src="/images/product_groundnuts.jpg" alt="Groundnuts" class="card-img">
-                    <div class="card-body">
-                        <h3>Groundnuts</h3>
-                        <p>Java, Bold, TJ grades. Raw, blanched, splits, in-shell, oil. Sourced from Gujarat and Rajasthan.</p>
-                        <a href="#" class="link-arrow">View Groundnut Products →</a>
+            <div class="social-embed-grid">
+                <div class="social-col">
+                    <h3><i class="ti ti-brand-linkedin"></i> LinkedIn</h3>
+                    <div class="social-placeholder">
+                        <i class="ti ti-brand-linkedin"></i>
+                        <p>LinkedIn company feed embed goes here — official LinkedIn Page Plugin, pointing to the M Lakhamsi Industries Limited page.</p>
                     </div>
                 </div>
-                <div class="card">
-                    <img src="/images/product_sesame.jpg" alt="Sesame Seeds" class="card-img">
-                    <div class="card-body">
-                        <h3>Sesame Seeds</h3>
-                        <p>Natural, hulled, black, and roasted. For food manufacturers, tahini producers, and ingredient traders.</p>
-                        <a href="#" class="link-arrow">View Sesame Products →</a>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="/images/product_oils.jpg" alt="Oils" class="card-img">
-                    <div class="card-body">
-                        <h3>Oils</h3>
-                        <p>Castor oil, groundnut oil, non-edible oils. In-house extraction. Available in flexi-tanks and drums.</p>
-                        <a href="#" class="link-arrow">View Oils →</a>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="/images/product_spices.jpg" alt="Spices, Pulses & Grains" class="card-img">
-                    <div class="card-body">
-                        <h3>Spices, Pulses & Grains</h3>
-                        <p>Turmeric, chilli, cumin, sesame oil, pulses, and grains. Sourced and processed across India.</p>
-                        <a href="#" class="link-arrow">View All Products →</a>
-                    </div>
-                </div>
-            </div>
-            <div class="text-center mt-10">
-                <a href="#" class="btn btn-secondary">View Full Product Catalog</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== SECTION 3: STATS ===== -->
-    <section class="bg-pale-blue">
-        <div class="container">
-            <div class="section-intro">
-                <span class="eyebrow">Fifty Years in Numbers</span>
-            </div>
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-number">50+</div>
-                    <div class="stat-label">Years in operation</div>
-                    <div class="stat-description">In business since the 1970. Three generations of agri-trade built on direct farmer relationships.</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">75+</div>
-                    <div class="stat-label">Countries served</div>
-                    <div class="stat-description">Active buyers across Asia, Europe, the Gulf, Africa, and the Americas. Consistently.</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">25+</div>
-                    <div class="stat-label">Products exported</div>
-                    <div class="stat-description">From groundnuts to sesame oil, castor to cumin — from one certified, verified source.</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">4</div>
-                    <div class="stat-label">Global certifications</div>
-                    <div class="stat-description">ISO · Halal · Kosher · HACCP. Every certificate is available to download without a phone call.</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== SECTION 4: WHY M LAKHAMSI ===== -->
-    <section class="bg-white" id="quality">
-        <div class="container">
-            <div class="section-intro">
-                <span class="eyebrow">Why Buyers Choose Us</span>
-                <h2>In a market full of claims, we offer proof.</h2>
-            </div>
-            <div class="usp-grid">
-                <!-- Laser Sorting — full-width with image -->
-                <div class="usp-img-card">
-                    <img src="/images/laser_sorting.jpg" alt="Laser Aflatoxin Sorting Technology">
-                    <div class="usp-img-body">
-                        <div class="usp-icon-wrap">
-                            <i class="ti ti-microscope"></i>
-                        </div>
-                        <h3>Zero aflatoxin risk — documented.</h3>
-                        <p>Our in-house laser sorting technology identifies and removes aflatoxin-contaminated product before it leaves the facility. Every batch is tested. NABL-accredited lab reports are available on request. No batch goes out without documentation.</p>
-                        <a href="#" class="link-arrow">See Our Quality Process →</a>
-                    </div>
-                </div>
-                <!-- BSE & NSE -->
-                <div class="usp-card">
-                    <div class="usp-icon-wrap">
-                        <i class="ti ti-building-bank"></i>
-                    </div>
-                    <div class="usp-text">
-                        <h3>Publicly listed on BSE and NSE.</h3>
-                        <p>M Lakhamsi is among the few Indian agri-exporters listed on the Bombay Stock Exchange and the National Stock Exchange. Our financials are audited annually, our governance is public record, and our stability is not something you need to take our word for.</p>
-                        <a href="#" class="link-arrow">View Investor Information →</a>
-                    </div>
-                </div>
-                <!-- Halal + Kosher -->
-                <div class="usp-card">
-                    <div class="usp-icon-wrap gold">
-                        <i class="ti ti-shield-check"></i>
-                    </div>
-                    <div class="usp-text">
-                        <h3>Dual certified: Halal and Kosher.</h3>
-                        <p>Rare at our product breadth and export volume. Our dual certification means buyers in the Gulf, Southeast Asia, and European premium markets can source multiple commodities from one compliant partner — without splitting their supply chain.</p>
-                        <a href="#" class="link-arrow">View All Certifications →</a>
-                    </div>
-                </div>
-                <!-- Pan-India -->
-                <div class="usp-card">
-                    <div class="usp-icon-wrap">
-                        <i class="ti ti-map-pin"></i>
-                    </div>
-                    <div class="usp-text">
-                        <h3>Pan-India sourcing. Multiple ports.</h3>
-                        <p>Our procurement network spans India's major growing regions. Multiple processing units. Multiple port access. When weather or harvest conditions affect one region, we source from another. Supply continuity is not accidental — it is built into how we operate.</p>
-                        <a href="#" class="link-arrow">Learn About Our Facilities →</a>
-                    </div>
-                </div>
-                <!-- Global Trust & Experience -->
-                <div class="usp-card">
-                    <div class="usp-icon-wrap gold">
-                        <i class="ti ti-star"></i>
-                    </div>
-                    <div class="usp-text">
-                        <h3>Trusted by 75+ countries.<br>Proven across continents.</h3>
-                        <p>Five decades of hands-on experience exporting to Southeast Asia, Europe, the Middle East, Africa, and the Americas. We understand the regulatory nuances, the quality expectations, and the logistics of each region. Whether you're in Dubai, Rotterdam, or Los Angeles — we've worked with your market before. That's not marketing. That's practical, documented experience.</p>
-                        <a href="#" class="link-arrow">View Our Global Buyer Base →</a>
+                <div class="social-col">
+                    <h3><i class="ti ti-brand-x"></i> Twitter / X</h3>
+                    <div class="social-placeholder">
+                        <i class="ti ti-brand-x"></i>
+                        <p>Twitter/X timeline embed goes here — official widget, pointing to the confirmed company handle.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== SECTION 5: HERITAGE NARRATIVE ===== -->
-    <section class="bg-offwhite heritage-section">
+    <!-- ===== CLOSING ===== -->
+    <section class="close-cta">
         <div class="container">
-            <div class="heritage-inner">
-                <img src="/images/heritage_bg.jpg" alt="M Lakhamsi Heritage" class="heritage-img">
-                <div class="heritage-text">
-                    <span class="eyebrow">Our Story</span>
-                    <h2>We started small.<br>We stayed honest.</h2>
-                    <p>In the 1970, M Lakhamsi began as a trading business in Gujarat — procuring groundnuts from local farmers and finding buyers wherever the crop was needed. No shortcuts. No unnecessary middlemen. Just a product, a price, and a promise to deliver.</p>
-                    <p>Over the following decades, that promise took us to 75 countries. We added sesame seeds, castor oil, spices, and pulses — always processing in-house, always building direct relationships. Along the way, we became a Star Export House, listed on the BSE and NSE, and built one of the few Indian agri-facilities with laser aflatoxin sorting technology.</p>
-                    <p>Fifty years later, the business is larger. The supply chain is more complex. The promise is the same: you can verify everything we do.</p>
-                    <a href="about.html" class="link-arrow">Read Our Full Story →</a>
-                </div>
+            <h2>Follow along</h2>
+            <p>Find us on LinkedIn and Twitter/X for the latest from M Lakhamsi.</p>
+            <div class="hero-ctas">
+                <a href="https://www.linkedin.com/company/m-lakhamsi-industries-limited" target="_blank" rel="noopener" class="btn btn-primary">Follow on LinkedIn →</a>
+                <a href="https://twitter.com/sanjiv_sawla" target="_blank" rel="noopener" class="btn btn-secondary">Follow on Twitter/X →</a>
             </div>
         </div>
     </section>
 
-    <!-- ===== SECTION 6: CERTIFICATIONS ===== -->
-    <section class="bg-white">
-        <div class="container">
-            <div class="section-intro">
-                <span class="eyebrow">Certifications & Compliance</span>
-                <h2>Every certificate. Right here.</h2>
-                <p>Our full compliance documentation is available to download. No request form. No waiting.</p>
-            </div>
-            <div class="cert-grid">
-                <div class="cert-item">
-                    <img src="/images/cert_iso.png" alt="ISO 22000">
-                    <span>ISO 22000</span>
-                    <span class="cert-download"><i class="ti ti-download" style="font-size:12px;"></i> Download</span>
-                </div>
-                <div class="cert-item">
-                    <img src="/images/cert_halal.png" alt="Halal Certified">
-                    <span>Halal Certified</span>
-                    <span class="cert-download"><i class="ti ti-download" style="font-size:12px;"></i> Download</span>
-                </div>
-                <div class="cert-item">
-                    <img src="/images/cert_kosher.png" alt="Kosher Certified">
-                    <span>Kosher Certified</span>
-                    <span class="cert-download"><i class="ti ti-download" style="font-size:12px;"></i> Download</span>
-                </div>
-                <div class="cert-item">
-                    <img src="/images/cert_haccp.png" alt="HACCP">
-                    <span>HACCP</span>
-                    <span class="cert-download"><i class="ti ti-download" style="font-size:12px;"></i> Download</span>
-                </div>
-                <div class="cert-item">
-                    <img src="/images/cert_star_export.png" alt="Star Export House">
-                    <span>Star Export House</span>
-                    <span class="cert-download"><i class="ti ti-download" style="font-size:12px;"></i> Download</span>
-                </div>
-                <div class="cert-item">
-                    <img src="/images/cert_apeda.png" alt="APEDA">
-                    <span>APEDA Registered</span>
-                    <span class="cert-download"><i class="ti ti-download" style="font-size:12px;"></i> Download</span>
-                </div>
-            </div>
-            <div class="text-center">
-                <a href="#" class="btn btn-secondary">Download All Certificates</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== SECTION 7: MARKET REPORTS ===== -->
-    <section class="bg-pale-blue" id="reports">
-        <div class="container">
-            <div class="section-intro">
-                <span class="eyebrow">Market Intelligence & Updates</span>
-                <h2>What's moving in Indian agri-exports.</h2>
-                <p>Price trends, regulatory updates, and M Lakhamsi news — published quarterly.</p>
-            </div>
-            <div class="card-grid-3">
-                <div class="report-card">
-                    <div class="report-card-body">
-                        <span class="report-tag tag-report">Report</span>
-                        <p class="report-date">Q2 2026</p>
-                        <h3>India Groundnut Export Outlook — Q2 2026</h3>
-                        <p>Prices, key buyer market updates, and the current aflatoxin compliance situation.</p>
-                        <a href="#" class="link-arrow">Read More →</a>
-                    </div>
-                </div>
-                <div class="report-card">
-                    <div class="report-card-body">
-                        <span class="report-tag tag-update">Update</span>
-                        <p class="report-date">June 2026</p>
-                        <h3>EU Aflatoxin Regulations: What Groundnut Buyers Need to Know</h3>
-                        <p>A plain-language summary of the current EU maximum levels and what compliant exporters must provide.</p>
-                        <a href="#" class="link-arrow">Read More →</a>
-                    </div>
-                </div>
-                <div class="report-card">
-                    <div class="report-card-body">
-                        <span class="report-tag tag-news">News</span>
-                        <p class="report-date">2026</p>
-                        <h3>M Lakhamsi at Gulfood 2026</h3>
-                        <p>We exhibited at Gulfood in Dubai. Here's what we discussed with buyers.</p>
-                        <a href="#" class="link-arrow">Read More →</a>
-                    </div>
-                </div>
-            </div>
-            <div class="text-center mt-10">
-                <a href="#" class="btn btn-secondary">View All Reports & Updates</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== SECTION 8: SOCIAL PREVIEW ===== -->
-    <section class="bg-white" id="social">
-        <div class="container">
-            <div class="section-intro">
-                <span class="eyebrow">Follow Our Updates</span>
-                <p>We post market updates, product news, and industry developments on LinkedIn and Twitter.</p>
-            </div>
-            <div style="background-color: var(--color-offwhite); border-radius: var(--radius-lg); padding: var(--space-10); text-align: center; border: 1px dashed #D0CCC6;">
-                <p style="color: var(--color-gray); font-size: 14px; margin-bottom: var(--space-6);">Social feed will display here once accounts are refreshed with recent content.</p>
-                <div style="display: flex; justify-content: center; gap: var(--space-4); flex-wrap: wrap;">
-                    <a href="#" class="btn btn-secondary"><i class="ti ti-brand-linkedin"></i>&nbsp; Follow on LinkedIn</a>
-                    <a href="#" class="btn btn-secondary"><i class="ti ti-brand-x"></i>&nbsp; Follow on Twitter/X</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== SECTION 9: WHATSAPP CTA ===== -->
-    <section class="whatsapp-panel">
-        <div class="container">
-            <div class="whatsapp-inner">
-                <div>
-                    <span class="eyebrow" style="text-align:left;">Get In Touch</span>
-                    <h2>Tell us what you need.</h2>
-                    <p>Whether you are sourcing for the first time or looking for a more reliable Indian partner — send us a message. We respond to every inquiry within one business day.</p>
-                </div>
-                <div class="whatsapp-right">
-                    <a href="https://wa.me/[number]" class="btn btn-whatsapp" target="_blank">
-                        <i class="ti ti-brand-whatsapp"></i>&nbsp; WhatsApp Us
-                    </a>
-                    <p class="whatsapp-note">Prefer to chat? We're on WhatsApp.<br>Opens with a pre-filled message.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== SECTION 10: INQUIRY FORM ===== -->
-    <section class="bg-offwhite" id="contact">
-        <div class="container">
-            <div class="section-intro">
-                <span class="eyebrow">Send an Inquiry</span>
-                <h2>Tell us what you need.</h2>
-                <p>Whether you are sourcing for the first time or looking for a more reliable Indian partner — send us a message. We respond to every inquiry within one business day.</p>
-            </div>
-            <div class="form-section-inner">
-                <form>
-                    <div class="form-group">
-                        <label for="name">Your Name <span class="req">*</span></label>
-                        <input type="text" id="name" name="name" placeholder="Full name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="company">Company Name <span class="req">*</span></label>
-                        <input type="text" id="company" name="company" placeholder="Your company" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="country">Country <span class="req">*</span></label>
-                        <select id="country" name="country" required>
-                            <option value="">Select your country</option>
-                            <option>Germany</option><option>Netherlands</option><option>United Kingdom</option>
-                            <option>Poland</option><option>Greece</option><option>United States</option>
-                            <option>United Arab Emirates</option><option>Saudi Arabia</option><option>Iraq</option>
-                            <option>Kuwait</option><option>Qatar</option><option>Indonesia</option>
-                            <option>Vietnam</option><option>Philippines</option><option>Thailand</option>
-                            <option>Malaysia</option><option>China</option><option>South Korea</option>
-                            <option>Japan</option><option>Australia</option><option>Canada</option>
-                            <option>Brazil</option><option>South Africa</option><option>Egypt</option>
-                            <option>Turkey</option><option>India</option><option>Singapore</option>
-                            <option>Bangladesh</option><option>Pakistan</option><option>Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="product">Product Interest <span class="req">*</span></label>
-                        <select id="product" name="product" required>
-                            <option value="">Select a product</option>
-                            <option>Groundnuts</option>
-                            <option>Sesame Seeds</option>
-                            <option>Oils</option>
-                            <option>Spices & Grains</option>
-                            <option>Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" placeholder="Tell us about your requirement — volume, grade, destination port"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary form-submit">Send Inquiry</button>
-                    <p class="form-note">No automated responses. Your inquiry goes directly to our trade team.</p>
-                </form>
-                <div class="form-side">
-                    <div style="font-size: 48px; color: var(--color-navy); margin-bottom: var(--space-4);">
-                        <i class="ti ti-brand-whatsapp"></i>
-                    </div>
-                    <h3>Prefer to chat?</h3>
-                    <p>We're on WhatsApp. Send us a message directly and our trade team will respond within one business day.</p>
-                    <a href="https://wa.me/[number]" class="btn btn-whatsapp" target="_blank">
-                        <i class="ti ti-brand-whatsapp"></i>&nbsp; WhatsApp Us
-                    </a>
-                    <p class="whatsapp-note" style="margin-top: var(--space-4);">Typically responds within one business day.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== FOOTER ===== -->
+<!-- ===== FOOTER ===== -->
     <footer id="investors">
         <div class="container">
             <div class="footer-grid">
@@ -1290,7 +1088,7 @@
                         <a href="about.html">About Us</a>
                         <a href="investors.html">Investors</a>
                         <a href="csr.html">CSR</a>
-                        <a href="#social">Social</a>
+                        <a href="social.html">Social</a>
                         <a href="contact.html">Contact</a>
                     </div>
                 </div>

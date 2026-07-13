@@ -1164,13 +1164,15 @@
             gap: var(--space-4);
         }
         .footer-cert-row img {
-            height: 32px;
+            height: 48px;
             width: auto;
-            opacity: 0.7;
-            filter: brightness(0) invert(1);
-            transition: opacity 0.2s;
+            object-fit: contain;
+            background: #fff;
+            border-radius: 8px;
+            padding: 5px;
+            transition: transform 150ms ease;
         }
-        .footer-cert-row img:hover { opacity: 1; }
+        .footer-cert-row img:hover { transform: translateY(-2px); }
         .footer-social {
             display: flex;
             gap: var(--space-3);
@@ -1302,11 +1304,12 @@
                 <div class="nav-links">
                     <a href="/">Home</a>
                     <a href="#" class="active">About Us</a>
-                    <a href="#">Products</a>
-                    <a href="#">Quality</a>
-                    <a href="#">Market Reports</a>
-                    <a href="#">Investors</a>
-                    <a href="#">Contact</a>
+                    <a href="products.html">Products</a>
+                    <a href="quality.html">Quality</a>
+                    <a href="reports.html">Market Reports</a>
+                    <a href="investors.html">Investors</a>
+                        <a href="csr.html">CSR</a>
+                    <a href="contact.html">Contact</a>
                 </div>
                 <a href="#contact" class="btn btn-primary nav-cta">Request a Quote</a>
                 <button class="nav-hamburger" onclick="toggleMenu()" aria-label="Menu">
@@ -1316,11 +1319,12 @@
             <div class="mobile-menu" id="mobileMenu">
                 <a href="/">Home</a>
                 <a href="#" style="color:var(--navy);font-weight:700;">About Us</a>
-                <a href="#">Products</a>
-                <a href="#">Quality</a>
-                <a href="#">Market Reports</a>
-                <a href="#">Investors</a>
-                <a href="#contact">Contact</a>
+                <a href="products.html">Products</a>
+                <a href="quality.html">Quality</a>
+                <a href="reports.html">Market Reports</a>
+                <a href="investors.html">Investors</a>
+                        <a href="csr.html">CSR</a>
+                <a href="contact.html">Contact</a>
             </div>
         </div>
     </div>
@@ -1740,7 +1744,7 @@
                 <p class="promise-attr">— M Lakhamsi Industries Limited · Est. 1970</p>
                 <div style="margin-top:var(--space-8);display:flex;gap:var(--space-4);justify-content:center;flex-wrap:wrap;">
                     <a href="#contact" class="btn btn-primary">Request a Quote</a>
-                    <a href="index.html#products" class="btn btn-secondary">Explore Products</a>
+                    <a href="products.html" class="btn btn-secondary">Explore Products</a>
                 </div>
             </div>
         </div>
@@ -1893,11 +1897,12 @@
                     <ul>
                         <li><a href="/">Home</a></li>
                         <li><a href="#">About Us</a></li>
-                        <li><a href="#">Products</a></li>
-                        <li><a href="#">Quality &amp; Compliance</a></li>
-                        <li><a href="#">Market Reports</a></li>
-                        <li><a href="#">Investors</a></li>
-                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="quality.html">Quality &amp; Compliance</a></li>
+                        <li><a href="reports.html">Market Reports</a></li>
+                        <li><a href="investors.html">Investors</a>
+                        <a href="csr.html">CSR</a></li>
+                        <li><a href="contact.html">Contact</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">

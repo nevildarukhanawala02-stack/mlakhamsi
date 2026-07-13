@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="M Lakhamsi Industries - India's most accountable agri-export partner. BSE & NSE listed. 50+ years. 75+ countries.">
-    <title>M Lakhamsi Industries - Agri-Exports Verified</title>
+    <meta name="description" content="50+ agricultural commodities from M Lakhamsi Industries — groundnuts, sesame, pulses, grains, spices, oils. Laser-sorted, documented, exported to 75+ countries.">
+    <title>Our Products — M Lakhamsi Industries Limited</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -822,6 +822,77 @@
         .mt-8 { margin-top: var(--space-8); }
         .mt-10 { margin-top: var(--space-10); }
         .mb-0 { margin-bottom: 0; }
+
+        /* ===== PRODUCTS PAGE ===== */
+        .page-hero {
+            background-color: var(--color-navy);
+            color: var(--color-white);
+            padding: var(--space-20) 0 var(--space-16);
+            text-align: center;
+        }
+        .page-hero .eyebrow { color: var(--color-gold); letter-spacing: 0.12em; font-weight: 600; font-size: 11px; text-transform: uppercase; }
+        .page-hero h1 { font-family: var(--font-serif); font-weight: 700; font-size: clamp(30px,5vw,46px); line-height:1.15; margin: var(--space-4) 0; }
+        .page-hero p { font-size: 16px; color: rgba(255,255,255,0.82); max-width: 720px; margin: 0 auto var(--space-8); line-height:1.7; }
+        .page-hero .hero-ctas { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+        .breadcrumb { font-size:13px; color: rgba(255,255,255,0.65); margin-bottom: var(--space-4); }
+        .breadcrumb a { color: rgba(255,255,255,0.65); text-decoration:none; }
+        .breadcrumb a:hover { color: var(--color-gold); }
+
+        .intro-band { background: var(--color-offwhite); padding: var(--space-16) 0; }
+        .intro-band .lead { max-width: 780px; margin: 0 auto var(--space-8); text-align:center; font-size:17px; line-height:1.75; color: var(--color-charcoal); }
+        .proof-chips { display:flex; gap:var(--space-6); justify-content:center; flex-wrap:wrap; max-width: 960px; margin: 0 auto; }
+        .proof-chip { display:flex; align-items:center; gap:10px; background:var(--color-white); border:0.5px solid #D0CCC6; border-radius: var(--radius-lg); padding: 14px 20px; font-size:14px; color: var(--color-charcoal); }
+        .proof-chip i { font-size:24px; color: var(--color-navy); }
+        .proof-chip strong { color: var(--color-navy); }
+
+        /* Sticky filter bar */
+        .filter-bar { position: sticky; top: 0; z-index: 40; background: var(--color-white); border-bottom:1px solid #E5E1DB; padding: 12px 0; }
+        .filter-inner { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
+        .filter-btn { border:1.5px solid var(--color-navy); color: var(--color-navy); background:transparent; border-radius: var(--radius-full); padding: 7px 16px; font-family:var(--font-sans); font-size:13px; font-weight:500; cursor:pointer; transition: all 150ms ease; white-space:nowrap; }
+        .filter-btn:hover { background: rgba(27,58,92,0.08); }
+        .filter-btn.active { background: var(--color-navy); color: var(--color-white); }
+        @media (max-width:640px){ .filter-bar{ overflow-x:auto; } .filter-inner{ flex-wrap:nowrap; justify-content:flex-start; padding: 0 16px; } }
+
+        /* Category blocks */
+        .cat-block { padding: var(--space-16) 0; }
+        .cat-block:nth-of-type(even) { background: var(--color-offwhite); }
+        .cat-head { max-width: 780px; margin-bottom: var(--space-8); }
+        .cat-head .eyebrow { color: var(--color-gold); letter-spacing:0.12em; font-weight:600; font-size:11px; text-transform:uppercase; }
+        .cat-head h2 { font-family:var(--font-serif); font-weight:500; font-size: clamp(24px,3vw,30px); color: var(--color-navy); margin: 8px 0 12px; }
+        .cat-head p { font-size:15px; line-height:1.75; color: var(--color-charcoal); }
+        .cat-cap { display:inline-flex; align-items:center; gap:8px; margin-top:14px; background: var(--color-pale-blue); color: var(--color-navy); font-size:13px; font-weight:500; padding: 8px 14px; border-radius: var(--radius-md); }
+        .cat-cap i { font-size:18px; }
+
+        .product-grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); gap: var(--space-6); }
+        .product-card { background: var(--color-white); border:0.5px solid #D0CCC6; border-radius: var(--radius-lg); padding: 18px; text-align:center; transition: box-shadow 150ms ease, transform 150ms ease; display:flex; flex-direction:column; }
+        .product-card:hover { box-shadow: 0 4px 24px rgba(27,58,92,0.10); transform: translateY(-2px); }
+        .product-card .pimg { width:100%; aspect-ratio: 1/1; object-fit: contain; background: var(--color-offwhite); border-radius: var(--radius-md); margin-bottom: 14px; padding: 10px; }
+        .product-card h3 { font-family: var(--font-sans); font-weight:600; font-size:15px; color: var(--color-charcoal); margin-bottom:6px; }
+        .product-card .pdesc { font-size:12.5px; color: var(--color-gray); line-height:1.6; flex-grow:1; margin-bottom:14px; }
+        .product-card .pcta { font-size:12px; font-weight:500; color: var(--color-navy); text-decoration:none; border:1.5px solid var(--color-navy); border-radius: var(--radius-md); padding: 8px 12px; transition: all 150ms ease; }
+        .product-card .pcta:hover { background: var(--color-navy); color: var(--color-white); }
+
+        /* Packaging band */
+        .pack-band { background: var(--color-pale-blue); padding: var(--space-16) 0; }
+        .pack-band h2 { font-family:var(--font-serif); font-weight:500; font-size: clamp(24px,3vw,30px); color: var(--color-navy); text-align:center; margin-bottom: var(--space-6); }
+        .pack-band .pack-body { max-width: 760px; margin: 0 auto var(--space-8); text-align:center; font-size:16px; line-height:1.75; color: var(--color-charcoal); }
+        .pack-chips { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+        .pack-chip { background: var(--color-white); border-radius: var(--radius-full); padding: 10px 20px; font-size:13px; font-weight:500; color: var(--color-navy); border:0.5px solid #D0CCC6; }
+
+        /* Documentation band (navy) */
+        .doc-band { background: var(--color-navy); color: var(--color-white); padding: var(--space-16) 0; text-align:center; }
+        .doc-band h2 { font-family:var(--font-serif); font-weight:500; font-size: clamp(24px,3vw,30px); margin-bottom: var(--space-6); }
+        .doc-band p { max-width: 720px; margin: 0 auto var(--space-8); font-size:16px; line-height:1.75; color: rgba(255,255,255,0.85); }
+        .doc-band .hero-ctas { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+
+        /* Closing CTA (pale gold) */
+        .close-cta { background: var(--color-gold-pale); padding: var(--space-16) 0; text-align:center; }
+        .close-cta h2 { font-family:var(--font-serif); font-weight:500; font-size: clamp(24px,3vw,30px); color: var(--color-navy); margin-bottom: var(--space-4); }
+        .close-cta p { max-width: 640px; margin: 0 auto var(--space-8); font-size:16px; line-height:1.7; color: var(--color-charcoal); }
+        .close-cta .hero-ctas { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+
+        .active-nav { color: var(--color-gold) !important; }
+
     </style>
 </head>
 <body>
@@ -848,19 +919,19 @@
     <nav>
         <div class="nav-container">
             <div class="logo-section">
-                <a href="#">
+                <a href="index.html">
                     <img src="/images/logo.png" alt="M Lakhamsi Industries" class="logo-img">
                 </a>
                 <span class="logo-tagline">SINCE 1970</span>
             </div>
             <ul class="nav-links">
                 <li><a href="about.html">About Us</a></li>
-                <li><a href="products.html">Products</a></li>
+                <li><a href="products.html" class="active-nav">Products</a></li>
                 <li><a href="quality.html">Quality & Compliance</a></li>
                 <li><a href="reports.html">Market Reports</a></li>
                 <li><a href="investors.html">Investors</a>
                         <a href="csr.html">CSR</a></li>
-                <li><a href="#social">Social</a></li>
+                <li><a href="index.html#social">Social</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
             <div class="hamburger">
@@ -897,378 +968,503 @@
         </div>
     </div>
 
-    <!-- ===== SECTION 1: HERO ===== -->
-    <section class="hero">
-        <div class="hero-bg"></div>
-        <div class="hero-overlay"></div>
+    
+    <!-- ===== PAGE HERO ===== -->
+    <section class="page-hero">
         <div class="container">
-            <div class="hero-content">
-                <h1>India's agri-exports.<br>Verified.</h1>
-                <p class="subheadline">M Lakhamsi Industries has been exporting groundnuts, sesame seeds, and agricultural commodities from India since the 1970 — to buyers in 75 countries across six continents. BSE and NSE listed. Star Export House. Every certificate downloadable.</p>
-                <div class="btn-group">
-                    <a href="#products" class="btn btn-primary">Explore Products</a>
-                    <a href="#contact" class="btn btn-secondary" style="color: white; border-color: rgba(255,255,255,0.6);">Request a Quote</a>
+            <div class="breadcrumb"><a href="index.html">Home</a> / Products</div>
+            <div class="eyebrow">50+ Commodities · Laser-Sorted · Fully Documented</div>
+            <h1>One source. Fifty-plus commodities.<br>Every one documented.</h1>
+            <p>From groundnuts and sesame to pulses, grains, spices, and oils — sourced across India, processed in-house, and shipped with the paperwork to prove it. Explore the full range below.</p>
+            <div class="hero-ctas">
+                <a href="contact.html" class="btn btn-primary">Request a Quote</a>
+                <a href="#" class="btn btn-secondary">Download Product List →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== INTRO / PROOF BAND ===== -->
+    <section class="intro-band">
+        <div class="container">
+            <p class="lead">We export more than fifty agricultural commodities to buyers in 75 countries. Every one moves through the same discipline: careful sourcing, in-house processing, laser and colour sorting where it matters, and batch-level documentation. One supplier, one compliance check, one point of contact — across every category on this page.</p>
+            <div class="proof-chips">
+                <div class="proof-chip"><i class="ti ti-shield-check"></i><span><strong>Allergen-separated processing</strong><br>Multiple units prevent cross-contamination</span></div>
+                <div class="proof-chip"><i class="ti ti-microscope"></i><span><strong>Laser aflatoxin sorting</strong><br>On groundnuts &amp; sesame, per batch</span></div>
+                <div class="proof-chip"><i class="ti ti-certificate"></i><span><strong>NABL lab reports</strong><br>Available on request, every consignment</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FILTER BAR ===== -->
+    <div class="filter-bar">
+        <div class="container">
+            <div class="filter-inner">
+            <button class="filter-btn active" data-filter="all" onclick="filterCat(this,'all')">All</button>
+            <button class="filter-btn" data-filter="groundnuts" onclick="filterCat(this,'groundnuts')">Groundnuts</button>
+            <button class="filter-btn" data-filter="sesame" onclick="filterCat(this,'sesame')">Sesame Seeds</button>
+            <button class="filter-btn" data-filter="oilseeds" onclick="filterCat(this,'oilseeds')">Other Oilseeds</button>
+            <button class="filter-btn" data-filter="pulses" onclick="filterCat(this,'pulses')">Pulses</button>
+            <button class="filter-btn" data-filter="grains" onclick="filterCat(this,'grains')">Grains</button>
+            <button class="filter-btn" data-filter="spices" onclick="filterCat(this,'spices')">Spices</button>
+            <button class="filter-btn" data-filter="oils" onclick="filterCat(this,'oils')">Oils & Oil Cakes</button>
+            <button class="filter-btn" data-filter="others" onclick="filterCat(this,'others')">Raisins & Others</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== CATEGORY BLOCKS ===== -->
+    <!-- Category: Groundnuts -->
+    <section class="cat-block" id="groundnuts" data-cat="groundnuts">
+        <div class="container">
+            <div class="cat-head">
+                <div class="eyebrow">Groundnuts</div>
+                <h2>Groundnuts</h2>
+                <p>Groundnuts are the heart of our business — and the reason our laser aflatoxin sorting exists. Sourced from Gujarat and Rajasthan, sorted at source, and processed up to 1,500 MT a month.</p>
+                <div class="cat-cap"><i class="ti ti-building-factory-2"></i>Processing capacity: up to 1,500 MT/month · 18,000 MT/year</div>
+            </div>
+            <div class="product-grid">
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/java-Peanut.png" alt="Java Peanuts" loading="lazy">
+                    <h3>Java Peanuts</h3>
+                    <p class="pdesc">Small, sweet kernels — a global favourite for snacking and confectionery.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                </div>
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/Bold-Peanut-1.png" alt="Bold Peanuts" loading="lazy">
+                    <h3>Bold Peanuts</h3>
+                    <p class="pdesc">Large, uniform kernels for premium roasting and table use.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                </div>
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/Balanched-Peanut-1.png" alt="Blanched Peanuts" loading="lazy">
+                    <h3>Blanched Peanuts</h3>
+                    <p class="pdesc">Skin removed, clean and consistent — for butters, pastes, and ingredients.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                </div>
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/in-shell-peanut.png" alt="In-Shell Peanuts" loading="lazy">
+                    <h3>In-Shell Peanuts</h3>
+                    <p class="pdesc">Roasting-grade, in the shell — cleaned and size-graded.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                </div>
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/Kibbled-blanched-peanut.png" alt="Roasted Kibbled Peanuts" loading="lazy">
+                    <h3>Roasted Kibbled Peanuts</h3>
+                    <p class="pdesc">Blanched, split, and roasted — ready for bakery and confectionery lines.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== SECTION 2: PRODUCTS SNAPSHOT ===== -->
-    <section class="bg-white" id="products">
+    <!-- Category: Sesame Seeds -->
+    <section class="cat-block" id="sesame" data-cat="sesame">
         <div class="container">
-            <div class="section-intro">
-                <span class="eyebrow">What We Export</span>
-                <h2>25 products. One source.</h2>
+            <div class="cat-head">
+                <div class="eyebrow">Sesame Seeds</div>
+                <h2>Sesame Seeds</h2>
+                <p>India supplies 40% of the world's sesame. Ours is cleaned, hulled, and sorted for food manufacturers, tahini producers, and ingredient traders — with allergen-separated handling.</p>
+                <div class="cat-cap"><i class="ti ti-building-factory-2"></i>Processing capacity: up to 1,000 MT/month · 15,000 MT/year</div>
             </div>
-            <div class="card-grid-4">
-                <div class="card">
-                    <img src="/images/product_groundnuts.jpg" alt="Groundnuts" class="card-img">
-                    <div class="card-body">
-                        <h3>Groundnuts</h3>
-                        <p>Java, Bold, TJ grades. Raw, blanched, splits, in-shell, oil. Sourced from Gujarat and Rajasthan.</p>
-                        <a href="#" class="link-arrow">View Groundnut Products →</a>
-                    </div>
+            <div class="product-grid">
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/natural-sesame-seeds.png" alt="Natural Sesame" loading="lazy">
+                    <h3>Natural Sesame</h3>
+                    <p class="pdesc">Whole natural seed — for oil, bakery, and general food use.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
                 </div>
-                <div class="card">
-                    <img src="/images/product_sesame.jpg" alt="Sesame Seeds" class="card-img">
-                    <div class="card-body">
-                        <h3>Sesame Seeds</h3>
-                        <p>Natural, hulled, black, and roasted. For food manufacturers, tahini producers, and ingredient traders.</p>
-                        <a href="#" class="link-arrow">View Sesame Products →</a>
-                    </div>
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/Hulled-sesame-seeds.png" alt="Hulled Sesame" loading="lazy">
+                    <h3>Hulled Sesame</h3>
+                    <p class="pdesc">Mechanically hulled, bright and clean — for tahini and confectionery.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
                 </div>
-                <div class="card">
-                    <img src="/images/product_oils.jpg" alt="Oils" class="card-img">
-                    <div class="card-body">
-                        <h3>Oils</h3>
-                        <p>Castor oil, groundnut oil, non-edible oils. In-house extraction. Available in flexi-tanks and drums.</p>
-                        <a href="#" class="link-arrow">View Oils →</a>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="/images/product_spices.jpg" alt="Spices, Pulses & Grains" class="card-img">
-                    <div class="card-body">
-                        <h3>Spices, Pulses & Grains</h3>
-                        <p>Turmeric, chilli, cumin, sesame oil, pulses, and grains. Sourced and processed across India.</p>
-                        <a href="#" class="link-arrow">View All Products →</a>
-                    </div>
-                </div>
-            </div>
-            <div class="text-center mt-10">
-                <a href="#" class="btn btn-secondary">View Full Product Catalog</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== SECTION 3: STATS ===== -->
-    <section class="bg-pale-blue">
-        <div class="container">
-            <div class="section-intro">
-                <span class="eyebrow">Fifty Years in Numbers</span>
-            </div>
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-number">50+</div>
-                    <div class="stat-label">Years in operation</div>
-                    <div class="stat-description">In business since the 1970. Three generations of agri-trade built on direct farmer relationships.</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">75+</div>
-                    <div class="stat-label">Countries served</div>
-                    <div class="stat-description">Active buyers across Asia, Europe, the Gulf, Africa, and the Americas. Consistently.</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">25+</div>
-                    <div class="stat-label">Products exported</div>
-                    <div class="stat-description">From groundnuts to sesame oil, castor to cumin — from one certified, verified source.</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">4</div>
-                    <div class="stat-label">Global certifications</div>
-                    <div class="stat-description">ISO · Halal · Kosher · HACCP. Every certificate is available to download without a phone call.</div>
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/Black-sesame-seeds.png" alt="Black Sesame" loading="lazy">
+                    <h3>Black Sesame</h3>
+                    <p class="pdesc">Whole black seed — for specialty food and East Asian markets.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== SECTION 4: WHY M LAKHAMSI ===== -->
-    <section class="bg-white" id="quality">
+    <!-- Category: Other Oilseeds -->
+    <section class="cat-block" id="oilseeds" data-cat="oilseeds">
         <div class="container">
-            <div class="section-intro">
-                <span class="eyebrow">Why Buyers Choose Us</span>
-                <h2>In a market full of claims, we offer proof.</h2>
+            <div class="cat-head">
+                <div class="eyebrow">Other Oilseeds</div>
+                <h2>Other Oilseeds</h2>
+                <p>Beyond groundnuts and sesame, we source and process a full range of oilseeds for crushing and export.</p>
+                <div class="cat-cap"><i class="ti ti-building-factory-2"></i>Oilseed processing: 12,000 MT/year</div>
             </div>
-            <div class="usp-grid">
-                <!-- Laser Sorting — full-width with image -->
-                <div class="usp-img-card">
-                    <img src="/images/laser_sorting.jpg" alt="Laser Aflatoxin Sorting Technology">
-                    <div class="usp-img-body">
-                        <div class="usp-icon-wrap">
-                            <i class="ti ti-microscope"></i>
-                        </div>
-                        <h3>Zero aflatoxin risk — documented.</h3>
-                        <p>Our in-house laser sorting technology identifies and removes aflatoxin-contaminated product before it leaves the facility. Every batch is tested. NABL-accredited lab reports are available on request. No batch goes out without documentation.</p>
-                        <a href="#" class="link-arrow">See Our Quality Process →</a>
-                    </div>
+            <div class="product-grid">
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/castor-seed.png" alt="Castor" loading="lazy">
+                    <h3>Castor</h3>
+                    <p class="pdesc">Castor seed for oil extraction and industrial use.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
                 </div>
-                <!-- BSE & NSE -->
-                <div class="usp-card">
-                    <div class="usp-icon-wrap">
-                        <i class="ti ti-building-bank"></i>
-                    </div>
-                    <div class="usp-text">
-                        <h3>Publicly listed on BSE and NSE.</h3>
-                        <p>M Lakhamsi is among the few Indian agri-exporters listed on the Bombay Stock Exchange and the National Stock Exchange. Our financials are audited annually, our governance is public record, and our stability is not something you need to take our word for.</p>
-                        <a href="#" class="link-arrow">View Investor Information →</a>
-                    </div>
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/safflower-seeds.png" alt="Safflower" loading="lazy">
+                    <h3>Safflower</h3>
+                    <p class="pdesc">Safflower seed — for oil and bird-feed markets.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
                 </div>
-                <!-- Halal + Kosher -->
-                <div class="usp-card">
-                    <div class="usp-icon-wrap gold">
-                        <i class="ti ti-shield-check"></i>
-                    </div>
-                    <div class="usp-text">
-                        <h3>Dual certified: Halal and Kosher.</h3>
-                        <p>Rare at our product breadth and export volume. Our dual certification means buyers in the Gulf, Southeast Asia, and European premium markets can source multiple commodities from one compliant partner — without splitting their supply chain.</p>
-                        <a href="#" class="link-arrow">View All Certifications →</a>
-                    </div>
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/sunflower-seeds.png" alt="Sunflower" loading="lazy">
+                    <h3>Sunflower</h3>
+                    <p class="pdesc">Sunflower seed — confectionery and oil grades.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
                 </div>
-                <!-- Pan-India -->
-                <div class="usp-card">
-                    <div class="usp-icon-wrap">
-                        <i class="ti ti-map-pin"></i>
-                    </div>
-                    <div class="usp-text">
-                        <h3>Pan-India sourcing. Multiple ports.</h3>
-                        <p>Our procurement network spans India's major growing regions. Multiple processing units. Multiple port access. When weather or harvest conditions affect one region, we source from another. Supply continuity is not accidental — it is built into how we operate.</p>
-                        <a href="#" class="link-arrow">Learn About Our Facilities →</a>
-                    </div>
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/oriental-seeds-1.png" alt="Oriental Mustard" loading="lazy">
+                    <h3>Oriental Mustard</h3>
+                    <p class="pdesc">Oriental mustard seed — pungent, for oil and condiment use.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
                 </div>
-                <!-- Global Trust & Experience -->
-                <div class="usp-card">
-                    <div class="usp-icon-wrap gold">
-                        <i class="ti ti-star"></i>
-                    </div>
-                    <div class="usp-text">
-                        <h3>Trusted by 75+ countries.<br>Proven across continents.</h3>
-                        <p>Five decades of hands-on experience exporting to Southeast Asia, Europe, the Middle East, Africa, and the Americas. We understand the regulatory nuances, the quality expectations, and the logistics of each region. Whether you're in Dubai, Rotterdam, or Los Angeles — we've worked with your market before. That's not marketing. That's practical, documented experience.</p>
-                        <a href="#" class="link-arrow">View Our Global Buyer Base →</a>
-                    </div>
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/mustard-seeds.png" alt="Yellow Mustard" loading="lazy">
+                    <h3>Yellow Mustard</h3>
+                    <p class="pdesc">Yellow mustard seed — milder, for condiment and spice trade.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                </div>
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/Soyabean.png" alt="Soyabean" loading="lazy">
+                    <h3>Soyabean</h3>
+                    <p class="pdesc">Soyabean — for crushing, feed, and food processing.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== SECTION 5: HERITAGE NARRATIVE ===== -->
-    <section class="bg-offwhite heritage-section">
+    <!-- Category: Pulses -->
+    <section class="cat-block" id="pulses" data-cat="pulses">
         <div class="container">
-            <div class="heritage-inner">
-                <img src="/images/heritage_bg.jpg" alt="M Lakhamsi Heritage" class="heritage-img">
-                <div class="heritage-text">
-                    <span class="eyebrow">Our Story</span>
-                    <h2>We started small.<br>We stayed honest.</h2>
-                    <p>In the 1970, M Lakhamsi began as a trading business in Gujarat — procuring groundnuts from local farmers and finding buyers wherever the crop was needed. No shortcuts. No unnecessary middlemen. Just a product, a price, and a promise to deliver.</p>
-                    <p>Over the following decades, that promise took us to 75 countries. We added sesame seeds, castor oil, spices, and pulses — always processing in-house, always building direct relationships. Along the way, we became a Star Export House, listed on the BSE and NSE, and built one of the few Indian agri-facilities with laser aflatoxin sorting technology.</p>
-                    <p>Fifty years later, the business is larger. The supply chain is more complex. The promise is the same: you can verify everything we do.</p>
-                    <a href="about.html" class="link-arrow">Read Our Full Story →</a>
+            <div class="cat-head">
+                <div class="eyebrow">Pulses</div>
+                <h2>Pulses</h2>
+                <p>Beans, peas, and lentils sourced across India's growing regions and cleaned to export grade.</p>
+                <div class="cat-cap"><i class="ti ti-building-factory-2"></i>Processing capacity: up to 600 MT/month · Beans & Peas 10,000 MT/year</div>
+            </div>
+            <div class="product-grid">
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/chick-peas-1.png" alt="Chick Peas" loading="lazy">
+                    <h3>Chick Peas</h3>
+                    <p class="pdesc">Kabuli chickpeas — size-graded, for canning and retail.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                </div>
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/brown-chick-peas.png" alt="Brown Chick Peas" loading="lazy">
+                    <h3>Brown Chick Peas</h3>
+                    <p class="pdesc">Desi brown chickpeas — for flour, dal, and snacks.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                </div>
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/pigeon-peas.png" alt="Pigeon Peas" loading="lazy">
+                    <h3>Pigeon Peas</h3>
+                    <p class="pdesc">Toor / arhar — a staple pulse for dal markets.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                </div>
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/yellow-peas.png" alt="Yellow Peas" loading="lazy">
+                    <h3>Yellow Peas</h3>
+                    <p class="pdesc">Whole and split yellow peas — for food and processing.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                </div>
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/Green-Peas.png" alt="Green Peas" loading="lazy">
+                    <h3>Green Peas</h3>
+                    <p class="pdesc">Whole green peas — dried, for retail and processing.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                </div>
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/red-lentils.png" alt="Red Lentils" loading="lazy">
+                    <h3>Red Lentils</h3>
+                    <p class="pdesc">Split and whole red lentils — fast-cooking, high demand.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                </div>
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/green-lentils.png" alt="Green Lentils" loading="lazy">
+                    <h3>Green Lentils</h3>
+                    <p class="pdesc">Whole green lentils — for retail and food service.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                </div>
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/mung-beans.png" alt="Green Mung" loading="lazy">
+                    <h3>Green Mung</h3>
+                    <p class="pdesc">Whole green gram — for sprouting, dal, and processing.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                </div>
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/black-eyed-beans-1.png" alt="Black Eyed Beans" loading="lazy">
+                    <h3>Black Eyed Beans</h3>
+                    <p class="pdesc">Black-eyed peas — cleaned and size-graded.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                </div>
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/Kidney-beans.png" alt="Kidney Beans" loading="lazy">
+                    <h3>Kidney Beans</h3>
+                    <p class="pdesc">Rajma — red kidney beans for retail and canning.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                </div>
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/black-matpe.png" alt="Black Matpe" loading="lazy">
+                    <h3>Black Matpe</h3>
+                    <p class="pdesc">Whole urad / black gram — for dal and flour.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== SECTION 6: CERTIFICATIONS ===== -->
-    <section class="bg-white">
+    <!-- Category: Grains -->
+    <section class="cat-block" id="grains" data-cat="grains">
         <div class="container">
-            <div class="section-intro">
-                <span class="eyebrow">Certifications & Compliance</span>
-                <h2>Every certificate. Right here.</h2>
-                <p>Our full compliance documentation is available to download. No request form. No waiting.</p>
+            <div class="cat-head">
+                <div class="eyebrow">Grains</div>
+                <h2>Grains</h2>
+                <p>Staple grains for bulk buyers and processors, with capacity to move volume reliably.</p>
+                <div class="cat-cap"><i class="ti ti-building-factory-2"></i>Processing capacity: up to 1,000 MT/month · Wheat/Rice 25,000 MT/year</div>
             </div>
-            <div class="cert-grid">
-                <div class="cert-item">
-                    <img src="/images/cert_iso.png" alt="ISO 22000">
-                    <span>ISO 22000</span>
-                    <span class="cert-download"><i class="ti ti-download" style="font-size:12px;"></i> Download</span>
+            <div class="product-grid">
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/sourgham.png" alt="Sorghum" loading="lazy">
+                    <h3>Sorghum</h3>
+                    <p class="pdesc">Jowar — food and feed grades.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
                 </div>
-                <div class="cert-item">
-                    <img src="/images/cert_halal.png" alt="Halal Certified">
-                    <span>Halal Certified</span>
-                    <span class="cert-download"><i class="ti ti-download" style="font-size:12px;"></i> Download</span>
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/wheat.png" alt="Wheat" loading="lazy">
+                    <h3>Wheat</h3>
+                    <p class="pdesc">Milling and general-purpose wheat.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
                 </div>
-                <div class="cert-item">
-                    <img src="/images/cert_kosher.png" alt="Kosher Certified">
-                    <span>Kosher Certified</span>
-                    <span class="cert-download"><i class="ti ti-download" style="font-size:12px;"></i> Download</span>
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/rice.png" alt="Rice" loading="lazy">
+                    <h3>Rice</h3>
+                    <p class="pdesc">Non-basmati and specialty rice for bulk export.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
                 </div>
-                <div class="cert-item">
-                    <img src="/images/cert_haccp.png" alt="HACCP">
-                    <span>HACCP</span>
-                    <span class="cert-download"><i class="ti ti-download" style="font-size:12px;"></i> Download</span>
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/maize.png" alt="Maize" loading="lazy">
+                    <h3>Maize</h3>
+                    <p class="pdesc">Yellow maize — feed and industrial grades.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
                 </div>
-                <div class="cert-item">
-                    <img src="/images/cert_star_export.png" alt="Star Export House">
-                    <span>Star Export House</span>
-                    <span class="cert-download"><i class="ti ti-download" style="font-size:12px;"></i> Download</span>
-                </div>
-                <div class="cert-item">
-                    <img src="/images/cert_apeda.png" alt="APEDA">
-                    <span>APEDA Registered</span>
-                    <span class="cert-download"><i class="ti ti-download" style="font-size:12px;"></i> Download</span>
-                </div>
-            </div>
-            <div class="text-center">
-                <a href="#" class="btn btn-secondary">Download All Certificates</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== SECTION 7: MARKET REPORTS ===== -->
-    <section class="bg-pale-blue" id="reports">
-        <div class="container">
-            <div class="section-intro">
-                <span class="eyebrow">Market Intelligence & Updates</span>
-                <h2>What's moving in Indian agri-exports.</h2>
-                <p>Price trends, regulatory updates, and M Lakhamsi news — published quarterly.</p>
-            </div>
-            <div class="card-grid-3">
-                <div class="report-card">
-                    <div class="report-card-body">
-                        <span class="report-tag tag-report">Report</span>
-                        <p class="report-date">Q2 2026</p>
-                        <h3>India Groundnut Export Outlook — Q2 2026</h3>
-                        <p>Prices, key buyer market updates, and the current aflatoxin compliance situation.</p>
-                        <a href="#" class="link-arrow">Read More →</a>
-                    </div>
-                </div>
-                <div class="report-card">
-                    <div class="report-card-body">
-                        <span class="report-tag tag-update">Update</span>
-                        <p class="report-date">June 2026</p>
-                        <h3>EU Aflatoxin Regulations: What Groundnut Buyers Need to Know</h3>
-                        <p>A plain-language summary of the current EU maximum levels and what compliant exporters must provide.</p>
-                        <a href="#" class="link-arrow">Read More →</a>
-                    </div>
-                </div>
-                <div class="report-card">
-                    <div class="report-card-body">
-                        <span class="report-tag tag-news">News</span>
-                        <p class="report-date">2026</p>
-                        <h3>M Lakhamsi at Gulfood 2026</h3>
-                        <p>We exhibited at Gulfood in Dubai. Here's what we discussed with buyers.</p>
-                        <a href="#" class="link-arrow">Read More →</a>
-                    </div>
-                </div>
-            </div>
-            <div class="text-center mt-10">
-                <a href="#" class="btn btn-secondary">View All Reports & Updates</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== SECTION 8: SOCIAL PREVIEW ===== -->
-    <section class="bg-white" id="social">
-        <div class="container">
-            <div class="section-intro">
-                <span class="eyebrow">Follow Our Updates</span>
-                <p>We post market updates, product news, and industry developments on LinkedIn and Twitter.</p>
-            </div>
-            <div style="background-color: var(--color-offwhite); border-radius: var(--radius-lg); padding: var(--space-10); text-align: center; border: 1px dashed #D0CCC6;">
-                <p style="color: var(--color-gray); font-size: 14px; margin-bottom: var(--space-6);">Social feed will display here once accounts are refreshed with recent content.</p>
-                <div style="display: flex; justify-content: center; gap: var(--space-4); flex-wrap: wrap;">
-                    <a href="#" class="btn btn-secondary"><i class="ti ti-brand-linkedin"></i>&nbsp; Follow on LinkedIn</a>
-                    <a href="#" class="btn btn-secondary"><i class="ti ti-brand-x"></i>&nbsp; Follow on Twitter/X</a>
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/Millet.png" alt="Millet" loading="lazy">
+                    <h3>Millet</h3>
+                    <p class="pdesc">Assorted millets — for food and health markets.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== SECTION 9: WHATSAPP CTA ===== -->
-    <section class="whatsapp-panel">
+    <!-- Category: Spices -->
+    <section class="cat-block" id="spices" data-cat="spices">
         <div class="container">
-            <div class="whatsapp-inner">
-                <div>
-                    <span class="eyebrow" style="text-align:left;">Get In Touch</span>
-                    <h2>Tell us what you need.</h2>
-                    <p>Whether you are sourcing for the first time or looking for a more reliable Indian partner — send us a message. We respond to every inquiry within one business day.</p>
+            <div class="cat-head">
+                <div class="eyebrow">Spices</div>
+                <h2>Spices</h2>
+                <p>Whole and ground spices sourced from India's spice belts, cleaned and processed to international standards.</p>
+                <div class="cat-cap"><i class="ti ti-building-factory-2"></i>Processing capacity: up to 800 MT/month · Whole Spices 5,000 MT/year</div>
+            </div>
+            <div class="product-grid">
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/Cumin-seeds.png" alt="Cumin Seeds" loading="lazy">
+                    <h3>Cumin Seeds</h3>
+                    <p class="pdesc">Whole cumin — machine-cleaned, export grade.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
                 </div>
-                <div class="whatsapp-right">
-                    <a href="https://wa.me/[number]" class="btn btn-whatsapp" target="_blank">
-                        <i class="ti ti-brand-whatsapp"></i>&nbsp; WhatsApp Us
-                    </a>
-                    <p class="whatsapp-note">Prefer to chat? We're on WhatsApp.<br>Opens with a pre-filled message.</p>
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/coriender-seeds.png" alt="Coriander Seeds" loading="lazy">
+                    <h3>Coriander Seeds</h3>
+                    <p class="pdesc">Whole coriander — single and double parrot grades.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                </div>
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/feenel-seeds.png" alt="Fennel Seeds" loading="lazy">
+                    <h3>Fennel Seeds</h3>
+                    <p class="pdesc">Whole fennel — bright green, cleaned.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                </div>
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/whole-chilli.png" alt="Chilli Whole" loading="lazy">
+                    <h3>Chilli Whole</h3>
+                    <p class="pdesc">Dried whole chilli — assorted varieties and heat levels.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                </div>
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/Turmeric-fingers.png" alt="Turmeric Fingers" loading="lazy">
+                    <h3>Turmeric Fingers</h3>
+                    <p class="pdesc">Whole turmeric fingers — high-curcumin varieties.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                </div>
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/fenugreek.png" alt="Fenugreek" loading="lazy">
+                    <h3>Fenugreek</h3>
+                    <p class="pdesc">Whole methi seed — for spice and food use.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                </div>
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/dill.png" alt="Dill" loading="lazy">
+                    <h3>Dill</h3>
+                    <p class="pdesc">Dill seed — cleaned and graded.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                </div>
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/chilli-Flakes-1.png" alt="Chilli Flakes" loading="lazy">
+                    <h3>Chilli Flakes</h3>
+                    <p class="pdesc">Crushed chilli flakes — for food processing.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                </div>
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/Turmeric-powder.png" alt="Turmeric Powder" loading="lazy">
+                    <h3>Turmeric Powder</h3>
+                    <p class="pdesc">Ground turmeric — colour and curcumin specified.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                </div>
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/chili-Powder.png" alt="Chilli Powder" loading="lazy">
+                    <h3>Chilli Powder</h3>
+                    <p class="pdesc">Ground chilli — heat and colour to specification.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== SECTION 10: INQUIRY FORM ===== -->
-    <section class="bg-offwhite" id="contact">
+    <!-- Category: Oils & Oil Cakes -->
+    <section class="cat-block" id="oils" data-cat="oils">
         <div class="container">
-            <div class="section-intro">
-                <span class="eyebrow">Send an Inquiry</span>
-                <h2>Tell us what you need.</h2>
-                <p>Whether you are sourcing for the first time or looking for a more reliable Indian partner — send us a message. We respond to every inquiry within one business day.</p>
+            <div class="cat-head">
+                <div class="eyebrow">Oils & Oil Cakes</div>
+                <h2>Oils & Oil Cakes</h2>
+                <p>In-house extraction, available in drums, poly-lined cartons, and bulk flexi-tanks.</p>
+                <div class="cat-cap"><i class="ti ti-building-factory-2"></i>Oil processing: up to 2,500 MT/month</div>
             </div>
-            <div class="form-section-inner">
-                <form>
-                    <div class="form-group">
-                        <label for="name">Your Name <span class="req">*</span></label>
-                        <input type="text" id="name" name="name" placeholder="Full name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="company">Company Name <span class="req">*</span></label>
-                        <input type="text" id="company" name="company" placeholder="Your company" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="country">Country <span class="req">*</span></label>
-                        <select id="country" name="country" required>
-                            <option value="">Select your country</option>
-                            <option>Germany</option><option>Netherlands</option><option>United Kingdom</option>
-                            <option>Poland</option><option>Greece</option><option>United States</option>
-                            <option>United Arab Emirates</option><option>Saudi Arabia</option><option>Iraq</option>
-                            <option>Kuwait</option><option>Qatar</option><option>Indonesia</option>
-                            <option>Vietnam</option><option>Philippines</option><option>Thailand</option>
-                            <option>Malaysia</option><option>China</option><option>South Korea</option>
-                            <option>Japan</option><option>Australia</option><option>Canada</option>
-                            <option>Brazil</option><option>South Africa</option><option>Egypt</option>
-                            <option>Turkey</option><option>India</option><option>Singapore</option>
-                            <option>Bangladesh</option><option>Pakistan</option><option>Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="product">Product Interest <span class="req">*</span></label>
-                        <select id="product" name="product" required>
-                            <option value="">Select a product</option>
-                            <option>Groundnuts</option>
-                            <option>Sesame Seeds</option>
-                            <option>Oils</option>
-                            <option>Spices & Grains</option>
-                            <option>Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" placeholder="Tell us about your requirement — volume, grade, destination port"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary form-submit">Send Inquiry</button>
-                    <p class="form-note">No automated responses. Your inquiry goes directly to our trade team.</p>
-                </form>
-                <div class="form-side">
-                    <div style="font-size: 48px; color: var(--color-navy); margin-bottom: var(--space-4);">
-                        <i class="ti ti-brand-whatsapp"></i>
-                    </div>
-                    <h3>Prefer to chat?</h3>
-                    <p>We're on WhatsApp. Send us a message directly and our trade team will respond within one business day.</p>
-                    <a href="https://wa.me/[number]" class="btn btn-whatsapp" target="_blank">
-                        <i class="ti ti-brand-whatsapp"></i>&nbsp; WhatsApp Us
-                    </a>
-                    <p class="whatsapp-note" style="margin-top: var(--space-4);">Typically responds within one business day.</p>
+            <div class="product-grid">
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/mustered-oil.png" alt="Mustard Oil" loading="lazy">
+                    <h3>Mustard Oil</h3>
+                    <p class="pdesc">Cold-pressed and refined mustard oil.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                </div>
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/seasame-oil.png" alt="Sesame Oil" loading="lazy">
+                    <h3>Sesame Oil</h3>
+                    <p class="pdesc">Sesame oil — for food and specialty markets.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                </div>
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/peant-oil.png" alt="Peanut Oil" loading="lazy">
+                    <h3>Peanut Oil</h3>
+                    <p class="pdesc">Groundnut oil — filtered and refined grades.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                </div>
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/castor-oil.png" alt="Castor Oil" loading="lazy">
+                    <h3>Castor Oil</h3>
+                    <p class="pdesc">Castor oil — commercial and industrial grades.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                </div>
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/oil-cakes.png" alt="Oil Cakes" loading="lazy">
+                    <h3>Oil Cakes</h3>
+                    <p class="pdesc">De-oiled cakes — protein-rich feed ingredient.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== FOOTER ===== -->
+    <!-- Category: Raisins & Others -->
+    <section class="cat-block" id="others" data-cat="others">
+        <div class="container">
+            <div class="cat-head">
+                <div class="eyebrow">Raisins & Others</div>
+                <h2>Raisins & Others</h2>
+                <p>A selective range of dried fruit and specialty commodities, sourced to the same standard.</p>
+                
+            </div>
+            <div class="product-grid">
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/golden-raisins.png" alt="Golden Raisins" loading="lazy">
+                    <h3>Golden Raisins</h3>
+                    <p class="pdesc">Golden seedless raisins — bright, cleaned, graded.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                </div>
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/brown-raisins.png" alt="Brown Raisins" loading="lazy">
+                    <h3>Brown Raisins</h3>
+                    <p class="pdesc">Natural brown raisins — for retail and baking.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                </div>
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/Black-Raisins.png" alt="Black Raisins" loading="lazy">
+                    <h3>Black Raisins</h3>
+                    <p class="pdesc">Black seedless raisins — for food and retail.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                </div>
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/Natural-gums.png" alt="Natural Gums" loading="lazy">
+                    <h3>Natural Gums</h3>
+                    <p class="pdesc">Natural gums — food and industrial grades.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                </div>
+                <div class="product-card">
+                    <img class="pimg" src="/images/products/sugar-1.png" alt="Sugar" loading="lazy">
+                    <h3>Sugar</h3>
+                    <p class="pdesc">Refined sugar — export grades.</p>
+                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ===== PACKAGING BAND ===== -->
+    <section class="pack-band">
+        <div class="container">
+            <h2>Packed for your market, not just your order.</h2>
+            <p class="pack-body">From 500-gram retail packs to 1-ton jumbo bags — in paper, poly-lined bags, or jute sacks. Liquids from 100 ml bottles to bulk flexi-tanks. In-house vacuum packing, imported container liners against mould and infestation, and private-label handling. Shipped through Pipavav (200 km), Kandla (200 km), and Mundra (260 km).</p>
+            <div class="pack-chips">
+                <span class="pack-chip">Retail to jumbo (500g–1T)</span>
+                <span class="pack-chip">Bulk flexi-tanks &amp; drums</span>
+                <span class="pack-chip">Private label</span>
+                <span class="pack-chip">3 major ports</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== DOCUMENTATION BAND ===== -->
+    <section class="doc-band">
+        <div class="container">
+            <h2>Every product ships with its paperwork.</h2>
+            <p>Certificate of Analysis. NABL-accredited lab reports. Aflatoxin records on groundnuts and sesame. Phytosanitary and origin documentation. Whatever your compliance team needs — ask, and it comes with the shipment.</p>
+            <div class="hero-ctas">
+                <a href="quality.html" class="btn btn-primary">View Quality &amp; Compliance →</a>
+                <a href="contact.html" class="btn btn-secondary" style="color:#fff;border-color:#fff;">Request Documentation →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CLOSING CTA ===== -->
+    <section class="close-cta">
+        <div class="container">
+            <h2>Tell us what you're sourcing.</h2>
+            <p>Send us the product, grade, volume, and destination — we'll come back with specifications, availability, and pricing within one business day.</p>
+            <div class="hero-ctas">
+                <a href="contact.html" class="btn btn-primary">Request a Quote</a>
+                <a href="#" class="btn btn-whatsapp"><i class="ti ti-brand-whatsapp"></i> WhatsApp Us →</a>
+            </div>
+        </div>
+    </section>
+
+<!-- ===== FOOTER ===== -->
     <footer id="investors">
         <div class="container">
             <div class="footer-grid">
@@ -1290,7 +1486,7 @@
                         <a href="about.html">About Us</a>
                         <a href="investors.html">Investors</a>
                         <a href="csr.html">CSR</a>
-                        <a href="#social">Social</a>
+                        <a href="index.html#social">Social</a>
                         <a href="contact.html">Contact</a>
                     </div>
                 </div>
@@ -1350,6 +1546,18 @@
             }
             var sel = document.querySelector('.goog-te-combo');
             if (sel) { sel.value = lang; sel.dispatchEvent(new Event('change')); }
+        }
+    </script>
+
+
+    <script>
+        function filterCat(btn, cat){
+            document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+            btn.classList.add('active');
+            document.querySelectorAll('.cat-block').forEach(sec=>{
+                sec.style.display = (cat==='all' || sec.dataset.cat===cat) ? '' : 'none';
+            });
+            if(cat!=='all'){ const t=document.getElementById(cat); if(t){ window.scrollTo({top:t.offsetTop-120, behavior:'smooth'});} }
         }
     </script>
 
