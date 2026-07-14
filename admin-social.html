@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Social Admin — M Lakhamsi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+    :root {
+        --navy: #1B3A5C;
+        --navy-hover: #2A5280;
+        --gold: #C9A84C;
+        --gold-pale: #F5EDD6;
+        --offwhite: #F7F5F2;
+        --charcoal: #2C2C2C;
+        --gray: #6B6B6B;
+        --lgray: #D0CCC6;
+        --white: #FFFFFF;
+        --red: #B3261E;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+        font-family: "Inter", system-ui, sans-serif;
+        background: var(--offwhite);
+        color: var(--charcoal);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 48px 20px;
+    }
+    h1 {
+        font-family: "Playfair Display", serif;
+        font-size: 24px;
+        color: var(--navy);
+        margin-bottom: 4px;
+    }
+    .subtitle { font-size: 13px; color: var(--gray); margin-bottom: 32px; }
+
+    /* Login card */
+    .login-card {
+        background: var(--white);
+        border: 1px solid var(--lgray);
+        border-radius: 12px;
+        padding: 32px;
+        width: 100%;
+        max-width: 360px;
+        text-align: center;
+    }
+    .login-card i { font-size: 32px; color: var(--navy); margin-bottom: 12px; display:block; }
+    input[type="password"], input[type="text"] {
+        width: 100%;
+        padding: 11px 14px;
+        border: 1px solid var(--lgray);
+        border-radius: 4px;
+        font-size: 14px;
+        font-family: inherit;
+        margin-bottom: 12px;
+    }
+    input:focus { outline: none; border-color: var(--navy); border-width: 2px; }
+    button {
+        font-family: inherit;
+        font-size: 13px;
+        font-weight: 500;
+        border: none;
+        border-radius: 4px;
+        padding: 11px 20px;
+        cursor: pointer;
+        transition: background 150ms ease;
+    }
+    .btn-primary { background: var(--navy); color: #fff; width: 100%; }
+    .btn-primary:hover { background: var(--navy-hover); }
+    .error-msg { color: var(--red); font-size: 12.5px; margin-top: 10px; min-height: 16px; }
+    .success-msg { color: #2E6B2E; font-size: 12.5px; margin-top: 10px; min-height: 16px; }
+
+    /* Main admin panel */
+    .panel { width: 100%; max-width: 900px; display: none; }
+    .panel.visible { display: block; }
+    .topbar { display:flex; justify-content:space-between; align-items:center; margin-bottom: 24px; }
+    .btn-logout { background: transparent; border: 1px solid var(--lgray); color: var(--gray); font-size: 12px; padding: 8px 14px; }
+    .btn-logout:hover { border-color: var(--navy); color: var(--navy); }
+
+    .add-card {
+        background: var(--white);
+        border: 1px solid var(--lgray);
+        border-radius: 12px;
+        padding: 24px;
+        margin-bottom: 32px;
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+    }
+    .add-card input { margin-bottom: 0; flex: 1; }
+    .add-card button { flex-shrink: 0; background: var(--gold); color: var(--navy); font-weight: 600; }
+    .add-card button:hover { background: #B8963E; }
+    .add-status { font-size: 12.5px; margin-top: 10px; }
+
+    .columns { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    @media (max-width: 700px) { .columns { grid-template-columns: 1fr; } }
+    .col h2 {
+        font-family: "Inter", sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--navy);
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .post-row {
+        background: var(--white);
+        border: 1px solid var(--lgray);
+        border-radius: 8px;
+        padding: 12px 14px;
+        margin-bottom: 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+    }
+    .post-row a { font-size: 12.5px; color: var(--navy); text-decoration: none; word-break: break-all; }
+    .post-row a:hover { text-decoration: underline; }
+    .post-row .post-date { font-size: 11px; color: var(--gray); display: block; margin-top: 2px; }
+    .post-row .btn-delete {
+        flex-shrink: 0;
+        background: none;
+        border: none;
+        color: var(--red);
+        font-size: 16px;
+        cursor: pointer;
+        padding: 4px 6px;
+        line-height: 1;
+    }
+    .post-row .btn-delete:hover { opacity: 0.7; }
+    .empty-note { font-size: 12.5px; color: var(--gray); padding: 12px 0; }
+</style>
+</head>
+<body>
+
+    <h1>Social Feed Admin</h1>
+    <p class="subtitle">Add a LinkedIn or X post URL — it appears on the live Social page automatically.</p>
+
+    <!-- LOGIN -->
+    <div class="login-card" id="loginCard">
+        <i class="ti ti-lock"></i>
+        <input type="password" id="passwordInput" placeholder="Admin password" autocomplete="current-password">
+        <button class="btn-primary" id="loginBtn">Log in</button>
+        <div class="error-msg" id="loginError"></div>
+    </div>
+
+    <!-- PANEL -->
+    <div class="panel" id="panel">
+        <div class="topbar">
+            <span></span>
+            <button class="btn-logout" id="logoutBtn">Log out</button>
+        </div>
+
+        <div class="add-card">
+            <input type="text" id="urlInput" placeholder="Paste a LinkedIn or X/Twitter post URL…">
+            <button id="addBtn">Add Post</button>
+        </div>
+        <div class="add-status" id="addStatus" style="margin-top:-20px; margin-bottom:24px;"></div>
+
+        <div class="columns">
+            <div class="col">
+                <h2><i class="ti ti-brand-linkedin"></i> LinkedIn (<span id="liCount">0</span>)</h2>
+                <div id="liList"></div>
+            </div>
+            <div class="col">
+                <h2><i class="ti ti-brand-x"></i> X / Twitter (<span id="twCount">0</span>)</h2>
+                <div id="twList"></div>
+            </div>
+        </div>
+    </div>
+
+<script>
+const loginCard = document.getElementById('loginCard');
+const panel = document.getElementById('panel');
+const passwordInput = document.getElementById('passwordInput');
+const loginBtn = document.getElementById('loginBtn');
+const loginError = document.getElementById('loginError');
+const logoutBtn = document.getElementById('logoutBtn');
+const urlInput = document.getElementById('urlInput');
+const addBtn = document.getElementById('addBtn');
+const addStatus = document.getElementById('addStatus');
+const liList = document.getElementById('liList');
+const twList = document.getElementById('twList');
+const liCount = document.getElementById('liCount');
+const twCount = document.getElementById('twCount');
+
+function showPanel() {
+    loginCard.style.display = 'none';
+    panel.classList.add('visible');
+    refreshList();
+}
+function showLogin() {
+    loginCard.style.display = 'block';
+    panel.classList.remove('visible');
+    passwordInput.value = '';
+}
+
+async function checkAuth() {
+    const res = await fetch('/api/admin/check');
+    const data = await res.json();
+    if (data.authenticated) showPanel(); else showLogin();
+}
+
+loginBtn.addEventListener('click', login);
+passwordInput.addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
+
+async function login() {
+    loginError.textContent = '';
+    const password = passwordInput.value;
+    if (!password) return;
+    try {
+        const res = await fetch('/api/admin/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ password })
+        });
+        const data = await res.json();
+        if (res.ok) {
+            showPanel();
+        } else {
+            loginError.textContent = data.error || 'Login failed';
+        }
+    } catch (e) {
+        loginError.textContent = 'Network error — try again';
+    }
+}
+
+logoutBtn.addEventListener('click', async () => {
+    await fetch('/api/admin/logout', { method: 'POST' });
+    showLogin();
+});
+
+addBtn.addEventListener('click', addPost);
+urlInput.addEventListener('keydown', e => { if (e.key === 'Enter') addPost(); });
+
+async function addPost() {
+    const url = urlInput.value.trim();
+    addStatus.textContent = '';
+    addStatus.style.color = '';
+    if (!url) return;
+    addBtn.disabled = true;
+    try {
+        const res = await fetch('/api/social-posts', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ url })
+        });
+        const data = await res.json();
+        if (res.ok) {
+            urlInput.value = '';
+            addStatus.style.color = '#2E6B2E';
+            addStatus.textContent = 'Added.';
+            renderLists(data);
+        } else {
+            addStatus.style.color = '#B3261E';
+            addStatus.textContent = data.error || 'Could not add that post';
+        }
+    } catch (e) {
+        addStatus.style.color = '#B3261E';
+        addStatus.textContent = 'Network error — try again';
+    } finally {
+        addBtn.disabled = false;
+    }
+}
+
+async function refreshList() {
+    const res = await fetch('/api/social-posts');
+    const data = await res.json();
+    renderLists(data);
+}
+
+function fmtDate(iso) {
+    try {
+        const d = new Date(iso);
+        return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+    } catch (e) { return ''; }
+}
+
+function renderLists(data) {
+    const li = data.linkedin || [];
+    const tw = data.twitter || [];
+    liCount.textContent = li.length;
+    twCount.textContent = tw.length;
+
+    liList.innerHTML = li.length ? li.map(p => `
+        <div class="post-row">
+            <div>
+                <a href="${p.url}" target="_blank" rel="noopener">${p.url}</a>
+                <span class="post-date">Added ${fmtDate(p.addedAt)}</span>
+            </div>
+            <button class="btn-delete" onclick="deletePost('linkedin','${p.id}')" title="Remove">✕</button>
+        </div>
+    `).join('') : '<div class="empty-note">No LinkedIn posts yet.</div>';
+
+    twList.innerHTML = tw.length ? tw.map(p => `
+        <div class="post-row">
+            <div>
+                <a href="${p.url}" target="_blank" rel="noopener">${p.url}</a>
+                <span class="post-date">Added ${fmtDate(p.addedAt)}</span>
+            </div>
+            <button class="btn-delete" onclick="deletePost('twitter','${p.id}')" title="Remove">✕</button>
+        </div>
+    `).join('') : '<div class="empty-note">No X/Twitter posts yet.</div>';
+}
+
+async function deletePost(platform, id) {
+    if (!confirm('Remove this post from the Social page?')) return;
+    const res = await fetch('/api/social-posts/' + platform + '/' + id, { method: 'DELETE' });
+    const data = await res.json();
+    if (res.ok) renderLists(data);
+}
+
+checkAuth();
+</script>
+</body>
+</html>
