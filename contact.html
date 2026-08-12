@@ -926,6 +926,9 @@
         .form-two { display:grid; grid-template-columns:1fr 1fr; gap: var(--space-4); }
         @media (max-width:560px){ .form-two{ grid-template-columns:1fr; } }
         .form-note { font-size:12px; color: var(--color-gray); margin-top: var(--space-4); }
+        .form-consent { display:flex; align-items:flex-start; gap:8px; margin-top: var(--space-4); }
+        .form-consent input[type=checkbox] { width:16px; height:16px; margin-top:2px; flex-shrink:0; accent-color: var(--color-navy); }
+        .form-consent label { font-size:13px; color: var(--color-charcoal); line-height:1.5; cursor:pointer; }
 
         .close-cta { background: var(--color-gold-pale); padding: var(--space-16) 0; text-align:center; }
         .close-cta h2 { font-family:var(--font-serif); font-weight:500; font-size: clamp(24px,3vw,30px); color: var(--color-navy); margin-bottom: var(--space-4); }
@@ -1050,7 +1053,7 @@
                         <i class="ti ti-mail"></i>
                         <div>
                             <h4>Email</h4>
-                            <p><a href="mailto:trade@m.lakhamsi.com">trade@m.lakhamsi.com</a> <span style="color:var(--color-gray); font-size:11px;">[to confirm with client — trade desk address]</span><br>
+                            <p><a href="mailto:info@m.lakhamsi.com">info@m.lakhamsi.com</a> — general enquiries<br>
                             <a href="mailto:equity@m.lakhamsi.com">equity@m.lakhamsi.com</a> — investor relations</p>
                         </div>
                     </div>
@@ -1121,7 +1124,14 @@
                             <textarea placeholder="Tell us about your requirement — volume, grade, destination port"></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary" style="width:100%; text-align:center; border:none;">Send Inquiry</button>
-                        <p class="form-note">By submitting, you agree to be contacted by our trade team regarding your enquiry.</p>
+                        <div class="form-consent">
+                            <input type="checkbox" id="consent-contact" required>
+                            <label for="consent-contact">I agree to be contacted by the trade team regarding this enquiry.</label>
+                        </div>
+                        <div class="form-consent">
+                            <input type="checkbox" id="consent-mailing">
+                            <label for="consent-mailing">Add me to the mailing list for market updates and company news.</label>
+                        </div>
                     </form>
                 </div>
             </div>

@@ -348,7 +348,22 @@
         .social-placeholder p { font-size:13px; color: var(--color-gray); max-width:280px; margin-bottom:0; }
         .staging-banner { background: var(--color-gold-pale); border:1px solid var(--color-gold); border-radius: var(--radius-md); padding: 14px 20px; text-align:center; font-size:13px; color: var(--color-navy); margin-bottom: var(--space-8); }
 
-        .feed-list { display:flex; flex-direction:column; gap: var(--space-6); max-height: 2600px; overflow-y: auto; padding-right: 4px; }
+        .feed-list {
+            display:flex; flex-direction:column; gap: var(--space-6);
+            max-height: 2600px; overflow-y: auto; padding: var(--space-2) var(--space-3) var(--space-2) 4px;
+            border: 1px solid #E2DFD9;
+            border-radius: var(--radius-lg);
+            background: var(--color-offwhite);
+            box-shadow: inset 0 8px 8px -8px rgba(27,58,92,0.10), inset 0 -8px 8px -8px rgba(27,58,92,0.10);
+            scrollbar-width: thin;
+            scrollbar-color: var(--color-gold) transparent;
+        }
+        .feed-list::-webkit-scrollbar { width: 6px; }
+        .feed-list::-webkit-scrollbar-track { background: transparent; }
+        .feed-list::-webkit-scrollbar-thumb { background: var(--color-gold); border-radius: 10px; }
+        .feed-list::-webkit-scrollbar-thumb:hover { background: var(--color-navy); }
+        .feed-scroll-hint { display:flex; align-items:center; gap:6px; font-size:11px; color: var(--color-gray); margin-bottom: var(--space-2); }
+        .feed-scroll-hint i { font-size:13px; color: var(--color-gold); }
         .post-card { background: var(--color-white); border:0.5px solid #D0CCC6; border-radius: var(--radius-lg); padding: var(--space-4); }
         .post-card iframe { width:100%; border:none; border-radius: var(--radius-md); display:block; }
         .post-view-link { display:inline-flex; align-items:center; gap:4px; margin-top: var(--space-3); font-size:12px; font-weight:500; color: var(--color-gold); text-decoration:none; }
@@ -613,6 +628,7 @@
             <div class="social-embed-grid">
                 <div class="social-col">
                     <h3><i class="ti ti-brand-linkedin"></i> LinkedIn</h3>
+                    <p class="feed-scroll-hint"><i class="ti ti-arrows-vertical"></i> Scroll within this box for more posts</p>
                     <div id="linkedin-feed" class="feed-list">
                         <div class="social-placeholder">
                             <i class="ti ti-brand-linkedin"></i>
@@ -622,6 +638,7 @@
                 </div>
                 <div class="social-col">
                     <h3><i class="ti ti-brand-x"></i> Twitter / X</h3>
+                    <p class="feed-scroll-hint"><i class="ti ti-arrows-vertical"></i> Scroll within this box for more posts</p>
                     <div id="twitter-feed" class="feed-list">
                         <div class="social-placeholder">
                             <i class="ti ti-brand-x"></i>

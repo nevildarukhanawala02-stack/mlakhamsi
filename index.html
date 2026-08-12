@@ -658,6 +658,9 @@
         .form-group textarea::placeholder { color: var(--color-lgray); }
         .form-submit { width: 100%; margin-top: var(--space-2); }
         .form-note { font-size: 12px; color: var(--color-gray); text-align: center; margin-top: var(--space-4); margin-bottom: 0; }
+        .form-consent { display:flex; align-items:flex-start; gap:8px; margin-top: var(--space-4); text-align:left; }
+        .form-consent input[type=checkbox] { width:16px; height:16px; margin-top:2px; flex-shrink:0; accent-color: var(--color-navy); }
+        .form-consent label { font-size:13px; color: var(--color-charcoal); line-height:1.5; cursor:pointer; }
         .form-side {
             background-color: var(--color-gold-pale);
             border-radius: var(--radius-lg);
@@ -1024,8 +1027,8 @@
                         <div class="usp-icon-wrap">
                             <i class="ti ti-microscope"></i>
                         </div>
-                        <h3>Zero aflatoxin risk — documented.</h3>
-                        <p>Our in-house laser sorting technology identifies and removes aflatoxin-contaminated product before it leaves the facility. Every batch is tested. NABL-accredited lab reports are available on request. No batch goes out without documentation.</p>
+                        <h3>Laser sorted where it matters.</h3>
+                        <p>Groundnuts and sesame are laser sorted for aflatoxin based on requirements, removing contaminated product before it leaves the facility. Every consignment is tested via NABL-accredited labs, with reports available on request.</p>
                         <a href="#" class="link-arrow">See Our Quality Process →</a>
                     </div>
                 </div>
@@ -1341,6 +1344,14 @@
                         <textarea id="message" name="message" placeholder="Tell us about your requirement — volume, grade, destination port"></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary form-submit">Send Inquiry</button>
+                    <div class="form-consent">
+                        <input type="checkbox" id="consent-contact-home" required>
+                        <label for="consent-contact-home">I agree to be contacted by the trade team regarding this enquiry.</label>
+                    </div>
+                    <div class="form-consent">
+                        <input type="checkbox" id="consent-mailing-home">
+                        <label for="consent-mailing-home">Add me to the mailing list for market updates and company news.</label>
+                    </div>
                     <p class="form-note">No automated responses. Your inquiry goes directly to our trade team.</p>
                 </form>
                 <div class="form-side">
