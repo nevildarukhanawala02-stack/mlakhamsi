@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Laser aflatoxin sorting, colour sorting, NABL-accredited testing, and downloadable certifications — the quality process behind every M Lakhamsi shipment.">
+    <meta name="description" content="Laser aflatoxin sorting, colour sorting, NABL-accredited testing, and certifications available on request — the quality process behind every M Lakhamsi shipment.">
     <title>Quality & Compliance — M Lakhamsi Industries Limited</title>
     
     <!-- Google Fonts -->
@@ -873,8 +873,24 @@
         .cert-card { background: var(--color-white); border:0.5px solid #D0CCC6; border-radius: var(--radius-lg); padding: var(--space-6); text-align:center; }
         .cert-card img { height:64px; width:auto; margin: 0 auto 14px; display:block; }
         .cert-card h4 { font-family: var(--font-sans); font-weight:600; font-size:14px; color: var(--color-navy); margin-bottom:8px; }
-        .cert-card a { font-size:12px; color: var(--color-gold); font-weight:500; text-decoration:none; }
-        .cert-card a:hover { text-decoration:underline; }
+        .cert-card a, .cert-card button.cert-request-link { font-size:12px; color: var(--color-gold); font-weight:500; text-decoration:none; background:none; border:none; padding:0; font-family: var(--font-sans); cursor:pointer; }
+        .cert-card a:hover, .cert-card button.cert-request-link:hover { text-decoration:underline; }
+
+        /* ===== CERT REQUEST MODAL ===== */
+        .cert-modal-overlay { display:none; position:fixed; inset:0; background:rgba(27,58,92,0.55); z-index:1000; align-items:center; justify-content:center; padding: var(--space-4); }
+        .cert-modal-overlay.open { display:flex; }
+        .cert-modal { background: var(--color-white); border-radius: var(--radius-lg); max-width:440px; width:100%; padding: var(--space-8); position:relative; max-height:90vh; overflow-y:auto; }
+        .cert-modal h3 { font-family: var(--font-serif); color: var(--color-navy); font-size:22px; margin-bottom:8px; }
+        .cert-modal p.modal-sub { font-size:13px; color: var(--color-gray); margin-bottom: var(--space-6); line-height:1.6; }
+        .cert-modal-close { position:absolute; top:16px; right:16px; background:none; border:none; font-size:20px; color: var(--color-gray); cursor:pointer; line-height:1; }
+        .cert-modal label.field-label { display:block; font-size:12px; font-weight:500; color: var(--color-navy); margin-bottom:6px; }
+        .cert-modal input[type=text], .cert-modal input[type=email] { width:100%; border:1px solid #D0CCC6; border-radius: var(--radius-md); padding:10px 14px; font-family: var(--font-sans); font-size:14px; margin-bottom: var(--space-4); }
+        .cert-checklist { display:flex; flex-direction:column; gap:10px; margin-bottom: var(--space-6); }
+        .cert-checklist label { display:flex; align-items:center; gap:8px; font-size:14px; color: var(--color-charcoal); cursor:pointer; }
+        .cert-checklist input[type=checkbox] { width:16px; height:16px; accent-color: var(--color-navy); }
+        .cert-modal button[type=submit] { width:100%; background: var(--color-navy); color:#fff; border:none; border-radius: var(--radius-md); padding:12px; font-family: var(--font-sans); font-size:14px; font-weight:500; cursor:pointer; }
+        .cert-modal button[type=submit]:hover { background: var(--color-navy-hover); }
+        .cert-modal-note { font-size:11px; color: var(--color-gray); margin-top:10px; text-align:center; }
 
         /* Document list (for Investors / CSR-adjacent) */
         .doc-group { margin-bottom: var(--space-10); }
@@ -1027,7 +1043,7 @@
         <div class="container">
             <div class="breadcrumb"><a href="index.html">Home</a> / Quality &amp; Compliance</div>
             <div class="eyebrow">Laser-Sorted · NABL-Tested · Fully Documented</div>
-            <h1>Quality you can download.</h1>
+            <h1>Quality you can verify.</h1>
             <p>We don't ask buyers to trust our quality. We show the process, the technology, and the paperwork — for every batch, every shipment.</p>
             <div class="hero-ctas">
                 <a href="#certifications" class="btn btn-primary">View Certifications</a>
@@ -1045,7 +1061,7 @@
             <div class="proof-chips">
                 <div class="proof-chip"><i class="ti ti-microscope"></i><span><strong>Laser aflatoxin sorting</strong><br>Removes contamination at source</span></div>
                 <div class="proof-chip"><i class="ti ti-shield-check"></i><span><strong>NABL-accredited testing</strong><br>Every batch, every consignment</span></div>
-                <div class="proof-chip"><i class="ti ti-certificate"></i><span><strong>ISO 22000 · Halal · Kosher · HACCP</strong><br>Across our processing units</span></div>
+                <div class="proof-chip"><i class="ti ti-certificate"></i><span><strong>ISO 22000 · Halal · Kosher · HACCP · BRC</strong><br>Across our processing units</span></div>
             </div>
         </div>
     </section>
@@ -1055,8 +1071,8 @@
         <div class="container">
             <div class="band-head">
                 <div class="eyebrow">Why This Matters</div>
-                <h2>The industry's biggest compliance risk — solved at source.</h2>
-                <p>Aflatoxin contamination is the single largest compliance risk in Indian groundnut and sesame exports. The EU enforces a maximum of 2 μg/kg for aflatoxin B1 in groundnuts intended for direct human consumption. Buyers across Southeast Asia are, right now, actively seeking exporters who can prove a clean record. Our answer isn't a claim — it's a machine, a lab, and a report for every batch.</p>
+                <h2>Different products. Different risks. One systematic process.</h2>
+                <p>Compliance requirements aren't the same for every product or every market. Aflatoxin is the defining risk for groundnuts headed to the EU, which enforces a maximum of 2 μg/kg for aflatoxin B1. Sesame and other oilseeds carry a different set of concerns for buyers in Europe, the US, Japan, and Korea — mainly pesticide residue and microbiological limits. Peanut oil is assessed on its own parameters — oleic acid content, saponification value, colour, and free fatty acids. Even a product like castor oil carries its own consideration as a recognised allergen. Rather than a single standard applied everywhere, we match the testing and treatment to the product and the destination port.</p>
             </div>
         </div>
     </section>
@@ -1104,17 +1120,34 @@
             </div>
 
             <div class="tech-row">
+                <div class="tech-visual"><i class="ti ti-droplet"></i></div>
+                <div class="tech-content">
+                    <div class="eyebrow">Cargo Treatment</div>
+                    <h3>What it is</h3>
+                    <p>Optional treatment for microbiological contamination, available on request. We offer steam sterilization, and ETO (ethylene oxide) treatment where applicable.</p>
+                    <h3 style="margin-top:20px;">Why it matters</h3>
+                    <p>Microbiological requirements vary by destination — and so does what's permitted. ETO treatment is accepted for shipments to the United States, but it is banned in the European Union, so we treat cargo according to where it's going, not a single default.</p>
+                    <h3 style="margin-top:20px;">What it means for you</h3>
+                    <ul>
+                        <li>Steam sterilization available for any destination</li>
+                        <li>ETO treatment available for USA-bound shipments</li>
+                        <li>Treatment matched to your destination port's requirements, not a blanket approach</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tech-row reverse">
                 <div class="tech-visual"><i class="ti ti-flask"></i></div>
                 <div class="tech-content">
-                    <div class="eyebrow">In-House Lab Testing</div>
+                    <div class="eyebrow">Lab Testing</div>
                     <h3>What it is</h3>
-                    <p>NABL-accredited testing infrastructure, operated in-house, generating a Certificate of Analysis and aflatoxin report for every batch we process.</p>
+                    <p>Every batch we process is tested by third-party, NABL-accredited laboratories, generating a Certificate of Analysis and, where relevant, an aflatoxin report for the consignment.</p>
                     <h3 style="margin-top:20px;">Why it matters</h3>
-                    <p>A certificate from an accredited lab is the document your compliance team, your customs broker, and your own quality team will ask for. We generate it before you ask.</p>
+                    <p>A certificate from an accredited lab is the document your compliance team, your customs broker, and your own quality team will ask for. We arrange it as a matter of course — not only when a buyer requests it.</p>
                     <h3 style="margin-top:20px;">What it means for you</h3>
                     <ul>
                         <li>Certificate of Analysis available for every consignment</li>
-                        <li>NABL-accredited — recognised by international regulators</li>
+                        <li>Testing via NABL-accredited third-party labs — recognised by international regulators</li>
                         <li>Sample reports available on request for your due diligence</li>
                     </ul>
                 </div>
@@ -1128,7 +1161,7 @@
             <div class="band-head">
                 <div class="eyebrow">Allergen Management</div>
                 <h2>Multiple units. Zero cross-contamination.</h2>
-                <p>Sesame is now a major regulated allergen under the US FDA's 2023 ruling. Our processing is split across multiple dedicated units by product family — so a sesame line never shares equipment with a peanut line, and cross-contamination isn't managed after the fact, it's designed out from the start.</p>
+                <p>Sesame is now a major regulated allergen under the US FDA's 2023 ruling, and castor oil is a recognised allergen in its own right. Our processing is split across multiple dedicated units by product family — so a sesame line never shares equipment with a peanut line, and a castor line is handled separately again — with cross-contamination designed out from the start, not managed after the fact.</p>
             </div>
         </div>
     </section>
@@ -1139,18 +1172,86 @@
             <div class="band-head">
                 <div class="eyebrow">Certifications &amp; Compliance</div>
                 <h2>Every certificate. Right here.</h2>
-                <p>Our full compliance documentation is available to download. No request form. No waiting.</p>
+                <p>Our certifications are available on request. Tell us which ones you need and our trade team will send them directly.</p>
             </div>
             <div class="cert-grid-page">
-                <div class="cert-card"><img src="/images/cert_iso.png" alt="ISO 22000"><h4>ISO 22000</h4><a href="#">Download PDF →</a></div>
-                <div class="cert-card"><img src="/images/cert_halal.png" alt="Halal Certified"><h4>Halal Certified</h4><a href="#">Download PDF →</a></div>
-                <div class="cert-card"><img src="/images/cert_kosher.png" alt="Kosher Certified"><h4>Kosher Certified</h4><a href="#">Download PDF →</a></div>
-                <div class="cert-card"><img src="/images/cert_haccp.png" alt="HACCP"><h4>HACCP</h4><a href="#">Download PDF →</a></div>
-                <div class="cert-card"><img src="/images/cert_star_export.png" alt="Star Export House"><h4>Star Export House</h4><a href="#">Download PDF →</a></div>
-                <div class="cert-card"><img src="/images/cert_apeda.png" alt="APEDA Registered"><h4>APEDA Registered</h4><a href="#">Download PDF →</a></div>
+                <div class="cert-card"><img src="/images/cert_iso.png" alt="ISO 22000"><h4>ISO 22000</h4><button type="button" class="cert-request-link" onclick="openCertModal('ISO 22000')">Available on Request →</button></div>
+                <div class="cert-card"><img src="/images/cert_halal.png" alt="Halal Certified"><h4>Halal Certified</h4><button type="button" class="cert-request-link" onclick="openCertModal('Halal Certified')">Available on Request →</button></div>
+                <div class="cert-card"><img src="/images/cert_kosher.png" alt="Kosher Certified"><h4>Kosher Certified</h4><button type="button" class="cert-request-link" onclick="openCertModal('Kosher Certified')">Available on Request →</button></div>
+                <div class="cert-card"><img src="/images/cert_haccp.png" alt="HACCP"><h4>HACCP</h4><button type="button" class="cert-request-link" onclick="openCertModal('HACCP')">Available on Request →</button></div>
+                <div class="cert-card"><img src="/images/cert_brc.png" alt="BRC"><h4>BRC</h4><button type="button" class="cert-request-link" onclick="openCertModal('BRC')">Available on Request →</button></div>
+                <div class="cert-card"><img src="/images/cert_star_export.png" alt="Star Export House"><h4>Star Export House</h4><button type="button" class="cert-request-link" onclick="openCertModal('Star Export House')">Available on Request →</button></div>
+                <div class="cert-card"><img src="/images/cert_apeda.png" alt="APEDA Registered"><h4>APEDA Registered</h4><button type="button" class="cert-request-link" onclick="openCertModal('APEDA Registered')">Available on Request →</button></div>
             </div>
         </div>
     </section>
+
+    <!-- ===== CERT REQUEST MODAL ===== -->
+    <div class="cert-modal-overlay" id="cert-modal-overlay">
+        <div class="cert-modal">
+            <button class="cert-modal-close" onclick="closeCertModal()" aria-label="Close">&times;</button>
+            <h3>Request Certificates</h3>
+            <p class="modal-sub">Tell us who you are and which certificates you need — we'll send them directly to your inbox.</p>
+            <form id="cert-request-form" onsubmit="submitCertRequest(event)">
+                <label class="field-label" for="cert-req-name">Your Name</label>
+                <input type="text" id="cert-req-name" required>
+                <label class="field-label" for="cert-req-company">Company Name</label>
+                <input type="text" id="cert-req-company" required>
+                <label class="field-label" for="cert-req-email">Email</label>
+                <input type="email" id="cert-req-email" required>
+                <label class="field-label" style="margin-top:4px;">Certificates needed</label>
+                <div class="cert-checklist">
+                    <label><input type="checkbox" value="ISO 22000" class="cert-req-checkbox"> ISO 22000</label>
+                    <label><input type="checkbox" value="Halal Certified" class="cert-req-checkbox"> Halal Certified</label>
+                    <label><input type="checkbox" value="Kosher Certified" class="cert-req-checkbox"> Kosher Certified</label>
+                    <label><input type="checkbox" value="HACCP" class="cert-req-checkbox"> HACCP</label>
+                    <label><input type="checkbox" value="BRC" class="cert-req-checkbox"> BRC</label>
+                    <label><input type="checkbox" value="Star Export House" class="cert-req-checkbox"> Star Export House</label>
+                    <label><input type="checkbox" value="APEDA Registered" class="cert-req-checkbox"> APEDA Registered</label>
+                </div>
+                <button type="submit">Send Request</button>
+                <p class="cert-modal-note">No automated responses. Your request goes directly to our trade team.</p>
+            </form>
+        </div>
+    </div>
+    <script>
+        // NOTE for developer: mailto target is a placeholder (equity@m.lakhamsi.com,
+        // the only confirmed-real generic address at time of writing). Swap
+        // CERT_REQUEST_EMAIL once the client sends the final alias list.
+        const CERT_REQUEST_EMAIL = 'equity@m.lakhamsi.com';
+
+        function openCertModal(precheck) {
+            document.getElementById('cert-modal-overlay').classList.add('open');
+            if (precheck) {
+                document.querySelectorAll('.cert-req-checkbox').forEach(cb => {
+                    if (cb.value === precheck) cb.checked = true;
+                });
+            }
+        }
+        function closeCertModal() {
+            document.getElementById('cert-modal-overlay').classList.remove('open');
+        }
+        function submitCertRequest(e) {
+            e.preventDefault();
+            const name = document.getElementById('cert-req-name').value;
+            const company = document.getElementById('cert-req-company').value;
+            const email = document.getElementById('cert-req-email').value;
+            const selected = Array.from(document.querySelectorAll('.cert-req-checkbox:checked')).map(cb => cb.value);
+            const certList = selected.length ? selected.join(', ') : '(none selected)';
+            const subject = encodeURIComponent('Certificate Request — ' + company);
+            const body = encodeURIComponent(
+                'Name: ' + name + '\n' +
+                'Company: ' + company + '\n' +
+                'Email: ' + email + '\n' +
+                'Certificates requested: ' + certList
+            );
+            window.location.href = 'mailto:' + CERT_REQUEST_EMAIL + '?subject=' + subject + '&body=' + body;
+            closeCertModal();
+        }
+        document.getElementById('cert-modal-overlay').addEventListener('click', function(e) {
+            if (e.target === this) closeCertModal();
+        });
+    </script>
 
     <!-- ===== DOC BAND ===== -->
     <section class="band navy">
