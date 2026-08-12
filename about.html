@@ -649,11 +649,22 @@
             z-index: 2;
         }
         .global-header { text-align: center; margin-bottom: var(--space-12); }
+        .regions-tier { margin-bottom: var(--space-10); }
+        .regions-tier-label {
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 0.75rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: var(--space-4);
+            padding-bottom: var(--space-2);
+            border-bottom: 1px solid var(--border);
+        }
         .regions-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: var(--space-5);
-            margin-bottom: var(--space-10);
         }
         .region-card {
             background: var(--white);
@@ -692,7 +703,7 @@
             font-weight: 600;
             color: var(--gold);
         }
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
             .regions-grid { grid-template-columns: repeat(2, 1fr); }
         }
         @media (max-width: 480px) {
@@ -1433,58 +1444,50 @@
     <section class="section timeline-section">
         <div class="container">
             <div class="timeline-header">
-                <p class="section-label">Five Decades of Growth</p>
-                <h2 class="display-lg">A legacy built one decade at a time.</h2>
+                <p class="section-label">Milestones</p>
+                <h2 class="display-lg">Nine decades. A few key facts.</h2>
                 <div class="divider-gold" style="margin:var(--space-4) auto;"></div>
             </div>
             <div class="timeline">
                 <div class="timeline-item right">
                     <div class="timeline-empty"></div>
-                    <div class="timeline-dot"><span>1970</span></div>
+                    <div class="timeline-dot"><span>1933</span></div>
                     <div class="timeline-content">
-                        <h3>The Beginning — Gujarat</h3>
-                        <p>Founded as a groundnut trading business in Gujarat. Direct procurement from local farmers. First export shipments to neighbouring markets. The foundation of a direct-relationship model that continues today.</p>
+                        <h3>Founded in Bombay</h3>
+                        <p>M Lakhamsi begins as a trading business, sourcing and exporting from India.</p>
                     </div>
                 </div>
                 <div class="timeline-item left">
                     <div class="timeline-content">
-                        <h3>Expanding the Product Range</h3>
-                        <p>Added sesame seeds and castor oil to the portfolio. Built the first in-house processing unit. Began exporting to Southeast Asia — a market that remains core to the business today.</p>
+                        <h3>Gujarat &amp; Product Expansion</h3>
+                        <p>Sourcing shifts to Gujarat. Groundnuts, sesame seeds, and castor oil added to the range.</p>
                     </div>
-                    <div class="timeline-dot"><span>1980s</span></div>
+                    <div class="timeline-dot"><span>1970s</span></div>
                     <div class="timeline-empty"></div>
                 </div>
                 <div class="timeline-item right">
                     <div class="timeline-empty"></div>
-                    <div class="timeline-dot"><span>1990s</span></div>
+                    <div class="timeline-dot"><span>BSE</span></div>
                     <div class="timeline-content">
-                        <h3>Going Global — 50+ Countries</h3>
-                        <p>Expanded to European markets. Achieved Star Export House status. Added spices, pulses, and grains. Built relationships with institutional buyers in the EU and US who required documented quality standards.</p>
+                        <h3>Listed on the BSE</h3>
+                        <p>ISO, Halal, and Kosher certifications follow.</p>
                     </div>
                 </div>
                 <div class="timeline-item left">
                     <div class="timeline-content">
-                        <h3>BSE Listing</h3>
-                        <p>Listed on the Bombay Stock Exchange and National Stock Exchange — making M Lakhamsi one of the few Indian agri-exporters with publicly audited financials. Achieved ISO, Halal, and Kosher certifications in the same decade.</p>
+                        <h3>Laser Sorting Installed</h3>
+                        <p>In-house aflatoxin sorting technology added. HACCP certified. NABL-accredited testing in place.</p>
                     </div>
-                    <div class="timeline-dot"><span>2000s</span></div>
-                    <div class="timeline-empty"></div>
-                </div>
-                <div class="timeline-item right">
-                    <div class="timeline-empty"></div>
                     <div class="timeline-dot"><span>2010s</span></div>
-                    <div class="timeline-content">
-                        <h3>Technology &amp; Compliance</h3>
-                        <p>Installed in-house laser aflatoxin sorting technology — one of the first Indian agri-exporters to do so. Achieved HACCP certification. Expanded to 75+ countries. Built NABL-accredited testing infrastructure.</p>
-                    </div>
-                </div>
-                <div class="timeline-item left">
-                    <div class="timeline-content">
-                        <h3>Today — Verified at Every Step</h3>
-                        <p>25+ products. 75+ countries. Multiple quality certifications. Every batch tested. Certifications available on request. Three generations of the same founding family. The same promise, now with more proof behind it.</p>
-                    </div>
-                    <div class="timeline-dot"><span>Now</span></div>
                     <div class="timeline-empty"></div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-empty"></div>
+                    <div class="timeline-dot"><span>Now</span></div>
+                    <div class="timeline-content">
+                        <h3>Today</h3>
+                        <p>25+ products. 75+ countries. 90+ years. Three generations of the same founding family.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1539,36 +1542,62 @@
                     We have active buyers in every major agricultural import market. Our experience is not theoretical — it is built from decades of navigating each region's regulatory requirements, logistics infrastructure, and quality expectations.
                 </p>
             </div>
-            <div class="regions-grid">
-                <div class="region-card">
-                    <div class="region-icon"><i class="ti ti-building"></i></div>
-                    <h3>Europe</h3>
-                    <p>Netherlands, Germany, UK, Spain, Italy, Belgium. Full EU regulatory compliance. Aflatoxin documentation for every shipment. HACCP and ISO certified.</p>
-                    <div class="countries">Netherlands · Germany · UK · Spain</div>
+            <div class="regions-tier">
+                <div class="regions-tier-label">Established Markets</div>
+                <div class="regions-grid">
+                    <div class="region-card">
+                        <div class="region-icon"><i class="ti ti-building"></i></div>
+                        <h3>Europe</h3>
+                        <p>Netherlands, Germany, UK, Spain, Italy, Belgium. Full EU regulatory compliance. Aflatoxin documentation for every shipment. HACCP and ISO certified.</p>
+                        <div class="countries">Netherlands · Germany · UK · Spain</div>
+                    </div>
+                    <div class="region-card">
+                        <div class="region-icon"><i class="ti ti-map"></i></div>
+                        <h3>USA</h3>
+                        <p>Kosher-certified supply for the North American food manufacturing market. FDA-compliant documentation available for every shipment.</p>
+                        <div class="countries">United States</div>
+                    </div>
+                    <div class="region-card">
+                        <div class="region-icon"><i class="ti ti-sun"></i></div>
+                        <h3>Japan</h3>
+                        <p>High-specification buyers with strict quality requirements. Full traceability documentation provided for every consignment.</p>
+                        <div class="countries">Japan</div>
+                    </div>
+                    <div class="region-card">
+                        <div class="region-icon"><i class="ti ti-sun"></i></div>
+                        <h3>South Korea</h3>
+                        <p>Long-standing relationships built on consistent specification adherence and documented quality.</p>
+                        <div class="countries">South Korea</div>
+                    </div>
                 </div>
-                <div class="region-card">
-                    <div class="region-icon"><i class="ti ti-map-pin"></i></div>
-                    <h3>Southeast Asia</h3>
-                    <p>Vietnam, Indonesia, Malaysia, Thailand, Philippines, Singapore. Long-standing relationships with food manufacturers and ingredient traders across the region.</p>
-                    <div class="countries">Vietnam · Indonesia · Malaysia · Thailand</div>
-                </div>
-                <div class="region-card">
-                    <div class="region-icon"><i class="ti ti-globe"></i></div>
-                    <h3>Africa</h3>
-                    <p>Nigeria, Egypt, Kenya, South Africa, Tanzania. Growing markets with established buyer relationships across East, West, and North Africa.</p>
-                    <div class="countries">Nigeria · Egypt · Kenya · South Africa</div>
-                </div>
-                <div class="region-card">
-                    <div class="region-icon"><i class="ti ti-map"></i></div>
-                    <h3>Americas</h3>
-                    <p>USA, Canada, Brazil, Mexico. Kosher-certified supply for North American premium food markets. FDA-compliant documentation available.</p>
-                    <div class="countries">USA · Canada · Brazil · Mexico</div>
-                </div>
-                <div class="region-card">
-                    <div class="region-icon"><i class="ti ti-sun"></i></div>
-                    <h3>East Asia &amp; Pacific</h3>
-                    <p>Japan, South Korea, China, Australia. High-specification buyers with strict quality requirements. Full traceability documentation provided.</p>
-                    <div class="countries">Japan · South Korea · China · Australia</div>
+            </div>
+            <div class="regions-tier">
+                <div class="regions-tier-label">Growing Markets</div>
+                <div class="regions-grid">
+                    <div class="region-card">
+                        <div class="region-icon"><i class="ti ti-map-pin"></i></div>
+                        <h3>Southeast Asia</h3>
+                        <p>Vietnam, Indonesia, Malaysia, Thailand, Philippines, Singapore. Long-standing relationships with food manufacturers and ingredient traders across the region.</p>
+                        <div class="countries">Vietnam · Indonesia · Malaysia · Thailand</div>
+                    </div>
+                    <div class="region-card">
+                        <div class="region-icon"><i class="ti ti-sun"></i></div>
+                        <h3>China &amp; Oceania</h3>
+                        <p>Volume-driven trading relationships for sesame and re-export markets, alongside growing demand from Australia.</p>
+                        <div class="countries">China · Australia</div>
+                    </div>
+                    <div class="region-card">
+                        <div class="region-icon"><i class="ti ti-globe"></i></div>
+                        <h3>Africa</h3>
+                        <p>Nigeria, Egypt, Kenya, South Africa, Tanzania. Established buyer relationships across East, West, and North Africa.</p>
+                        <div class="countries">Nigeria · Egypt · Kenya · South Africa</div>
+                    </div>
+                    <div class="region-card">
+                        <div class="region-icon"><i class="ti ti-map"></i></div>
+                        <h3>Rest of Americas</h3>
+                        <p>Canada, Brazil, Mexico. Expanding relationships alongside our established US buyer base.</p>
+                        <div class="countries">Canada · Brazil · Mexico</div>
+                    </div>
                 </div>
             </div>
             <div style="text-align:center;">
