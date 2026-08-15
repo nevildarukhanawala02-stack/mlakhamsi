@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Analytics — M Lakhamsi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+    :root {
+        --navy: #1B3A5C; --navy-hover: #2A5280; --gold: #C9A84C; --gold-pale: #F5EDD6;
+        --pale-blue: #E8F0F7; --offwhite: #F7F5F2; --charcoal: #2C2C2C; --gray: #6B6B6B;
+        --lgray: #D0CCC6; --white: #FFFFFF; --red: #B3261E; --green: #2E6B2E;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+        font-family: "Inter", system-ui, sans-serif;
+        background: var(--offwhite); color: var(--charcoal);
+        min-height: 100vh; padding: 40px 20px 80px;
+    }
+    .wrap { max-width: 1100px; margin: 0 auto; }
+    a.back-link { font-size: 12.5px; color: var(--gray); text-decoration: none; }
+    a.back-link:hover { color: var(--navy); }
+    h1 { font-family: "Playfair Display", serif; font-size: 24px; color: var(--navy); margin: 4px 0 2px; }
+    .subtitle { font-size: 13px; color: var(--gray); margin-bottom: 28px; }
+
+    /* Login card (shown until authed) */
+    .login-card {
+        background: var(--white); border: 1px solid var(--lgray); border-radius: 12px;
+        padding: 32px; width: 100%; max-width: 360px; text-align: center; margin: 60px auto;
+    }
+    .login-card i { font-size: 32px; color: var(--navy); margin-bottom: 12px; display:block; }
+    input[type="password"] {
+        width: 100%; padding: 11px 14px; border: 1px solid var(--lgray); border-radius: 4px;
+        font-size: 14px; font-family: inherit; margin-bottom: 12px;
+    }
+    input:focus { outline: none; border-color: var(--navy); border-width: 2px; }
+    button {
+        font-family: inherit; font-size: 13px; font-weight: 500; border: none; border-radius: 4px;
+        padding: 10px 18px; cursor: pointer; transition: background 150ms ease;
+    }
+    .btn-primary { background: var(--navy); color: #fff; width: 100%; }
+    .btn-primary:hover { background: var(--navy-hover); }
+    .error-msg { color: var(--red); font-size: 12.5px; margin-top: 10px; min-height: 16px; }
+
+    .panel { display: none; }
+    .panel.visible { display: block; }
+    .topbar { display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
+    .btn-logout { background: transparent; border: 1px solid var(--lgray); color: var(--gray); font-size: 12px; padding: 8px 14px; }
+    .btn-logout:hover { border-color: var(--navy); color: var(--navy); }
+
+    .toggle { display: inline-flex; border: 1px solid var(--lgray); border-radius: 6px; overflow: hidden; }
+    .toggle button { border-radius: 0; background: var(--white); color: var(--gray); padding: 8px 16px; }
+    .toggle button.active { background: var(--navy); color: #fff; }
+
+    .loading-note, .empty-note { font-size: 13px; color: var(--gray); padding: 24px 0; }
+
+    /* Metric cards */
+    .metric-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-bottom: 28px; }
+    @media (max-width: 900px) { .metric-grid { grid-template-columns: repeat(2, 1fr); } }
+    .metric-card { background: var(--white); border: 1px solid var(--lgray); border-radius: 12px; padding: 18px; }
+    .metric-card .num { font-family: "Playfair Display", serif; font-size: 26px; color: var(--navy); font-weight: 600; }
+    .metric-card .label { font-size: 11.5px; color: var(--gray); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.04em; }
+
+    /* Section blocks */
+    .section-block { background: var(--white); border: 1px solid var(--lgray); border-radius: 12px; padding: 22px; margin-bottom: 20px; }
+    .section-block h2 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--navy); margin-bottom: 16px; }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    @media (max-width: 800px) { .two-col { grid-template-columns: 1fr; } }
+
+    /* Funnel */
+    .funnel-row { margin-bottom: 14px; }
+    .funnel-label { display: flex; justify-content: space-between; font-size: 12.5px; color: var(--charcoal); margin-bottom: 5px; }
+    .funnel-bar-bg { background: var(--pale-blue); border-radius: 4px; height: 26px; overflow: hidden; }
+    .funnel-bar-fill { background: var(--navy); height: 100%; border-radius: 4px; transition: width 300ms ease; min-width: 3px; }
+
+    /* Bar list (traffic sources, device, countries) */
+    .bar-list-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 12.5px; }
+    .bar-list-row .lbl { width: 110px; flex-shrink: 0; color: var(--charcoal); }
+    .bar-list-row .bar-bg { flex: 1; background: var(--pale-blue); border-radius: 3px; height: 14px; overflow: hidden; }
+    .bar-list-row .bar-fill { background: var(--gold); height: 100%; }
+    .bar-list-row .cnt { width: 34px; text-align: right; color: var(--gray); flex-shrink: 0; }
+
+    /* Tables */
+    table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+    th { text-align: left; color: var(--gray); font-weight: 600; text-transform: uppercase; font-size: 10.5px; letter-spacing: 0.04em; padding: 6px 8px; border-bottom: 1px solid var(--lgray); }
+    td { padding: 8px 8px; border-bottom: 1px solid #ECE8E2; vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+    <a class="back-link" href="/admin.html">&larr; Admin home</a>
+    <h1>Analytics Dashboard</h1>
+    <p class="subtitle">Self-hosted — no third-party trackers, no data leaves this server.</p>
+
+    <div class="login-card" id="loginCard">
+        <i class="ti ti-lock"></i>
+        <input type="password" id="passwordInput" placeholder="Admin password" autocomplete="current-password">
+        <button class="btn-primary" id="loginBtn">Log in</button>
+        <div class="error-msg" id="loginError"></div>
+    </div>
+
+    <div class="panel" id="panel">
+        <div class="topbar">
+            <div class="toggle">
+                <button id="btnWeek" class="active">Last 7 days</button>
+                <button id="btnMonth">Last 30 days</button>
+            </div>
+            <button class="btn-logout" id="logoutBtn">Log out</button>
+        </div>
+
+        <div id="dashContent">
+            <p class="loading-note">Loading…</p>
+        </div>
+    </div>
+</div>
+
+<script>
+const loginCard = document.getElementById('loginCard');
+const panel = document.getElementById('panel');
+const passwordInput = document.getElementById('passwordInput');
+const loginBtn = document.getElementById('loginBtn');
+const loginError = document.getElementById('loginError');
+const logoutBtn = document.getElementById('logoutBtn');
+const dashContent = document.getElementById('dashContent');
+const btnWeek = document.getElementById('btnWeek');
+const btnMonth = document.getElementById('btnMonth');
+
+let currentRange = 'week';
+
+function showPanel() { loginCard.style.display = 'none'; panel.classList.add('visible'); loadDashboard(); }
+function showLogin() { loginCard.style.display = 'block'; panel.classList.remove('visible'); passwordInput.value = ''; }
+
+async function checkAuth() {
+    const res = await fetch('/api/admin/check');
+    const data = await res.json();
+    if (data.authenticated) showPanel(); else showLogin();
+}
+
+loginBtn.addEventListener('click', login);
+passwordInput.addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
+
+async function login() {
+    loginError.textContent = '';
+    const password = passwordInput.value;
+    if (!password) return;
+    try {
+        const res = await fetch('/api/admin/login', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password })
+        });
+        const data = await res.json();
+        if (res.ok) showPanel(); else loginError.textContent = data.error || 'Login failed';
+    } catch (e) {
+        loginError.textContent = 'Network error — try again';
+    }
+}
+
+logoutBtn.addEventListener('click', async () => {
+    await fetch('/api/admin/logout', { method: 'POST' });
+    showLogin();
+});
+
+btnWeek.addEventListener('click', () => { currentRange = 'week'; setToggle(); loadDashboard(); });
+btnMonth.addEventListener('click', () => { currentRange = 'month'; setToggle(); loadDashboard(); });
+function setToggle() {
+    btnWeek.classList.toggle('active', currentRange === 'week');
+    btnMonth.classList.toggle('active', currentRange === 'month');
+}
+
+const COUNTRY_NAMES = { IN:'India', US:'United States', GB:'United Kingdom', DE:'Germany', NL:'Netherlands', AE:'UAE', SA:'Saudi Arabia', ID:'Indonesia', VN:'Vietnam', TH:'Thailand', MY:'Malaysia', PH:'Philippines', CN:'China', KR:'South Korea', JP:'Japan', AU:'Australia', CA:'Canada', BR:'Brazil', ZA:'South Africa', EG:'Egypt', TR:'Turkey', SG:'Singapore', PK:'Pakistan', BD:'Bangladesh', IQ:'Iraq', KW:'Kuwait', QA:'Qatar', PL:'Poland', GR:'Greece' };
+function countryName(code) { return COUNTRY_NAMES[code] || code; }
+function fmtDate(iso) { try { return new Date(iso).toLocaleDateString('en-GB', { day:'numeric', month:'short' }); } catch(e) { return ''; } }
+
+async function loadDashboard() {
+    dashContent.innerHTML = '<p class="loading-note">Loading…</p>';
+    try {
+        const [dashRes, inqRes] = await Promise.all([
+            fetch('/api/admin/analytics?range=' + currentRange),
+            fetch('/api/admin/inquiries')
+        ]);
+        const dash = await dashRes.json();
+        const inquiries = await inqRes.json();
+        render(dash, inquiries);
+    } catch (e) {
+        dashContent.innerHTML = '<p class="empty-note">Could not load analytics — try refreshing.</p>';
+    }
+}
+
+function render(d, inquiries) {
+    const m = d.metrics;
+    const maxFunnel = Math.max(1, ...d.funnel.map(f => f.count));
+    const sourceEntries = Object.entries(d.trafficSources || {}).sort((a,b) => b[1]-a[1]);
+    const deviceEntries = Object.entries(d.deviceBreakdown || {}).sort((a,b) => b[1]-a[1]);
+    const maxSource = Math.max(1, ...sourceEntries.map(e => e[1]));
+    const maxDevice = Math.max(1, ...deviceEntries.map(e => e[1]));
+    const nv = d.newVsReturning || { new: 0, returning: 0 };
+    const nvTotal = Math.max(1, nv.new + nv.returning);
+
+    dashContent.innerHTML = `
+        <div class="metric-grid">
+            <div class="metric-card"><div class="num">${m.visits}</div><div class="label">Visits</div></div>
+            <div class="metric-card"><div class="num">${m.pageViews}</div><div class="label">Page views</div></div>
+            <div class="metric-card"><div class="num">${m.pagesPerVisit}</div><div class="label">Pages / visit</div></div>
+            <div class="metric-card"><div class="num">${m.conversions}</div><div class="label">Conversions</div></div>
+            <div class="metric-card"><div class="num">${m.conversionRate}%</div><div class="label">Conversion rate</div></div>
+        </div>
+
+        <div class="section-block">
+            <h2><i class="ti ti-filter"></i> Funnel</h2>
+            ${d.funnel.map(f => `
+                <div class="funnel-row">
+                    <div class="funnel-label"><span>${f.stage}</span><span>${f.count}</span></div>
+                    <div class="funnel-bar-bg"><div class="funnel-bar-fill" style="width:${(f.count/maxFunnel*100).toFixed(1)}%"></div></div>
+                </div>
+            `).join('')}
+        </div>
+
+        <div class="two-col">
+            <div class="section-block">
+                <h2><i class="ti ti-file-text"></i> Top pages</h2>
+                ${d.topPages.length ? `<table><tbody>${d.topPages.map(p => `<tr><td>${p.pagePath}</td><td style="text-align:right; width:50px;">${p.count}</td></tr>`).join('')}</tbody></table>` : '<p class="empty-note">No page views yet in this range.</p>'}
+            </div>
+            <div class="section-block">
+                <h2><i class="ti ti-world"></i> Top countries</h2>
+                ${d.topCountries.length ? d.topCountries.map(c => `
+                    <div class="bar-list-row">
+                        <span class="lbl">${countryName(c.country)}</span>
+                        <div class="bar-bg"><div class="bar-fill" style="width:${(c.count/Math.max(1,d.topCountries[0].count)*100).toFixed(0)}%"></div></div>
+                        <span class="cnt">${c.count}</span>
+                    </div>
+                `).join('') : '<p class="empty-note">No geolocated visits yet.</p>'}
+            </div>
+        </div>
+
+        <div class="two-col">
+            <div class="section-block">
+                <h2><i class="ti ti-link"></i> Traffic sources</h2>
+                ${sourceEntries.length ? sourceEntries.map(([src, cnt]) => `
+                    <div class="bar-list-row">
+                        <span class="lbl">${src}</span>
+                        <div class="bar-bg"><div class="bar-fill" style="width:${(cnt/maxSource*100).toFixed(0)}%"></div></div>
+                        <span class="cnt">${cnt}</span>
+                    </div>
+                `).join('') : '<p class="empty-note">No data yet.</p>'}
+            </div>
+            <div class="section-block">
+                <h2><i class="ti ti-device-desktop"></i> Devices &amp; visitors</h2>
+                ${deviceEntries.map(([dev, cnt]) => `
+                    <div class="bar-list-row">
+                        <span class="lbl">${dev}</span>
+                        <div class="bar-bg"><div class="bar-fill" style="width:${(cnt/maxDevice*100).toFixed(0)}%"></div></div>
+                        <span class="cnt">${cnt}</span>
+                    </div>
+                `).join('')}
+                <div style="margin-top:14px; padding-top:14px; border-top:1px solid #ECE8E2; display:flex; gap:20px; font-size:12.5px; color:var(--gray);">
+                    <span><strong style="color:var(--navy)">${nv.new}</strong> new (${(nv.new/nvTotal*100).toFixed(0)}%)</span>
+                    <span><strong style="color:var(--navy)">${nv.returning}</strong> returning (${(nv.returning/nvTotal*100).toFixed(0)}%)</span>
+                    ${m.avgTimeOnPageSeconds !== null ? `<span>avg. time on page: <strong style="color:var(--navy)">${m.avgTimeOnPageSeconds}s</strong></span>` : ''}
+                </div>
+            </div>
+        </div>
+
+        <div class="section-block">
+            <h2><i class="ti ti-mail"></i> Recent inquiries (${inquiries.length})</h2>
+            ${inquiries.length ? `<table>
+                <thead><tr><th>Date</th><th>Name</th><th>Company</th><th>Email</th><th>Country</th><th>Product</th><th>Source</th></tr></thead>
+                <tbody>${inquiries.slice(0, 30).map(i => `
+                    <tr>
+                        <td>${fmtDate(i.createdAt)}</td>
+                        <td>${i.name}</td>
+                        <td>${i.company}</td>
+                        <td>${i.email || '—'}</td>
+                        <td>${i.country || '—'}</td>
+                        <td>${i.product || '—'}</td>
+                        <td>${i.sourcePage || '—'}</td>
+                    </tr>
+                `).join('')}</tbody>
+            </table>` : '<p class="empty-note">No inquiries submitted yet.</p>'}
+        </div>
+    `;
+}
+
+checkAuth();
+</script>
+</body>
+</html>

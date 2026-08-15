@@ -846,6 +846,7 @@
         .mt-10 { margin-top: var(--space-10); }
         .mb-0 { margin-bottom: 0; }
     </style>
+<script src="/analytics.js" defer></script>
 </head>
 <body>
 
@@ -1213,6 +1214,57 @@
         document.getElementById('cert-modal-overlay').addEventListener('click', function(e) {
             if (e.target === this) closeCertModal();
         });
+
+        // Inquiry form submission — shared with contact.html's full form.
+        // Persists to the trade team's inquiry log (Volume-backed) and fires
+        // the analytics conversion event.
+        function submitInquiry(evt, sourcePage, formId) {
+            evt.preventDefault();
+            var form = document.getElementById(formId);
+            var btn = form.querySelector('button[type="submit"]');
+            var statusEl = form.querySelector('.inquiry-status');
+            if (!statusEl) {
+                statusEl = document.createElement('p');
+                statusEl.className = 'inquiry-status';
+                statusEl.style.cssText = 'font-size:13px; margin-top:12px;';
+                form.appendChild(statusEl);
+            }
+            var field = function (id) { var el = form.querySelector('#' + id); return el ? el.value : ''; };
+            var payload = {
+                name: field(formId === 'inquiry-form-home' ? 'name' : 'name-contact'),
+                company: field(formId === 'inquiry-form-home' ? 'company' : 'company-contact'),
+                email: field(formId === 'inquiry-form-home' ? 'email' : 'email-contact'),
+                country: field(formId === 'inquiry-form-home' ? 'country' : 'country-contact'),
+                product: field(formId === 'inquiry-form-home' ? 'product' : 'product-contact'),
+                message: field(formId === 'inquiry-form-home' ? 'message' : 'message-contact'),
+                mailingOptIn: form.querySelector('input[type="checkbox"][id*="mailing"]') ? form.querySelector('input[type="checkbox"][id*="mailing"]').checked : false,
+                sourcePage: sourcePage
+            };
+            if (btn) btn.disabled = true;
+            statusEl.style.color = '';
+            statusEl.textContent = '';
+            fetch('/api/inquiry', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).then(function (res) { return res.json().then(function (data) { return { ok: res.ok, data: data }; }); })
+              .then(function (r) {
+                  if (r.ok) {
+                      if (window.mlTrack) window.mlTrack('inquiry_submit', { entityType: 'form', entityId: sourcePage });
+                      form.reset();
+                      statusEl.style.color = '#2E6B2E';
+                      statusEl.textContent = 'Thank you — your inquiry has been received. Our trade team will respond within one business day.';
+                  } else {
+                      statusEl.style.color = '#B3261E';
+                      statusEl.textContent = r.data.error || 'Something went wrong — please try again.';
+                  }
+              })
+              .catch(function () {
+                  statusEl.style.color = '#B3261E';
+                  statusEl.textContent = 'Network error — please try again.';
+              })
+              .finally(function () { if (btn) btn.disabled = false; });
+        }
     </script>
 
     <!-- ===== SECTION 7: MARKET REPORTS ===== -->
@@ -1303,7 +1355,7 @@
                 <p>Whether you are sourcing for the first time or looking for a more reliable Indian partner — send us a message. We respond to every inquiry within one business day.</p>
             </div>
             <div class="form-section-inner">
-                <form>
+                <form id="inquiry-form-home" onsubmit="submitInquiry(event, 'home', 'inquiry-form-home')">
                     <div class="form-group">
                         <label for="name">Your Name <span class="req">*</span></label>
                         <input type="text" id="name" name="name" placeholder="Full name" required>

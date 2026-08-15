@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Admin — M Lakhamsi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+    :root {
+        --navy: #1B3A5C; --navy-hover: #2A5280; --gold: #C9A84C; --gold-pale: #F5EDD6;
+        --offwhite: #F7F5F2; --charcoal: #2C2C2C; --gray: #6B6B6B; --lgray: #D0CCC6;
+        --white: #FFFFFF; --red: #B3261E;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+        font-family: "Inter", system-ui, sans-serif;
+        background: var(--offwhite); color: var(--charcoal);
+        min-height: 100vh; display: flex; flex-direction: column; align-items: center;
+        padding: 48px 20px;
+    }
+    h1 { font-family: "Playfair Display", serif; font-size: 24px; color: var(--navy); margin-bottom: 4px; }
+    .subtitle { font-size: 13px; color: var(--gray); margin-bottom: 32px; }
+
+    .login-card {
+        background: var(--white); border: 1px solid var(--lgray); border-radius: 12px;
+        padding: 32px; width: 100%; max-width: 360px; text-align: center;
+    }
+    .login-card i { font-size: 32px; color: var(--navy); margin-bottom: 12px; display:block; }
+    input[type="password"] {
+        width: 100%; padding: 11px 14px; border: 1px solid var(--lgray); border-radius: 4px;
+        font-size: 14px; font-family: inherit; margin-bottom: 12px;
+    }
+    input:focus { outline: none; border-color: var(--navy); border-width: 2px; }
+    button {
+        font-family: inherit; font-size: 13px; font-weight: 500; border: none; border-radius: 4px;
+        padding: 11px 20px; cursor: pointer; transition: background 150ms ease;
+    }
+    .btn-primary { background: var(--navy); color: #fff; width: 100%; }
+    .btn-primary:hover { background: var(--navy-hover); }
+    .error-msg { color: var(--red); font-size: 12.5px; margin-top: 10px; min-height: 16px; }
+
+    .panel { width: 100%; max-width: 640px; display: none; }
+    .panel.visible { display: block; }
+    .topbar { display:flex; justify-content:space-between; align-items:center; margin-bottom: 24px; }
+    .btn-logout { background: transparent; border: 1px solid var(--lgray); color: var(--gray); font-size: 12px; padding: 8px 14px; }
+    .btn-logout:hover { border-color: var(--navy); color: var(--navy); }
+
+    .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    @media (max-width: 560px) { .cards { grid-template-columns: 1fr; } }
+    .admin-card {
+        background: var(--white); border: 1px solid var(--lgray); border-radius: 12px;
+        padding: 28px; text-align: left; text-decoration: none; color: inherit;
+        display: block; transition: box-shadow 150ms ease;
+    }
+    .admin-card:hover { box-shadow: 0 4px 16px rgba(27,58,92,0.10); border-color: var(--navy); }
+    .admin-card i { font-size: 28px; color: var(--navy); margin-bottom: 14px; display: block; }
+    .admin-card h2 { font-size: 15px; font-weight: 600; color: var(--navy); margin-bottom: 6px; }
+    .admin-card p { font-size: 12.5px; color: var(--gray); line-height: 1.5; }
+</style>
+</head>
+<body>
+
+    <h1>M Lakhamsi Admin</h1>
+    <p class="subtitle">Site management tools.</p>
+
+    <div class="login-card" id="loginCard">
+        <i class="ti ti-lock"></i>
+        <input type="password" id="passwordInput" placeholder="Admin password" autocomplete="current-password">
+        <button class="btn-primary" id="loginBtn">Log in</button>
+        <div class="error-msg" id="loginError"></div>
+    </div>
+
+    <div class="panel" id="panel">
+        <div class="topbar">
+            <span></span>
+            <button class="btn-logout" id="logoutBtn">Log out</button>
+        </div>
+        <div class="cards">
+            <a class="admin-card" href="/admin-analytics.html">
+                <i class="ti ti-chart-line"></i>
+                <h2>Analytics Dashboard</h2>
+                <p>Visits, funnel, traffic sources, top pages, and inquiry leads.</p>
+            </a>
+            <a class="admin-card" href="/admin-social.html">
+                <i class="ti ti-brand-linkedin"></i>
+                <h2>Social Feed Admin</h2>
+                <p>Add or remove LinkedIn and X posts shown on the Social page.</p>
+            </a>
+        </div>
+    </div>
+
+<script>
+const loginCard = document.getElementById('loginCard');
+const panel = document.getElementById('panel');
+const passwordInput = document.getElementById('passwordInput');
+const loginBtn = document.getElementById('loginBtn');
+const loginError = document.getElementById('loginError');
+const logoutBtn = document.getElementById('logoutBtn');
+
+function showPanel() { loginCard.style.display = 'none'; panel.classList.add('visible'); }
+function showLogin() { loginCard.style.display = 'block'; panel.classList.remove('visible'); passwordInput.value = ''; }
+
+async function checkAuth() {
+    const res = await fetch('/api/admin/check');
+    const data = await res.json();
+    if (data.authenticated) showPanel(); else showLogin();
+}
+
+loginBtn.addEventListener('click', login);
+passwordInput.addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
+
+async function login() {
+    loginError.textContent = '';
+    const password = passwordInput.value;
+    if (!password) return;
+    try {
+        const res = await fetch('/api/admin/login', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password })
+        });
+        const data = await res.json();
+        if (res.ok) showPanel(); else loginError.textContent = data.error || 'Login failed';
+    } catch (e) {
+        loginError.textContent = 'Network error — try again';
+    }
+}
+
+logoutBtn.addEventListener('click', async () => {
+    await fetch('/api/admin/logout', { method: 'POST' });
+    showLogin();
+});
+
+checkAuth();
+</script>
+</body>
+</html>

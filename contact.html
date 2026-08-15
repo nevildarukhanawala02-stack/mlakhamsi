@@ -937,6 +937,7 @@
 
 
     </style>
+<script src="/analytics.js" defer></script>
 </head>
 <body>
 
@@ -1082,25 +1083,25 @@
                     <h3 style="font-family:var(--font-serif); font-weight:500; font-size:20px; color:var(--color-navy); margin-bottom:6px;">Send an inquiry</h3>
                     <p style="font-size:13px; color:var(--color-gray); margin-bottom:22px;">No automated responses. Your inquiry goes directly to our trade team.</p>
 
-                    <form onsubmit="event.preventDefault(); alert('Thank you — this form will be connected to our trade team inbox before launch.');">
+                    <form id="inquiry-form-contact" onsubmit="submitInquiry(event, 'contact', 'inquiry-form-contact')">
                         <div class="form-two">
                             <div class="form-row">
                                 <label>Your Name <span class="req">*</span></label>
-                                <input type="text" required placeholder="Full name">
+                                <input type="text" id="name-contact" required placeholder="Full name">
                             </div>
                             <div class="form-row">
                                 <label>Company Name <span class="req">*</span></label>
-                                <input type="text" required placeholder="Company name">
+                                <input type="text" id="company-contact" required placeholder="Company name">
                             </div>
                         </div>
                         <div class="form-two">
                             <div class="form-row">
                                 <label>Email <span class="req">*</span></label>
-                                <input type="email" required placeholder="you@company.com">
+                                <input type="email" id="email-contact" required placeholder="you@company.com">
                             </div>
                             <div class="form-row">
                                 <label>Country</label>
-                                <select>
+                                <select id="country-contact">
                                     <option value="">Select country</option>
                                     <option>Indonesia</option><option>Vietnam</option><option>Philippines</option>
                                     <option>Malaysia</option><option>Thailand</option><option>China</option>
@@ -1112,7 +1113,7 @@
                         </div>
                         <div class="form-row">
                             <label>Product Interest</label>
-                            <select>
+                            <select id="product-contact">
                                 <option value="">Select product category</option>
                                 <option>Groundnuts</option><option>Sesame Seeds</option><option>Other Oilseeds</option>
                                 <option>Pulses</option><option>Grains</option><option>Spices</option>
@@ -1121,7 +1122,7 @@
                         </div>
                         <div class="form-row">
                             <label>Message</label>
-                            <textarea placeholder="Tell us about your requirement — volume, grade, destination port"></textarea>
+                            <textarea id="message-contact" placeholder="Tell us about your requirement — volume, grade, destination port"></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary" style="width:100%; text-align:center; border:none;">Send Inquiry</button>
                         <div class="form-consent">
@@ -1219,6 +1220,57 @@
             }
             var sel = document.querySelector('.goog-te-combo');
             if (sel) { sel.value = lang; sel.dispatchEvent(new Event('change')); }
+        }
+
+        // Inquiry form submission — mirrors the homepage form's handler.
+        // Persists to the trade team's inquiry log (Volume-backed) and fires
+        // the analytics conversion event.
+        function submitInquiry(evt, sourcePage, formId) {
+            evt.preventDefault();
+            var form = document.getElementById(formId);
+            var btn = form.querySelector('button[type="submit"]');
+            var statusEl = form.querySelector('.inquiry-status');
+            if (!statusEl) {
+                statusEl = document.createElement('p');
+                statusEl.className = 'inquiry-status';
+                statusEl.style.cssText = 'font-size:13px; margin-top:12px;';
+                form.appendChild(statusEl);
+            }
+            var field = function (id) { var el = form.querySelector('#' + id); return el ? el.value : ''; };
+            var payload = {
+                name: field('name-contact'),
+                company: field('company-contact'),
+                email: field('email-contact'),
+                country: field('country-contact'),
+                product: field('product-contact'),
+                message: field('message-contact'),
+                mailingOptIn: form.querySelector('#consent-mailing') ? form.querySelector('#consent-mailing').checked : false,
+                sourcePage: sourcePage
+            };
+            if (btn) btn.disabled = true;
+            statusEl.style.color = '';
+            statusEl.textContent = '';
+            fetch('/api/inquiry', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).then(function (res) { return res.json().then(function (data) { return { ok: res.ok, data: data }; }); })
+              .then(function (r) {
+                  if (r.ok) {
+                      if (window.mlTrack) window.mlTrack('inquiry_submit', { entityType: 'form', entityId: sourcePage });
+                      form.reset();
+                      statusEl.style.color = '#2E6B2E';
+                      statusEl.textContent = 'Thank you — your inquiry has been received. Our trade team will respond within one business day.';
+                  } else {
+                      statusEl.style.color = '#B3261E';
+                      statusEl.textContent = r.data.error || 'Something went wrong — please try again.';
+                  }
+              })
+              .catch(function () {
+                  statusEl.style.color = '#B3261E';
+                  statusEl.textContent = 'Network error — please try again.';
+              })
+              .finally(function () { if (btn) btn.disabled = false; });
         }
     </script>
 
