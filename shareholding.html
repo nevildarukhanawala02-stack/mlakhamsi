@@ -953,6 +953,20 @@
         .sh-note { font-size:12px; color: var(--color-gray); margin: var(--space-2) 0 var(--space-8); line-height:1.6; }
         .sh-promoter-line { font-size:14px; color: var(--color-charcoal); margin-bottom: var(--space-4); }
         .sh-promoter-line strong { color: var(--color-navy); }
+        /* WhatsApp Compose Modal */
+        .wa-modal-overlay { display:none; position:fixed; inset:0; background:rgba(27,58,92,0.55); z-index:1001; align-items:center; justify-content:center; padding: var(--space-4); }
+        .wa-modal-overlay.open { display:flex; }
+        .wa-modal { background: var(--color-white); border-radius: var(--radius-lg); max-width:440px; width:100%; padding: var(--space-8); position:relative; max-height:90vh; overflow-y:auto; }
+        .wa-modal h3 { font-family: var(--font-serif); color: var(--color-navy); font-size:22px; margin-bottom:8px; font-weight:500; }
+        .wa-modal p.modal-sub { font-size:13px; color: var(--color-gray); margin-bottom: var(--space-6); line-height:1.6; }
+        .wa-modal-close { position:absolute; top:16px; right:16px; background:none; border:none; font-size:20px; color: var(--color-gray); cursor:pointer; line-height:1; }
+        .wa-modal label.field-label { display:block; font-size:12px; font-weight:500; color: var(--color-navy); margin-bottom:6px; }
+        .wa-modal input[type=text], .wa-modal select, .wa-modal textarea { width:100%; border:1px solid #D0CCC6; border-radius: var(--radius-md); padding:10px 14px; font-family: var(--font-sans); font-size:14px; margin-bottom: var(--space-4); box-sizing:border-box; }
+        .wa-modal textarea { min-height:70px; resize:vertical; }
+        .wa-modal button[type=submit] { width:100%; background: #C9A84C; color: var(--color-navy); border:none; border-radius: var(--radius-md); padding:12px; font-family: var(--font-sans); font-size:14px; font-weight:600; cursor:pointer; }
+        .wa-modal button[type=submit]:hover { background: #B8963E; }
+        .wa-modal-note { font-size:11px; color: var(--color-gray); margin-top:10px; text-align:center; }
+
     </style>
 <script src="/analytics.js" defer></script>
 <body>
@@ -1237,7 +1251,65 @@
     </footer>
 
     <!-- ===== FLOATING WHATSAPP ===== -->
-    <a href="https://wa.me/919821117291?text=Hello%2C%20I%27m%20interested%20in%20sourcing%20from%20M.%20Lakhamsi%20Industries." class="whatsapp-float" target="_blank">
+    <!-- ===== WHATSAPP COMPOSE MODAL ===== -->
+    <div class="wa-modal-overlay" id="wa-modal-overlay">
+        <div class="wa-modal">
+            <button class="wa-modal-close" onclick="closeWhatsAppModal()" aria-label="Close">&times;</button>
+            <h3>Chat with our trade team</h3>
+            <p class="modal-sub">Tell us a little about what you need — we'll open WhatsApp with your message ready to go.</p>
+            <form id="wa-request-form" onsubmit="submitWhatsAppRequest(event)">
+                <label class="field-label" for="wa-req-name">Your Name</label>
+                <input type="text" id="wa-req-name" required>
+                <label class="field-label" for="wa-req-company">Company Name</label>
+                <input type="text" id="wa-req-company">
+                <label class="field-label" for="wa-req-product">Product Interest</label>
+                <select id="wa-req-product">
+                    <option value="">Select a product (optional)</option>
+                    <option>Groundnuts</option>
+                    <option>Sesame Seeds</option>
+                    <option>Oils</option>
+                    <option>Spices & Grains</option>
+                    <option>Other</option>
+                </select>
+                <label class="field-label" for="wa-req-message">Message</label>
+                <textarea id="wa-req-message" placeholder="Tell us what you're looking for — volume, grade, destination port"></textarea>
+                <button type="submit">Continue to WhatsApp</button>
+                <p class="wa-modal-note">Opens WhatsApp with your message pre-filled. Nothing is sent until you hit send there.</p>
+            </form>
+        </div>
+    </div>
+    <script>
+        function openWhatsAppModal() {
+            document.getElementById('wa-modal-overlay').classList.add('open');
+        }
+        function closeWhatsAppModal() {
+            document.getElementById('wa-modal-overlay').classList.remove('open');
+        }
+        document.getElementById('wa-modal-overlay').addEventListener('click', function(e) {
+            if (e.target === this) closeWhatsAppModal();
+        });
+        function submitWhatsAppRequest(e) {
+            e.preventDefault();
+            const name = document.getElementById('wa-req-name').value.trim();
+            const company = document.getElementById('wa-req-company').value.trim();
+            const product = document.getElementById('wa-req-product').value.trim();
+            const message = document.getElementById('wa-req-message').value.trim();
+            if (!name) {
+                document.getElementById('wa-req-name').focus();
+                return;
+            }
+            let text = "Hello, I'm " + name;
+            if (company) text += " from " + company;
+            text += ".";
+            if (product) text += " I'm interested in sourcing " + product + ".";
+            if (message) text += " " + message;
+            if (window.mlTrack) window.mlTrack('inquiry_submit', { entityType: 'form', entityId: 'whatsapp-modal' });
+            window.open('https://wa.me/919821117291?text=' + encodeURIComponent(text), '_blank');
+            closeWhatsAppModal();
+        }
+    </script>
+
+    <a href="#" class="whatsapp-float" onclick="openWhatsAppModal(); return false;">
         <i class="ti ti-brand-whatsapp"></i>
         <div class="whatsapp-tooltip">Chat with our trade team</div>
     </a>
