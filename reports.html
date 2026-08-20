@@ -1076,12 +1076,54 @@
                 <div class="eyebrow">Stay Informed</div>
                 <h2>Get the next report in your inbox.</h2>
             </div>
-            <form class="subscribe-box" onsubmit="event.preventDefault(); alert('Subscription will be connected before launch.');">
-                <input type="email" required placeholder="you@company.com">
+            <form class="subscribe-box" id="subscribe-form" onsubmit="submitSubscribe(event)">
+                <input type="email" id="subscribe-email" required placeholder="you@company.com">
                 <button type="submit" class="btn btn-primary">Subscribe</button>
             </form>
+            <p id="subscribe-status" style="max-width:520px; margin:12px auto 0; text-align:center; font-size:13px; min-height:1px;"></p>
         </div>
     </section>
+    <script>
+        function submitSubscribe(e) {
+            e.preventDefault();
+            const form = document.getElementById('subscribe-form');
+            const statusEl = document.getElementById('subscribe-status');
+            const emailInput = document.getElementById('subscribe-email');
+            const email = emailInput.value.trim();
+            statusEl.style.color = '';
+            statusEl.textContent = '';
+            if (!email) {
+                statusEl.style.color = '#B3261E';
+                statusEl.textContent = 'Please enter a valid email address.';
+                return;
+            }
+            const btn = form.querySelector('button[type="submit"]');
+            if (btn) btn.disabled = true;
+            fetch('/api/subscribe', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: email, sourcePage: 'reports' })
+            }).then(function (res) { return res.json().then(function (data) { return { ok: res.ok, data: data }; }); })
+              .then(function (r) {
+                  if (r.ok) {
+                      statusEl.style.color = '#2E6B2E';
+                      statusEl.textContent = r.data.alreadySubscribed
+                          ? 'You are already on the list — thank you.'
+                          : 'Thank you — you are subscribed. Watch your inbox for the next report.';
+                      form.reset();
+                      if (window.mlTrack) window.mlTrack('inquiry_submit', { entityType: 'form', entityId: 'reports-subscribe' });
+                  } else {
+                      statusEl.style.color = '#B3261E';
+                      statusEl.textContent = r.data.error || 'Something went wrong — please try again.';
+                  }
+              })
+              .catch(function () {
+                  statusEl.style.color = '#B3261E';
+                  statusEl.textContent = 'Network error — please try again.';
+              })
+              .finally(function () { if (btn) btn.disabled = false; });
+        }
+    </script>
 
     <!-- ===== CLOSING ===== -->
     <section class="close-cta">

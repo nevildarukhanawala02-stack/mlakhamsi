@@ -178,19 +178,36 @@ function fmtDate(iso) { try { return new Date(iso).toLocaleDateString('en-GB', {
 async function loadDashboard() {
     dashContent.innerHTML = '<p class="loading-note">Loading…</p>';
     try {
-        const [dashRes, inqRes] = await Promise.all([
+        const [dashRes, inqRes, subRes, settingsRes] = await Promise.all([
             fetch('/api/admin/analytics?range=' + currentRange),
-            fetch('/api/admin/inquiries')
+            fetch('/api/admin/inquiries'),
+            fetch('/api/admin/subscribers'),
+            fetch('/api/admin/settings')
         ]);
         const dash = await dashRes.json();
         const inquiries = await inqRes.json();
-        render(dash, inquiries);
+        const subscribers = await subRes.json();
+        const settings = await settingsRes.json();
+        render(dash, inquiries, subscribers, settings);
     } catch (e) {
         dashContent.innerHTML = '<p class="empty-note">Could not load analytics — try refreshing.</p>';
     }
 }
 
-function render(d, inquiries) {
+async function toggleSubscribe(enabled) {
+    try {
+        await fetch('/api/admin/settings', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ subscribeEnabled: enabled })
+        });
+        loadDashboard();
+    } catch (e) {
+        alert('Could not update setting — try again.');
+    }
+}
+
+function render(d, inquiries, subscribers, settings) {
     const m = d.metrics;
     const maxFunnel = Math.max(1, ...d.funnel.map(f => f.count));
     const sourceEntries = Object.entries(d.trafficSources || {}).sort((a,b) => b[1]-a[1]);
@@ -282,6 +299,25 @@ function render(d, inquiries) {
                     </tr>
                 `).join('')}</tbody>
             </table>` : '<p class="empty-note">No inquiries submitted yet.</p>'}
+        </div>
+
+        <div class="section-block">
+            <h2><i class="ti ti-mail-forward"></i> Market Reports subscribers (${subscribers.length})</h2>
+            <label style="display:flex; align-items:center; gap:8px; font-size:13px; margin-bottom:16px; cursor:pointer;">
+                <input type="checkbox" ${settings.subscribeEnabled ? 'checked' : ''} onchange="toggleSubscribe(this.checked)">
+                Subscribe form is ${settings.subscribeEnabled ? '<strong style="color:#2E6B2E">open</strong>' : '<strong style="color:#B3261E">closed</strong>'} on the Market Reports page
+            </label>
+            ${subscribers.length ? `<table>
+                <thead><tr><th>Date</th><th>Email</th><th>Country</th><th>Source</th></tr></thead>
+                <tbody>${subscribers.slice(0, 30).map(s => `
+                    <tr>
+                        <td>${fmtDate(s.createdAt)}</td>
+                        <td>${s.email}</td>
+                        <td>${countryName(s.ipCountry) || '—'}</td>
+                        <td>${s.sourcePage || '—'}</td>
+                    </tr>
+                `).join('')}</tbody>
+            </table>` : '<p class="empty-note">No subscribers yet.</p>'}
         </div>
     `;
 }

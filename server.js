@@ -99,6 +99,35 @@ function appendInquiry(inq) {
   writeJsonArray(INQUIRIES_FILE, list.slice(0, 5000));
 }
 
+// ─────────────────────────────────────────────────────────────
+// Market Reports — email subscribers
+// ─────────────────────────────────────────────────────────────
+const SUBSCRIBERS_FILE = path.join(DATA_DIR, 'subscribers.json');
+const SETTINGS_FILE = path.join(DATA_DIR, 'settings.json');
+
+function readSubscribers() { return readJsonArray(SUBSCRIBERS_FILE); }
+
+function appendSubscriber(sub) {
+  const list = readSubscribers();
+  list.unshift(sub);
+  writeJsonArray(SUBSCRIBERS_FILE, list.slice(0, 20000));
+}
+
+function readSettings() {
+  ensureJsonFile(SETTINGS_FILE, { subscribeEnabled: true });
+  try {
+    const raw = JSON.parse(fs.readFileSync(SETTINGS_FILE, 'utf8'));
+    return { subscribeEnabled: true, ...raw };
+  } catch (e) {
+    return { subscribeEnabled: true };
+  }
+}
+
+function writeSettings(settings) {
+  ensureJsonFile(SETTINGS_FILE, { subscribeEnabled: true });
+  fs.writeFileSync(SETTINGS_FILE, JSON.stringify(settings, null, 2));
+}
+
 function classifyReferrer(referrer) {
   if (!referrer) return 'Direct';
   try {
@@ -408,6 +437,57 @@ app.post('/api/inquiry', (req, res) => {
   // dashboard. Add SMTP/SendGrid delivery to the trade team inbox once the
   // confirmed address is available (see Phase 10 of the implementation brief).
   res.json({ ok: true });
+});
+
+// ─────────────────────────────────────────────────────────────
+// Market Reports — subscribe
+// ─────────────────────────────────────────────────────────────
+app.get('/api/subscribe/status', (req, res) => {
+  res.json({ enabled: readSettings().subscribeEnabled });
+});
+
+app.post('/api/subscribe', (req, res) => {
+  const settings = readSettings();
+  if (!settings.subscribeEnabled) {
+    return res.status(403).json({ error: 'Subscriptions are temporarily closed. Please check back soon.' });
+  }
+  const email = ((req.body || {}).email || '').toString().trim().slice(0, 200);
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return res.status(400).json({ error: 'Please enter a valid email address.' });
+  }
+  const list = readSubscribers();
+  const existing = list.find(s => s.email.toLowerCase() === email.toLowerCase());
+  if (existing) {
+    return res.json({ ok: true, alreadySubscribed: true });
+  }
+  const ip = (req.ip || '').replace('::ffff:', '');
+  const geo = geoip.lookup(ip);
+  appendSubscriber({
+    id: crypto.randomUUID(),
+    email,
+    ipCountry: geo && geo.country ? geo.country : null,
+    sourcePage: ((req.body || {}).sourcePage || '').toString().trim().slice(0, 100),
+    createdAt: new Date().toISOString()
+  });
+  res.json({ ok: true, alreadySubscribed: false });
+});
+
+app.get('/api/admin/subscribers', requireAdmin, (req, res) => {
+  res.json(readSubscribers().slice(0, 5000));
+});
+
+app.get('/api/admin/settings', requireAdmin, (req, res) => {
+  res.json(readSettings());
+});
+
+app.post('/api/admin/settings', requireAdmin, (req, res) => {
+  const current = readSettings();
+  const next = { ...current };
+  if (typeof (req.body || {}).subscribeEnabled === 'boolean') {
+    next.subscribeEnabled = req.body.subscribeEnabled;
+  }
+  writeSettings(next);
+  res.json(next);
 });
 
 // ─────────────────────────────────────────────────────────────
