@@ -371,26 +371,30 @@ app.post('/api/inquiry', (req, res) => {
   const name = (b.name || '').toString().trim().slice(0, 200);
   const company = (b.company || '').toString().trim().slice(0, 200);
   const email = (b.email || '').toString().trim().slice(0, 200);
-  if (!name || !company) {
-    return res.status(400).json({ error: 'Name and company are required.' });
+  const website = (b.website || '').toString().trim().slice(0, 200);
+  if (!name || !company || !email || !website) {
+    return res.status(400).json({ error: 'Please enter valid details in order for us to respond.' });
   }
-  // Email is only present on the full Contact page form — the homepage
-  // form is capped at 5 fields per the approved Content Brief and doesn't
-  // collect it. Validate format only when it's actually supplied.
-  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    return res.status(400).json({ error: 'Please enter a valid email address.' });
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return res.status(400).json({ error: 'Please enter valid details in order for us to respond.' });
   }
 
   const ip = (req.ip || '').replace('::ffff:', '');
   const geo = geoip.lookup(ip);
+
+  const certificates = Array.isArray(b.certificates)
+    ? b.certificates.map(c => c.toString().trim().slice(0, 100)).filter(Boolean).slice(0, 20)
+    : [];
 
   const entry = {
     id: crypto.randomUUID(),
     name,
     company,
     email,
+    website,
     country: (b.country || '').toString().trim().slice(0, 100),
     product: (b.product || '').toString().trim().slice(0, 100),
+    certificates,
     message: (b.message || '').toString().trim().slice(0, 2000),
     mailingOptIn: !!b.mailingOptIn,
     sourcePage: (b.sourcePage || '').toString().trim().slice(0, 100),

@@ -910,6 +910,25 @@
         @media (max-width:560px){ .custom-form-two{ grid-template-columns:1fr; } }
         .custom-form-card .form-note { font-size:12px; color: var(--color-gray); margin-top: var(--space-4); text-align:center; }
 
+        /* Quote Request Modal — popup version of the inquiry form */
+        .quote-modal-overlay { display:none; position:fixed; inset:0; background:rgba(27,58,92,0.55); z-index:1000; align-items:center; justify-content:center; padding: var(--space-4); }
+        .quote-modal-overlay.open { display:flex; }
+        .quote-modal { background: var(--color-white); border-radius: var(--radius-lg); max-width:480px; width:100%; padding: var(--space-8); position:relative; max-height:90vh; overflow-y:auto; }
+        .quote-modal h3 { font-family: var(--font-serif); color: var(--color-navy); font-size:22px; margin-bottom:8px; font-weight:500; }
+        .quote-modal p.modal-sub { font-size:13px; color: var(--color-gray); margin-bottom: var(--space-6); line-height:1.6; }
+        .quote-modal-close { position:absolute; top:16px; right:16px; background:none; border:none; font-size:20px; color: var(--color-gray); cursor:pointer; line-height:1; }
+        .quote-modal .form-row { margin-bottom: var(--space-4); }
+        .quote-modal .form-row label { display:block; font-family:var(--font-sans); font-weight:500; font-size:12px; color: var(--color-navy); margin-bottom:6px; }
+        .quote-modal .form-row label .req { color: var(--color-gold); }
+        .quote-modal .form-row input, .quote-modal .form-row select, .quote-modal .form-row textarea { width:100%; border:1px solid #D0CCC6; border-radius: var(--radius-md); padding:10px 14px; font-family:var(--font-sans); font-size:14px; background:#fff; color: var(--color-charcoal); box-sizing:border-box; }
+        .quote-modal .form-row input:focus, .quote-modal .form-row select:focus, .quote-modal .form-row textarea:focus { outline:none; border-color: var(--color-navy); border-width:2px; }
+        .quote-modal .form-row textarea { min-height:80px; resize:vertical; }
+        .quote-modal-two { display:grid; grid-template-columns:1fr 1fr; gap: var(--space-4); }
+        @media (max-width:480px){ .quote-modal-two{ grid-template-columns:1fr; } }
+        .quote-modal button[type=submit] { width:100%; background: var(--color-navy); color:#fff; border:none; border-radius: var(--radius-md); padding:12px; font-family: var(--font-sans); font-size:14px; font-weight:500; cursor:pointer; }
+        .quote-modal button[type=submit]:hover { background: var(--color-navy-hover); }
+        .quote-modal-note { font-size:11px; color: var(--color-gray); margin-top:10px; text-align:center; }
+
     </style>
 <script src="/analytics.js" defer></script>
 </head>
@@ -1003,7 +1022,7 @@
             <h1>One source. Fifty-plus commodities.<br>Every one documented.</h1>
             <p>From groundnuts and sesame to pulses, grains, spices, and oils — sourced across India, processed in-house, and shipped with the paperwork to prove it. Explore the full range below.</p>
             <div class="hero-ctas">
-                <a href="contact.html" class="btn btn-primary">Request a Quote</a>
+                <a href="#" class="btn btn-primary" onclick="openQuoteModal(''); return false;">Request a Quote</a>
                 <a href="#" class="btn btn-secondary">Download Product List →</a>
             </div>
         </div>
@@ -1054,31 +1073,31 @@
                     <img class="pimg" src="/images/products/java-Peanut.png" alt="Java Peanuts" loading="lazy">
                     <h3>Java Peanuts</h3>
                     <p class="pdesc">Small, sweet kernels — a global favourite for snacking and confectionery.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
                     <img class="pimg" src="/images/products/Bold-Peanut-1.png" alt="Bold Peanuts" loading="lazy">
                     <h3>Bold Peanuts</h3>
                     <p class="pdesc">Large, uniform kernels for premium roasting and table use.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
                     <img class="pimg" src="/images/products/Balanched-Peanut-1.png" alt="Blanched Peanuts" loading="lazy">
                     <h3>Blanched Peanuts</h3>
                     <p class="pdesc">Skin removed, clean and consistent — for butters, pastes, and ingredients.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
                     <img class="pimg" src="/images/products/in-shell-peanut.png" alt="In-Shell Peanuts" loading="lazy">
                     <h3>In-Shell Peanuts</h3>
                     <p class="pdesc">Roasting-grade, in the shell — cleaned and size-graded.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
                     <img class="pimg" src="/images/products/Kibbled-blanched-peanut.png" alt="Roasted Kibbled Peanuts" loading="lazy">
                     <h3>Roasted Kibbled Peanuts</h3>
                     <p class="pdesc">Blanched, split, and roasted — ready for bakery and confectionery lines.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
             </div>
         </div>
@@ -1098,19 +1117,19 @@
                     <img class="pimg" src="/images/products/natural-sesame-seeds.png" alt="Natural Sesame" loading="lazy">
                     <h3>Natural Sesame</h3>
                     <p class="pdesc">Whole natural seed — for oil, bakery, and general food use.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
                     <img class="pimg" src="/images/products/Hulled-sesame-seeds.png" alt="Hulled Sesame" loading="lazy">
                     <h3>Hulled Sesame</h3>
                     <p class="pdesc">Mechanically hulled, bright and clean — for tahini and confectionery.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
                     <img class="pimg" src="/images/products/Black-sesame-seeds.png" alt="Black Sesame" loading="lazy">
                     <h3>Black Sesame</h3>
                     <p class="pdesc">Whole black seed — for specialty food and East Asian markets.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
             </div>
         </div>
@@ -1130,37 +1149,37 @@
                     <img class="pimg" src="/images/products/castor-seed.png" alt="Castor" loading="lazy">
                     <h3>Castor</h3>
                     <p class="pdesc">Castor seed for oil extraction and industrial use.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
                     <img class="pimg" src="/images/products/safflower-seeds.png" alt="Safflower" loading="lazy">
                     <h3>Safflower</h3>
                     <p class="pdesc">Safflower seed — for oil and bird-feed markets.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
                     <img class="pimg" src="/images/products/sunflower-seeds.png" alt="Sunflower" loading="lazy">
                     <h3>Sunflower</h3>
                     <p class="pdesc">Sunflower seed — confectionery and oil grades.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
                     <img class="pimg" src="/images/products/oriental-seeds-1.png" alt="Oriental Mustard" loading="lazy">
                     <h3>Oriental Mustard</h3>
                     <p class="pdesc">Oriental mustard seed — pungent, for oil and condiment use.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
                     <img class="pimg" src="/images/products/mustard-seeds.png" alt="Yellow Mustard" loading="lazy">
                     <h3>Yellow Mustard</h3>
                     <p class="pdesc">Yellow mustard seed — milder, for condiment and spice trade.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
                     <img class="pimg" src="/images/products/Soyabean.png" alt="Soyabean" loading="lazy">
                     <h3>Soyabean</h3>
                     <p class="pdesc">Soyabean — for crushing, feed, and food processing.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
             </div>
         </div>
@@ -1180,67 +1199,67 @@
                     <img class="pimg" src="/images/products/chick-peas-1.png" alt="Chick Peas" loading="lazy">
                     <h3>Chick Peas</h3>
                     <p class="pdesc">Kabuli chickpeas — size-graded, for canning and retail.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
                     <img class="pimg" src="/images/products/brown-chick-peas.png" alt="Brown Chick Peas" loading="lazy">
                     <h3>Brown Chick Peas</h3>
                     <p class="pdesc">Desi brown chickpeas — for flour, dal, and snacks.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
                     <img class="pimg" src="/images/products/pigeon-peas.png" alt="Pigeon Peas" loading="lazy">
                     <h3>Pigeon Peas</h3>
                     <p class="pdesc">Toor / arhar — a staple pulse for dal markets.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
                     <img class="pimg" src="/images/products/yellow-peas.png" alt="Yellow Peas" loading="lazy">
                     <h3>Yellow Peas</h3>
                     <p class="pdesc">Whole and split yellow peas — for food and processing.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
                     <img class="pimg" src="/images/products/Green-Peas.png" alt="Green Peas" loading="lazy">
                     <h3>Green Peas</h3>
                     <p class="pdesc">Whole green peas — dried, for retail and processing.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
                     <img class="pimg" src="/images/products/red-lentils.png" alt="Red Lentils" loading="lazy">
                     <h3>Red Lentils</h3>
                     <p class="pdesc">Split and whole red lentils — fast-cooking, high demand.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
                     <img class="pimg" src="/images/products/green-lentils.png" alt="Green Lentils" loading="lazy">
                     <h3>Green Lentils</h3>
                     <p class="pdesc">Whole green lentils — for retail and food service.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
                     <img class="pimg" src="/images/products/mung-beans.png" alt="Green Mung" loading="lazy">
                     <h3>Green Mung</h3>
                     <p class="pdesc">Whole green gram — for sprouting, dal, and processing.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
                     <img class="pimg" src="/images/products/black-eyed-beans-1.png" alt="Black Eyed Beans" loading="lazy">
                     <h3>Black Eyed Beans</h3>
                     <p class="pdesc">Black-eyed peas — cleaned and size-graded.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
                     <img class="pimg" src="/images/products/Kidney-beans.png" alt="Kidney Beans" loading="lazy">
                     <h3>Kidney Beans</h3>
                     <p class="pdesc">Rajma — red kidney beans for retail and canning.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
                     <img class="pimg" src="/images/products/black-matpe.png" alt="Black Matpe" loading="lazy">
                     <h3>Black Matpe</h3>
                     <p class="pdesc">Whole urad / black gram — for dal and flour.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
             </div>
         </div>
@@ -1260,31 +1279,31 @@
                     <img class="pimg" src="/images/products/sourgham.png" alt="Sorghum" loading="lazy">
                     <h3>Sorghum</h3>
                     <p class="pdesc">Jowar — food and feed grades.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
                     <img class="pimg" src="/images/products/wheat.png" alt="Wheat" loading="lazy">
                     <h3>Wheat</h3>
                     <p class="pdesc">Milling and general-purpose wheat.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
                     <img class="pimg" src="/images/products/rice.png" alt="Rice" loading="lazy">
                     <h3>Rice</h3>
                     <p class="pdesc">Non-basmati and specialty rice for bulk export.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
                     <img class="pimg" src="/images/products/maize.png" alt="Maize" loading="lazy">
                     <h3>Maize</h3>
                     <p class="pdesc">Yellow maize — feed and industrial grades.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
                     <img class="pimg" src="/images/products/Millet.png" alt="Millet" loading="lazy">
                     <h3>Millet</h3>
                     <p class="pdesc">Assorted millets — for food and health markets.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
             </div>
         </div>
@@ -1304,61 +1323,61 @@
                     <img class="pimg" src="/images/products/Cumin-seeds.png" alt="Cumin Seeds" loading="lazy">
                     <h3>Cumin Seeds</h3>
                     <p class="pdesc">Whole cumin — machine-cleaned, export grade.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
                     <img class="pimg" src="/images/products/coriender-seeds.png" alt="Coriander Seeds" loading="lazy">
                     <h3>Coriander Seeds</h3>
                     <p class="pdesc">Whole coriander — single and double parrot grades.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
                     <img class="pimg" src="/images/products/feenel-seeds.png" alt="Fennel Seeds" loading="lazy">
                     <h3>Fennel Seeds</h3>
                     <p class="pdesc">Whole fennel — bright green, cleaned.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
                     <img class="pimg" src="/images/products/whole-chilli.png" alt="Chilli Whole" loading="lazy">
                     <h3>Chilli Whole</h3>
                     <p class="pdesc">Dried whole chilli — assorted varieties and heat levels.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
                     <img class="pimg" src="/images/products/Turmeric-fingers.png" alt="Turmeric Fingers" loading="lazy">
                     <h3>Turmeric Fingers</h3>
                     <p class="pdesc">Whole turmeric fingers — high-curcumin varieties.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
                     <img class="pimg" src="/images/products/fenugreek.png" alt="Fenugreek" loading="lazy">
                     <h3>Fenugreek</h3>
                     <p class="pdesc">Whole methi seed — for spice and food use.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
                     <img class="pimg" src="/images/products/dill.png" alt="Dill" loading="lazy">
                     <h3>Dill</h3>
                     <p class="pdesc">Dill seed — cleaned and graded.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
                     <img class="pimg" src="/images/products/chilli-Flakes-1.png" alt="Chilli Flakes" loading="lazy">
                     <h3>Chilli Flakes</h3>
                     <p class="pdesc">Crushed chilli flakes — for food processing.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
                     <img class="pimg" src="/images/products/Turmeric-powder.png" alt="Turmeric Powder" loading="lazy">
                     <h3>Turmeric Powder</h3>
                     <p class="pdesc">Ground turmeric — colour and curcumin specified.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
                     <img class="pimg" src="/images/products/chili-Powder.png" alt="Chilli Powder" loading="lazy">
                     <h3>Chilli Powder</h3>
                     <p class="pdesc">Ground chilli — heat and colour to specification.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
             </div>
         </div>
@@ -1378,31 +1397,31 @@
                     <img class="pimg" src="/images/products/mustered-oil.png" alt="Mustard Oil" loading="lazy">
                     <h3>Mustard Oil</h3>
                     <p class="pdesc">Cold-pressed and refined mustard oil.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
                     <img class="pimg" src="/images/products/seasame-oil.png" alt="Sesame Oil" loading="lazy">
                     <h3>Sesame Oil</h3>
                     <p class="pdesc">Sesame oil — for food and specialty markets.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
                     <img class="pimg" src="/images/products/peant-oil.png" alt="Peanut Oil" loading="lazy">
                     <h3>Peanut Oil</h3>
                     <p class="pdesc">Groundnut oil — filtered and refined grades.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
                     <img class="pimg" src="/images/products/castor-oil.png" alt="Castor Oil" loading="lazy">
                     <h3>Castor Oil</h3>
                     <p class="pdesc">Castor oil — commercial and industrial grades.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
                     <img class="pimg" src="/images/products/oil-cakes.png" alt="Oil Cakes" loading="lazy">
                     <h3>Oil Cakes</h3>
                     <p class="pdesc">De-oiled cakes — protein-rich feed ingredient.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
             </div>
         </div>
@@ -1422,31 +1441,31 @@
                     <img class="pimg" src="/images/products/golden-raisins.png" alt="Golden Raisins" loading="lazy">
                     <h3>Golden Raisins</h3>
                     <p class="pdesc">Golden seedless raisins — bright, cleaned, graded.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
                     <img class="pimg" src="/images/products/brown-raisins.png" alt="Brown Raisins" loading="lazy">
                     <h3>Brown Raisins</h3>
                     <p class="pdesc">Natural brown raisins — for retail and baking.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
                     <img class="pimg" src="/images/products/Black-Raisins.png" alt="Black Raisins" loading="lazy">
                     <h3>Black Raisins</h3>
                     <p class="pdesc">Black seedless raisins — for food and retail.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
                     <img class="pimg" src="/images/products/Natural-gums.png" alt="Natural Gums" loading="lazy">
                     <h3>Natural Gums</h3>
                     <p class="pdesc">Natural gums — food and industrial grades.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
                     <img class="pimg" src="/images/products/sugar-1.png" alt="Sugar" loading="lazy">
                     <h3>Sugar</h3>
                     <p class="pdesc">Refined sugar — export grades.</p>
-                    <a class="pcta" href="contact.html">Request a Quote →</a>
+                    <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
             </div>
         </div>
@@ -1460,31 +1479,36 @@
                 <h2>We source more than what's on this page.</h2>
                 <p>Our full catalog runs to 50+ commodities, but if your requirement isn't listed here, tell us what you're looking for. We'll check what we can source and get back to you with details.</p>
                 <div class="custom-form-card">
-                    <form onsubmit="event.preventDefault(); alert('Thank you — this form will be connected to our trade team inbox before launch.');">
+                    <form id="custom-request-form" onsubmit="submitCustomRequest(event)">
                         <div class="custom-form-two">
                             <div class="form-row">
                                 <label>Your Name <span class="req">*</span></label>
-                                <input type="text" required placeholder="Full name">
+                                <input type="text" id="custom-req-name" required placeholder="Full name">
                             </div>
                             <div class="form-row">
                                 <label>Company Name <span class="req">*</span></label>
-                                <input type="text" required placeholder="Company name">
+                                <input type="text" id="custom-req-company" required placeholder="Company name">
                             </div>
                         </div>
                         <div class="custom-form-two">
                             <div class="form-row">
                                 <label>Email <span class="req">*</span></label>
-                                <input type="email" required placeholder="you@company.com">
+                                <input type="email" id="custom-req-email" required placeholder="you@company.com">
                             </div>
                             <div class="form-row">
-                                <label>Country</label>
-                                <input type="text" placeholder="Your country">
+                                <label>Website <span class="req">*</span></label>
+                                <input type="text" id="custom-req-website" required placeholder="yourcompany.com">
                             </div>
                         </div>
                         <div class="form-row">
-                            <label>What are you looking for? <span class="req">*</span></label>
-                            <textarea required placeholder="Tell us the product, grade, volume, and destination port — we'll check what we can source"></textarea>
+                            <label>Country</label>
+                            <input type="text" id="custom-req-country" placeholder="Your country">
                         </div>
+                        <div class="form-row">
+                            <label>What are you looking for? <span class="req">*</span></label>
+                            <textarea id="custom-req-message" required placeholder="Tell us the product, grade, volume, and destination port — we'll check what we can source"></textarea>
+                        </div>
+                        <p class="custom-req-status" id="custom-req-status" style="font-size:13px; margin-bottom:var(--space-4); min-height:1px;"></p>
                         <button type="submit" class="btn btn-primary" style="width:100%; text-align:center; border:none;">Send Enquiry</button>
                         <p class="form-note">No automated responses. Your enquiry goes directly to our trade team.</p>
                     </form>
@@ -1492,6 +1516,53 @@
             </div>
         </div>
     </section>
+    <script>
+        function submitCustomRequest(e) {
+            e.preventDefault();
+            const form = document.getElementById('custom-request-form');
+            const statusEl = document.getElementById('custom-req-status');
+            const name = document.getElementById('custom-req-name').value.trim();
+            const company = document.getElementById('custom-req-company').value.trim();
+            const email = document.getElementById('custom-req-email').value.trim();
+            const website = document.getElementById('custom-req-website').value.trim();
+            const country = document.getElementById('custom-req-country').value.trim();
+            const message = document.getElementById('custom-req-message').value.trim();
+            statusEl.style.color = '';
+            statusEl.textContent = '';
+            if (!name || !company || !email || !website || !message) {
+                statusEl.style.color = '#B3261E';
+                statusEl.textContent = 'Please enter valid details in order for us to respond.';
+                return;
+            }
+            const btn = form.querySelector('button[type="submit"]');
+            if (btn) btn.disabled = true;
+            fetch('/api/inquiry', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: name, company: company, email: email, website: website,
+                    country: country, product: 'Other / not listed', message: message,
+                    sourcePage: 'products-custom-request'
+                })
+            }).then(function (res) { return res.json().then(function (data) { return { ok: res.ok, data: data }; }); })
+              .then(function (r) {
+                  if (r.ok) {
+                      if (window.mlTrack) window.mlTrack('inquiry_submit', { entityType: 'form', entityId: 'products-custom-request' });
+                      statusEl.style.color = '#2E6B2E';
+                      statusEl.textContent = 'Thank you — your enquiry has been received. Our trade team will respond within one business day.';
+                      form.reset();
+                  } else {
+                      statusEl.style.color = '#B3261E';
+                      statusEl.textContent = r.data.error || 'Please enter valid details in order for us to respond.';
+                  }
+              })
+              .catch(function () {
+                  statusEl.style.color = '#B3261E';
+                  statusEl.textContent = 'Network error — please try again.';
+              })
+              .finally(function () { if (btn) btn.disabled = false; });
+        }
+    </script>
 
 
     <section class="pack-band">
@@ -1514,7 +1585,7 @@
             <p>Certificate of Analysis. NABL-accredited lab reports. Aflatoxin records on groundnuts and sesame. Phytosanitary and origin documentation. Whatever your compliance team needs — ask, and it comes with the shipment.</p>
             <div class="hero-ctas">
                 <a href="quality.html" class="btn btn-primary">View Quality &amp; Compliance →</a>
-                <a href="contact.html" class="btn btn-secondary" style="color:#fff;border-color:#fff;">Request Documentation →</a>
+                <a href="#" class="btn btn-secondary" style="color:#fff;border-color:#fff;" onclick="openQuoteModal('Documentation request'); return false;">Request Documentation →</a>
             </div>
         </div>
     </section>
@@ -1525,7 +1596,7 @@
             <h2>Tell us what you're sourcing.</h2>
             <p>Send us the product, grade, volume, and destination — we'll come back with specifications, availability, and pricing within one business day.</p>
             <div class="hero-ctas">
-                <a href="contact.html" class="btn btn-primary">Request a Quote</a>
+                <a href="#" class="btn btn-primary" onclick="openQuoteModal(''); return false;">Request a Quote</a>
                 <a href="https://wa.me/919821117291?text=Hello%2C%20I%27m%20interested%20in%20sourcing%20from%20M.%20Lakhamsi%20Industries." class="btn btn-whatsapp" target="_blank" rel="noopener"><i class="ti ti-brand-whatsapp"></i> WhatsApp Us →</a>
             </div>
         </div>
@@ -1624,6 +1695,112 @@
                 sec.style.display = (cat==='all' || sec.dataset.cat===cat) ? '' : 'none';
             });
             if(cat!=='all'){ const t=document.getElementById(cat); if(t){ window.scrollTo({top:t.offsetTop-120, behavior:'smooth'});} }
+        }
+    </script>
+    <!-- ===== QUOTE REQUEST MODAL ===== -->
+    <div class="quote-modal-overlay" id="quote-modal-overlay">
+        <div class="quote-modal">
+            <button class="quote-modal-close" onclick="closeQuoteModal()" aria-label="Close">&times;</button>
+            <h3>Request a Quote</h3>
+            <p class="modal-sub">Tell us what you need — we'll come back with specifications, pricing, and availability.</p>
+            <form id="quote-request-form" onsubmit="submitQuoteRequest(event)">
+                <div class="quote-modal-two">
+                    <div class="form-row">
+                        <label>Your Name <span class="req">*</span></label>
+                        <input type="text" id="quote-req-name" required>
+                    </div>
+                    <div class="form-row">
+                        <label>Company Name <span class="req">*</span></label>
+                        <input type="text" id="quote-req-company" required>
+                    </div>
+                </div>
+                <div class="quote-modal-two">
+                    <div class="form-row">
+                        <label>Email <span class="req">*</span></label>
+                        <input type="email" id="quote-req-email" required>
+                    </div>
+                    <div class="form-row">
+                        <label>Website <span class="req">*</span></label>
+                        <input type="text" id="quote-req-website" placeholder="yourcompany.com" required>
+                    </div>
+                </div>
+                <div class="quote-modal-two">
+                    <div class="form-row">
+                        <label>Country</label>
+                        <input type="text" id="quote-req-country" placeholder="Your country">
+                    </div>
+                    <div class="form-row">
+                        <label>Product Interest</label>
+                        <input type="text" id="quote-req-product">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <label>Message</label>
+                    <textarea id="quote-req-message" placeholder="Volume, grade, destination port"></textarea>
+                </div>
+                <p class="quote-modal-status" id="quote-modal-status" style="font-size:13px; margin-bottom:var(--space-4); min-height:1px;"></p>
+                <button type="submit">Send Inquiry</button>
+                <p class="quote-modal-note">No automated responses. Your inquiry goes directly to our trade team.</p>
+            </form>
+        </div>
+    </div>
+    <script>
+        function openQuoteModal(productName) {
+            document.getElementById('quote-modal-overlay').classList.add('open');
+            document.getElementById('quote-req-product').value = productName || '';
+        }
+        function closeQuoteModal() {
+            document.getElementById('quote-modal-overlay').classList.remove('open');
+        }
+        document.getElementById('quote-modal-overlay').addEventListener('click', function(e) {
+            if (e.target === this) closeQuoteModal();
+        });
+        function submitQuoteRequest(e) {
+            e.preventDefault();
+            const form = document.getElementById('quote-request-form');
+            const statusEl = document.getElementById('quote-modal-status');
+            const name = document.getElementById('quote-req-name').value.trim();
+            const company = document.getElementById('quote-req-company').value.trim();
+            const email = document.getElementById('quote-req-email').value.trim();
+            const website = document.getElementById('quote-req-website').value.trim();
+            const country = document.getElementById('quote-req-country').value.trim();
+            const product = document.getElementById('quote-req-product').value.trim();
+            const message = document.getElementById('quote-req-message').value.trim();
+            statusEl.style.color = '';
+            statusEl.textContent = '';
+            if (!name || !company || !email || !website) {
+                statusEl.style.color = '#B3261E';
+                statusEl.textContent = 'Please enter valid details in order for us to respond.';
+                return;
+            }
+            const btn = form.querySelector('button[type="submit"]');
+            if (btn) btn.disabled = true;
+            fetch('/api/inquiry', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: name, company: company, email: email, website: website,
+                    country: country, product: product, message: message,
+                    sourcePage: 'products-quote-modal'
+                })
+            }).then(function (res) { return res.json().then(function (data) { return { ok: res.ok, data: data }; }); })
+              .then(function (r) {
+                  if (r.ok) {
+                      if (window.mlTrack) window.mlTrack('inquiry_submit', { entityType: 'form', entityId: 'products-quote-modal' });
+                      statusEl.style.color = '#2E6B2E';
+                      statusEl.textContent = 'Thank you — your inquiry has been received. Our trade team will respond within one business day.';
+                      form.reset();
+                      setTimeout(closeQuoteModal, 1800);
+                  } else {
+                      statusEl.style.color = '#B3261E';
+                      statusEl.textContent = r.data.error || 'Please enter valid details in order for us to respond.';
+                  }
+              })
+              .catch(function () {
+                  statusEl.style.color = '#B3261E';
+                  statusEl.textContent = 'Network error — please try again.';
+              })
+              .finally(function () { if (btn) btn.disabled = false; });
         }
     </script>
 

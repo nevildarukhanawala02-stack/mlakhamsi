@@ -1105,16 +1105,20 @@
                                 <input type="email" id="email-contact" required placeholder="you@company.com">
                             </div>
                             <div class="form-row">
-                                <label>Country</label>
-                                <select id="country-contact">
-                                    <option value="">Select country</option>
-                                    <option>Indonesia</option><option>Vietnam</option><option>Philippines</option>
-                                    <option>Malaysia</option><option>Thailand</option><option>China</option>
-                                    <option>UAE</option><option>Saudi Arabia</option><option>Iraq</option><option>Kuwait</option>
-                                    <option>Germany</option><option>Netherlands</option><option>United Kingdom</option><option>Poland</option>
-                                    <option>United States</option><option>Other</option>
-                                </select>
+                                <label>Website <span class="req">*</span></label>
+                                <input type="text" id="website-contact" required placeholder="yourcompany.com">
                             </div>
+                        </div>
+                        <div class="form-row">
+                            <label>Country</label>
+                            <select id="country-contact">
+                                <option value="">Select country</option>
+                                <option>Indonesia</option><option>Vietnam</option><option>Philippines</option>
+                                <option>Malaysia</option><option>Thailand</option><option>China</option>
+                                <option>UAE</option><option>Saudi Arabia</option><option>Iraq</option><option>Kuwait</option>
+                                <option>Germany</option><option>Netherlands</option><option>United Kingdom</option><option>Poland</option>
+                                <option>United States</option><option>Other</option>
+                            </select>
                         </div>
                         <div class="form-row">
                             <label>Product Interest</label>
@@ -1246,6 +1250,7 @@
                 name: field('name-contact'),
                 company: field('company-contact'),
                 email: field('email-contact'),
+                website: field('website-contact'),
                 country: field('country-contact'),
                 product: field('product-contact'),
                 message: field('message-contact'),

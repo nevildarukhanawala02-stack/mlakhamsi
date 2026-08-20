@@ -867,6 +867,7 @@
         .cert-modal button[type=submit] { width:100%; background: var(--navy); color:#fff; border:none; border-radius: var(--radius-sm); padding:12px; font-family: var(--font-body); font-size:14px; font-weight:500; cursor:pointer; }
         .cert-modal button[type=submit]:hover { background: var(--navy-mid); }
         .cert-modal-note { font-size:11px; color: var(--text-muted); margin-top:10px; text-align:center; }
+        .req-asterisk { color: #C9A84C; }
 
         /* ============================================================
            BSE/NSE LISTED SECTION
@@ -1768,13 +1769,24 @@
             <h3>Request Certificates</h3>
             <p class="modal-sub">Tell us who you are and which certificates you need — we'll send them directly to your inbox.</p>
             <form id="cert-request-form" onsubmit="submitCertRequest(event)">
-                <label class="field-label" for="cert-req-name">Your Name</label>
+                <label class="field-label" for="cert-req-name">Your Name <span class="req-asterisk">*</span></label>
                 <input type="text" id="cert-req-name" required>
-                <label class="field-label" for="cert-req-company">Company Name</label>
+                <label class="field-label" for="cert-req-company">Company Name <span class="req-asterisk">*</span></label>
                 <input type="text" id="cert-req-company" required>
-                <label class="field-label" for="cert-req-email">Email</label>
+                <label class="field-label" for="cert-req-email">Email <span class="req-asterisk">*</span></label>
                 <input type="email" id="cert-req-email" required>
-                <label class="field-label" style="margin-top:4px;">Certificates needed</label>
+                <label class="field-label" for="cert-req-website">Website <span class="req-asterisk">*</span></label>
+                <input type="text" id="cert-req-website" placeholder="yourcompany.com" required>
+                <label class="field-label" for="cert-req-product">Product(s) this compliance is for <span class="req-asterisk">*</span></label>
+                <select id="cert-req-product" multiple required style="width:100%; border:1px solid #D0CCC6; border-radius: var(--radius-md); padding:10px 14px; font-family: var(--font-sans); font-size:14px; margin-bottom: var(--space-4); min-height:100px;">
+                    <option value="Groundnuts">Groundnuts</option>
+                    <option value="Sesame Seeds">Sesame Seeds</option>
+                    <option value="Oils">Oils (Castor / Groundnut)</option>
+                    <option value="Spices, Pulses & Grains">Spices, Pulses &amp; Grains</option>
+                    <option value="All Products">All Products</option>
+                </select>
+                <p style="font-size:11px; color:var(--color-gray); margin:-10px 0 var(--space-4);">Hold Ctrl/Cmd to select more than one, or choose "All Products".</p>
+                <label class="field-label" style="margin-top:4px;">Certificates needed <span class="req-asterisk">*</span></label>
                 <div class="cert-checklist">
                     <label><input type="checkbox" value="ISO 22000" class="cert-req-checkbox"> ISO 22000</label>
                     <label><input type="checkbox" value="Halal Certified" class="cert-req-checkbox"> Halal Certified</label>
@@ -1784,17 +1796,13 @@
                     <label><input type="checkbox" value="Star Export House" class="cert-req-checkbox"> Star Export House</label>
                     <label><input type="checkbox" value="APEDA Registered" class="cert-req-checkbox"> APEDA Registered</label>
                 </div>
+                <p class="cert-modal-status" id="cert-modal-status" style="font-size:13px; margin-bottom:var(--space-4); min-height:1px;"></p>
                 <button type="submit">Send Request</button>
                 <p class="cert-modal-note">No automated responses. Your request goes directly to our trade team.</p>
             </form>
         </div>
     </div>
     <script>
-        // NOTE for developer: mailto target is a placeholder (equity@m.lakhamsi.com,
-        // the only confirmed-real generic address at time of writing). Swap
-        // CERT_REQUEST_EMAIL once the client sends the final alias list.
-        const CERT_REQUEST_EMAIL = 'equity@m.lakhamsi.com';
-
         function openCertModal(precheck) {
             document.getElementById('cert-modal-overlay').classList.add('open');
             if (precheck) {
@@ -1808,24 +1816,109 @@
         }
         function submitCertRequest(e) {
             e.preventDefault();
-            const name = document.getElementById('cert-req-name').value;
-            const company = document.getElementById('cert-req-company').value;
-            const email = document.getElementById('cert-req-email').value;
-            const selected = Array.from(document.querySelectorAll('.cert-req-checkbox:checked')).map(cb => cb.value);
-            const certList = selected.length ? selected.join(', ') : '(none selected)';
-            const subject = encodeURIComponent('Certificate Request — ' + company);
-            const body = encodeURIComponent(
-                'Name: ' + name + '\n' +
-                'Company: ' + company + '\n' +
-                'Email: ' + email + '\n' +
-                'Certificates requested: ' + certList
-            );
-            window.location.href = 'mailto:' + CERT_REQUEST_EMAIL + '?subject=' + subject + '&body=' + body;
-            closeCertModal();
+            const form = document.getElementById('cert-request-form');
+            const statusEl = document.getElementById('cert-modal-status');
+            const name = document.getElementById('cert-req-name').value.trim();
+            const company = document.getElementById('cert-req-company').value.trim();
+            const email = document.getElementById('cert-req-email').value.trim();
+            const website = document.getElementById('cert-req-website').value.trim();
+            const products = Array.from(document.getElementById('cert-req-product').selectedOptions).map(o => o.value);
+            const certificates = Array.from(document.querySelectorAll('.cert-req-checkbox:checked')).map(cb => cb.value);
+            statusEl.style.color = '';
+            statusEl.textContent = '';
+            if (!name || !company || !email || !website || !products.length || !certificates.length) {
+                statusEl.style.color = '#B3261E';
+                statusEl.textContent = 'Please enter valid details in order for us to respond.';
+                return;
+            }
+            const btn = form.querySelector('button[type="submit"]');
+            if (btn) btn.disabled = true;
+            fetch('/api/inquiry', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: name,
+                    company: company,
+                    email: email,
+                    website: website,
+                    product: products.join(', '),
+                    certificates: certificates,
+                    message: 'Certificate request',
+                    sourcePage: 'cert-request-modal'
+                })
+            }).then(function (res) { return res.json().then(function (data) { return { ok: res.ok, data: data }; }); })
+              .then(function (r) {
+                  if (r.ok) {
+                      if (window.mlTrack) window.mlTrack('inquiry_submit', { entityType: 'form', entityId: 'cert-request-modal' });
+                      statusEl.style.color = '#2E6B2E';
+                      statusEl.textContent = 'Thank you — your request has been received. Our trade team will send the certificates within one business day.';
+                      form.reset();
+                      setTimeout(closeCertModal, 1800);
+                  } else {
+                      statusEl.style.color = '#B3261E';
+                      statusEl.textContent = r.data.error || 'Please enter valid details in order for us to respond.';
+                  }
+              })
+              .catch(function () {
+                  statusEl.style.color = '#B3261E';
+                  statusEl.textContent = 'Network error — please try again.';
+              })
+              .finally(function () { if (btn) btn.disabled = false; });
         }
         document.getElementById('cert-modal-overlay').addEventListener('click', function(e) {
             if (e.target === this) closeCertModal();
         });
+
+        // Inquiry form submission for the "Get in Touch" section on this page.
+        // Persists to the trade team's inquiry log (Volume-backed) and fires
+        // the analytics conversion event. Mirrors the homepage/Contact page handler.
+        function submitInquiry(evt, sourcePage, formId) {
+            evt.preventDefault();
+            var form = document.getElementById(formId);
+            var btn = form.querySelector('button[type="submit"]');
+            var statusEl = form.querySelector('.inquiry-status');
+            if (!statusEl) {
+                statusEl = document.createElement('p');
+                statusEl.className = 'inquiry-status';
+                statusEl.style.cssText = 'font-size:13px; margin-top:12px;';
+                form.appendChild(statusEl);
+            }
+            var field = function (id) { var el = form.querySelector('#' + id); return el ? el.value : ''; };
+            var payload = {
+                name: field('name'),
+                company: field('company'),
+                email: field('email'),
+                website: field('website'),
+                country: field('country'),
+                product: field('product'),
+                message: field('message'),
+                sourcePage: sourcePage
+            };
+            if (btn) btn.disabled = true;
+            statusEl.style.color = '';
+            statusEl.textContent = '';
+            fetch('/api/inquiry', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).then(function (res) { return res.json().then(function (data) { return { ok: res.ok, data: data }; }); })
+              .then(function (r) {
+                  if (r.ok) {
+                      if (window.mlTrack) window.mlTrack('inquiry_submit', { entityType: 'form', entityId: sourcePage });
+                      form.reset();
+                      statusEl.style.color = '#2E6B2E';
+                      statusEl.textContent = 'Thank you — your inquiry has been received. Our trade team will respond within one business day.';
+                  } else {
+                      statusEl.style.color = '#B3261E';
+                      statusEl.textContent = r.data.error || 'Please enter valid details in order for us to respond.';
+                  }
+              })
+              .catch(function () {
+                  statusEl.style.color = '#B3261E';
+                  statusEl.textContent = 'Network error — please try again.';
+              })
+              .finally(function () { if (btn) btn.disabled = false; });
+        }
     </script>
 
     <!-- ============================================================
@@ -1891,14 +1984,22 @@
             </div>
             <div class="contact-grid">
                 <div class="contact-form-wrap">
-                    <form>
+                    <form id="inquiry-form-about" onsubmit="submitInquiry(event, 'about', 'inquiry-form-about')">
                         <div class="form-group">
-                            <label for="name">Your Name</label>
+                            <label for="name">Your Name <span class="req-asterisk">*</span></label>
                             <input type="text" id="name" name="name" placeholder="Full name" required>
                         </div>
                         <div class="form-group">
-                            <label for="company">Company Name</label>
+                            <label for="company">Company Name <span class="req-asterisk">*</span></label>
                             <input type="text" id="company" name="company" placeholder="Your company" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email <span class="req-asterisk">*</span></label>
+                            <input type="email" id="email" name="email" placeholder="you@company.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="website">Website <span class="req-asterisk">*</span></label>
+                            <input type="text" id="website" name="website" placeholder="yourcompany.com" required>
                         </div>
                         <div class="form-group">
                             <label for="country">Country</label>
@@ -1929,8 +2030,8 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" name="message" placeholder="Tell us about your requirement — volume, grade, destination port"></textarea>
+                            <label for="message">Message <span class="req-asterisk">*</span></label>
+                            <textarea id="message" name="message" placeholder="Tell us about your requirement — volume, grade, destination port" required></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Send Inquiry</button>
                         <p class="form-trust">No automated responses. Your inquiry goes directly to our trade team.</p>

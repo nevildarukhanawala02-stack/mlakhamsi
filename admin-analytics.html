@@ -267,15 +267,17 @@ function render(d, inquiries) {
         <div class="section-block">
             <h2><i class="ti ti-mail"></i> Recent inquiries (${inquiries.length})</h2>
             ${inquiries.length ? `<table>
-                <thead><tr><th>Date</th><th>Name</th><th>Company</th><th>Email</th><th>Country</th><th>Product</th><th>Source</th></tr></thead>
+                <thead><tr><th>Date</th><th>Name</th><th>Company</th><th>Email</th><th>Website</th><th>Country</th><th>Product</th><th>Certificates</th><th>Source</th></tr></thead>
                 <tbody>${inquiries.slice(0, 30).map(i => `
                     <tr>
                         <td>${fmtDate(i.createdAt)}</td>
                         <td>${i.name}</td>
                         <td>${i.company}</td>
                         <td>${i.email || '—'}</td>
+                        <td>${i.website || '—'}</td>
                         <td>${i.country || '—'}</td>
                         <td>${i.product || '—'}</td>
+                        <td>${(i.certificates && i.certificates.length) ? i.certificates.join(', ') : '—'}</td>
                         <td>${i.sourcePage || '—'}</td>
                     </tr>
                 `).join('')}</tbody>
