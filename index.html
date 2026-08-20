@@ -221,9 +221,6 @@
             50% { opacity: 0.6; }
         }
         .ticker-symbol { color: var(--color-gold); font-weight: 700; }
-        .ticker-widget-wrap { max-width: 220px; margin: 0 auto; }
-        .ticker-fallback { display: none; }
-        .ticker-fallback.show { display: block; }
 
         /* ===== CREDENTIAL MARQUEE ===== */
         .credential-strip {
@@ -893,23 +890,9 @@
         </div>
     </nav>
 
-    <!-- ===== TICKER BAR — LIVE BSE:MLINDLTD VIA TRADINGVIEW ===== -->
+    <!-- ===== TICKER BAR ===== -->
     <div class="ticker-bar">
-        <div class="ticker-widget-wrap">
-            <div class="tradingview-widget-container">
-                <div class="tradingview-widget-container__widget"></div>
-                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
-                {
-                "symbol": "BSE:MLINDLTD",
-                "width": "100%",
-                "colorTheme": "dark",
-                "isTransparent": true,
-                "locale": "en"
-                }
-                </script>
-            </div>
-        </div>
-        <noscript><p><span class="ticker-symbol">BSE: MLINDLTD</span> &nbsp;·&nbsp; <span class="ticker-live">● LIVE</span></p></noscript>
+        <p><span class="ticker-symbol">BSE Listed</span> &nbsp;·&nbsp; MLINDLTD</p>
     </div>
 
     <!-- ===== CREDENTIAL MARQUEE ===== -->
