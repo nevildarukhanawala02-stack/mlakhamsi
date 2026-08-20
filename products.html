@@ -252,12 +252,9 @@
             letter-spacing: 0.08em;
             flex-shrink: 0;
         }
-        .credential::before {
-            content: '';
-            width: 6px;
-            height: 6px;
-            background-color: var(--color-gold);
-            border-radius: 50%;
+        .credential i {
+            color: var(--color-gold);
+            font-size: 14px;
             flex-shrink: 0;
         }
         /* Duplicate credentials for seamless loop */
@@ -658,7 +655,7 @@
             border-bottom: 1px solid rgba(255,255,255,0.12);
         }
         @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr; gap: var(--space-8); } }
-        .footer-logo-img { height: 60px; width: auto; object-fit: contain; margin-bottom: var(--space-4); filter: brightness(0) invert(1); }
+        .footer-logo-img { height: 52px; width: auto; object-fit: contain; margin-bottom: var(--space-4); background: #FFFFFF; padding: 10px 16px; border-radius: 8px; }
         .footer-desc { font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.7; margin-bottom: var(--space-4); }
         .footer-badges { display: flex; flex-wrap: wrap; gap: var(--space-2); }
         .footer-badge {
@@ -969,21 +966,29 @@
     <!-- ===== CREDENTIAL MARQUEE ===== -->
     <div class="credential-strip">
         <div class="credentials">
-            <div class="credential">BSE Listed</div>
-            <div class="credential">Star Export House</div>
-            <div class="credential">ISO Certified</div>
-            <div class="credential">Halal Certified</div>
-            <div class="credential">Kosher Certified</div>
-            <div class="credential">HACCP</div>
-            <div class="credential">APEDA Registered</div>
+            <div class="credential"><i class="ti ti-building-bank"></i> BSE Listed · MLINDLTD</div>
+            <div class="credential"><i class="ti ti-star"></i> Star Export House</div>
+            <div class="credential"><i class="ti ti-shield-check"></i> ISO 22000 Certified</div>
+            <div class="credential"><i class="ti ti-moon"></i> Halal Certified</div>
+            <div class="credential"><i class="ti ti-star-of-david"></i> Kosher Certified</div>
+            <div class="credential"><i class="ti ti-certificate"></i> HACCP Certified</div>
+            <div class="credential"><i class="ti ti-leaf"></i> APEDA Registered</div>
+            <div class="credential"><i class="ti ti-map-pin"></i> 75+ Countries Served</div>
+            <div class="credential"><i class="ti ti-package"></i> 25+ Products Exported</div>
+            <div class="credential"><i class="ti ti-clock"></i> 90+ Years in Operation</div>
+            <div class="credential"><i class="ti ti-microscope"></i> NABL-Accredited Lab Testing</div>
             <!-- Repeat for seamless loop -->
-            <div class="credential">BSE Listed</div>
-            <div class="credential">Star Export House</div>
-            <div class="credential">ISO Certified</div>
-            <div class="credential">Halal Certified</div>
-            <div class="credential">Kosher Certified</div>
-            <div class="credential">HACCP</div>
-            <div class="credential">APEDA Registered</div>
+            <div class="credential"><i class="ti ti-building-bank"></i> BSE Listed · MLINDLTD</div>
+            <div class="credential"><i class="ti ti-star"></i> Star Export House</div>
+            <div class="credential"><i class="ti ti-shield-check"></i> ISO 22000 Certified</div>
+            <div class="credential"><i class="ti ti-moon"></i> Halal Certified</div>
+            <div class="credential"><i class="ti ti-star-of-david"></i> Kosher Certified</div>
+            <div class="credential"><i class="ti ti-certificate"></i> HACCP Certified</div>
+            <div class="credential"><i class="ti ti-leaf"></i> APEDA Registered</div>
+            <div class="credential"><i class="ti ti-map-pin"></i> 75+ Countries Served</div>
+            <div class="credential"><i class="ti ti-package"></i> 25+ Products Exported</div>
+            <div class="credential"><i class="ti ti-clock"></i> 90+ Years in Operation</div>
+            <div class="credential"><i class="ti ti-microscope"></i> NABL-Accredited Lab Testing</div>
         </div>
     </div>
 
@@ -1521,7 +1526,7 @@
             <p>Send us the product, grade, volume, and destination — we'll come back with specifications, availability, and pricing within one business day.</p>
             <div class="hero-ctas">
                 <a href="contact.html" class="btn btn-primary">Request a Quote</a>
-                <a href="#" class="btn btn-whatsapp"><i class="ti ti-brand-whatsapp"></i> WhatsApp Us →</a>
+                <a href="https://wa.me/919821117291?text=Hello%2C%20I%27m%20interested%20in%20sourcing%20from%20M.%20Lakhamsi%20Industries." class="btn btn-whatsapp" target="_blank" rel="noopener"><i class="ti ti-brand-whatsapp"></i> WhatsApp Us →</a>
             </div>
         </div>
     </section>
@@ -1541,10 +1546,10 @@
                 <div class="footer-col">
                     <h4>Quick Links</h4>
                     <div class="footer-links">
+                        <a href="about.html">About Us</a>
                         <a href="products.html">Products</a>
                         <a href="quality.html">Quality & Compliance</a>
                         <a href="reports.html">Market Reports</a>
-                        <a href="about.html">About Us</a>
                         <a href="investors.html">Investors</a>
                         <a href="csr.html">CSR</a>
                         <a href="social.html">Social</a>
@@ -1559,7 +1564,7 @@
                     <div class="footer-social">
                         <a href="#"><i class="ti ti-brand-linkedin"></i></a>
                         <a href="#"><i class="ti ti-brand-x"></i></a>
-                        <a href="#"><i class="ti ti-brand-whatsapp"></i></a>
+                        <a href="https://wa.me/919821117291?text=Hello%2C%20I%27m%20interested%20in%20sourcing%20from%20M.%20Lakhamsi%20Industries." target="_blank" rel="noopener" aria-label="WhatsApp"><i class="ti ti-brand-whatsapp"></i></a>
                     </div>
                 </div>
             </div>
@@ -1579,7 +1584,7 @@
     </footer>
 
     <!-- ===== FLOATING WHATSAPP ===== -->
-    <a href="https://wa.me/[number]" class="whatsapp-float" target="_blank">
+    <a href="https://wa.me/919821117291?text=Hello%2C%20I%27m%20interested%20in%20sourcing%20from%20M.%20Lakhamsi%20Industries." class="whatsapp-float" target="_blank">
         <i class="ti ti-brand-whatsapp"></i>
         <div class="whatsapp-tooltip">Chat with our trade team</div>
     </a>
