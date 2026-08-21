@@ -869,6 +869,14 @@
         .cert-modal button[type=submit]:hover { background: var(--navy-mid); }
         .cert-modal-note { font-size:11px; color: var(--text-muted); margin-top:10px; text-align:center; }
         .req-asterisk { color: #C9A84C; }
+        .cert-modal-success { display:none; text-align:center; padding: 12px 0 4px; }
+        .cert-modal-success.show { display:block; }
+        .cert-success-icon { width:56px; height:56px; border-radius:50%; background:#2E6B2E; display:flex; align-items:center; justify-content:center; margin:0 auto 16px; }
+        .cert-success-icon i { color:#fff; font-size:28px; }
+        .cert-modal-success h4 { font-family: var(--font-display); color: var(--navy); font-size:19px; margin-bottom:10px; font-weight:500; }
+        .cert-modal-success p { font-size:14px; color: var(--text-body, #2C2C2C); line-height:1.6; margin-bottom:22px; }
+        .cert-modal-success button { background: var(--navy); color:#fff; border:none; border-radius: var(--radius-md); padding:10px 28px; font-family: var(--font-body); font-size:14px; font-weight:500; cursor:pointer; }
+        .cert-modal-success button:hover { background: var(--navy-dark, var(--navy)); }
 
         /* ============================================================
            BSE/NSE LISTED SECTION
@@ -1808,6 +1816,12 @@
                 <button type="submit">Send Request</button>
                 <p class="cert-modal-note">No automated responses. Your request goes directly to our trade team.</p>
             </form>
+            <div class="cert-modal-success" id="cert-modal-success">
+                <div class="cert-success-icon"><i class="ti ti-check"></i></div>
+                <h4>Request Received</h4>
+                <p>Thank you — our trade team will send the certificates you requested within one business day.</p>
+                <button type="button" onclick="closeCertModal()" class="cert-success-close">Close</button>
+            </div>
         </div>
     </div>
     <script>
@@ -1821,6 +1835,10 @@
         }
         function closeCertModal() {
             document.getElementById('cert-modal-overlay').classList.remove('open');
+            var form = document.getElementById('cert-request-form');
+            form.style.display = '';
+            form.reset();
+            document.getElementById('cert-modal-success').classList.remove('show');
         }
         function submitCertRequest(e) {
             e.preventDefault();
@@ -1858,10 +1876,8 @@
               .then(function (r) {
                   if (r.ok) {
                       if (window.mlTrack) window.mlTrack('inquiry_submit', { entityType: 'form', entityId: 'cert-request-modal' });
-                      statusEl.style.color = '#2E6B2E';
-                      statusEl.textContent = 'Thank you — your request has been received. Our trade team will send the certificates within one business day.';
-                      form.reset();
-                      setTimeout(closeCertModal, 1800);
+                      form.style.display = 'none';
+                      document.getElementById('cert-modal-success').classList.add('show');
                   } else {
                       statusEl.style.color = '#B3261E';
                       statusEl.textContent = r.data.error || 'Please enter valid details in order for us to respond.';
