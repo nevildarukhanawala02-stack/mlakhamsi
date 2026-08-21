@@ -5,6 +5,7 @@ const path = require('path');
 const fs = require('fs');
 const crypto = require('crypto');
 const geoip = require('geoip-lite');
+const nodemailer = require('nodemailer');
 
 const app = express();
 const PORT = process.env.PORT || 3000; // Railway injects PORT
@@ -12,6 +13,70 @@ const PORT = process.env.PORT || 3000; // Railway injects PORT
 // Railway sits behind a proxy — required for req.ip to reflect the real
 // visitor IP (used for country lookups), not Railway's internal address.
 app.set('trust proxy', true);
+
+// ─────────────────────────────────────────────────────────────
+// Admin notification email — simple SMTP notice on new inquiries/
+// certificate requests. NOT a transactional/marketing email service —
+// just "someone submitted a form, go check the admin dashboard."
+// Configure via env vars on Railway:
+//   SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, ADMIN_NOTIFY_EMAIL
+// If any are missing, notification emails are silently skipped — this
+// must never block or fail a form submission.
+// ─────────────────────────────────────────────────────────────
+const SMTP_HOST = process.env.SMTP_HOST || '';
+const SMTP_PORT = process.env.SMTP_PORT || '';
+const SMTP_USER = process.env.SMTP_USER || '';
+const SMTP_PASS = process.env.SMTP_PASS || '';
+const ADMIN_NOTIFY_EMAIL = process.env.ADMIN_NOTIFY_EMAIL || '';
+const EMAIL_CONFIGURED = !!(SMTP_HOST && SMTP_PORT && SMTP_USER && SMTP_PASS && ADMIN_NOTIFY_EMAIL);
+
+let mailer = null;
+if (EMAIL_CONFIGURED) {
+  mailer = nodemailer.createTransport({
+    host: SMTP_HOST,
+    port: Number(SMTP_PORT),
+    secure: Number(SMTP_PORT) === 465, // true for port 465, false for 587/25 (STARTTLS)
+    auth: { user: SMTP_USER, pass: SMTP_PASS }
+  });
+} else {
+  console.log('Admin notification email not configured (SMTP_HOST/PORT/USER/PASS/ADMIN_NOTIFY_EMAIL) — skipping email notices, submissions still saved to the admin dashboard.');
+}
+
+function notifyAdminOfInquiry(entry) {
+  if (!mailer) return; // not configured — never block/throw
+  const isCertRequest = entry.sourcePage === 'cert-request-modal' || (entry.certificates && entry.certificates.length);
+  const subjectTag = isCertRequest ? 'Certificate Request' : 'New Enquiry';
+  const subject = `[M. Lakhamsi Website] ${subjectTag} — ${entry.company}`;
+
+  const lines = [
+    `A new ${isCertRequest ? 'certificate request' : 'enquiry'} was submitted on the website.`,
+    '',
+    `Name: ${entry.name}`,
+    `Company: ${entry.company}`,
+    `Email: ${entry.email}`,
+    `Website: ${entry.website}`,
+    entry.country ? `Country: ${entry.country}` : null,
+    entry.product ? `Product interest: ${entry.product}` : null,
+    (entry.certificates && entry.certificates.length) ? `Certificates requested: ${entry.certificates.join(', ')}` : null,
+    entry.message ? `Message: ${entry.message}` : null,
+    '',
+    `Source page: ${entry.sourcePage || 'unknown'}`,
+    `Submitted: ${entry.createdAt}`,
+    '',
+    'View all submissions in the admin dashboard: /admin-analytics.html'
+  ].filter(Boolean).join('\n');
+
+  mailer.sendMail({
+    from: SMTP_USER,
+    to: ADMIN_NOTIFY_EMAIL,
+    subject: subject,
+    text: lines
+  }).catch(function (err) {
+    // Never let a failed notification email affect the visitor's experience —
+    // the submission is already safely saved regardless of email delivery.
+    console.error('Admin notification email failed to send:', err.message);
+  });
+}
 
 // ─────────────────────────────────────────────────────────────
 // Social posts: persistence
@@ -431,11 +496,8 @@ app.post('/api/inquiry', (req, res) => {
     createdAt: new Date().toISOString()
   };
   appendInquiry(entry);
+  notifyAdminOfInquiry(entry);
 
-  // NOTE for developer: not yet wired to a transactional email service —
-  // submissions are persisted to the Volume and visible in the admin
-  // dashboard. Add SMTP/SendGrid delivery to the trade team inbox once the
-  // confirmed address is available (see Phase 10 of the implementation brief).
   res.json({ ok: true });
 });
 
