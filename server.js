@@ -496,6 +496,7 @@ app.post('/api/admin/settings', requireAdmin, (req, res) => {
 app.use(express.static(__dirname, { extensions: ['html'] }));
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
 app.get('/about', (req, res) => res.sendFile(path.join(__dirname, 'about.html')));
+app.get('/privacy', (req, res) => res.sendFile(path.join(__dirname, 'privacy.html')));
 
 // Fallback: anything unknown -> homepage (keeps links from 404ing during review)
 app.use((req, res) => res.status(200).sendFile(path.join(__dirname, 'index.html')));
