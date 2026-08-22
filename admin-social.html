@@ -168,6 +168,17 @@
         </div>
         <div class="add-status" id="addStatus" style="margin-top:-20px; margin-bottom:24px;"></div>
 
+        <details style="margin: -12px 0 24px;">
+            <summary style="cursor:pointer; font-size:12.5px; color: var(--gray); user-select:none;">Bulk add multiple posts at once</summary>
+            <div style="margin-top:12px;">
+                <textarea id="bulkInput" rows="6" placeholder="Paste one post URL per line, newest first…" style="width:100%; box-sizing:border-box; font-family:inherit; font-size:13px; padding:10px 12px; border-radius:8px; border:1px solid var(--border, #D9D5CE); resize:vertical;"></textarea>
+                <div style="display:flex; align-items:center; gap:12px; margin-top:8px;">
+                    <button id="bulkAddBtn">Add All</button>
+                    <span class="add-status" id="bulkStatus"></span>
+                </div>
+            </div>
+        </details>
+
         <div class="columns">
             <div class="col">
                 <h2><i class="ti ti-brand-linkedin"></i> LinkedIn (<span id="liCount">0</span>)</h2>
@@ -190,6 +201,9 @@ const logoutBtn = document.getElementById('logoutBtn');
 const urlInput = document.getElementById('urlInput');
 const addBtn = document.getElementById('addBtn');
 const addStatus = document.getElementById('addStatus');
+const bulkInput = document.getElementById('bulkInput');
+const bulkAddBtn = document.getElementById('bulkAddBtn');
+const bulkStatus = document.getElementById('bulkStatus');
 const liList = document.getElementById('liList');
 const twList = document.getElementById('twList');
 const liCount = document.getElementById('liCount');
@@ -271,6 +285,43 @@ async function addPost() {
         addStatus.textContent = 'Network error — try again';
     } finally {
         addBtn.disabled = false;
+    }
+}
+
+bulkAddBtn.addEventListener('click', bulkAddPosts);
+
+async function bulkAddPosts() {
+    const urls = bulkInput.value.split('\n').map(s => s.trim()).filter(Boolean);
+    bulkStatus.textContent = '';
+    bulkStatus.style.color = '';
+    if (urls.length === 0) return;
+    bulkAddBtn.disabled = true;
+    try {
+        const res = await fetch('/api/social-posts/bulk', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ urls })
+        });
+        const data = await res.json();
+        if (res.ok) {
+            bulkStatus.style.color = '#2E6B2E';
+            bulkStatus.textContent = `Added ${data.added}, skipped ${data.skipped} duplicate(s), ${data.failed} failed.`;
+            if (data.failed > 0) {
+                const failedUrls = data.results.filter(r => !r.ok && !r.duplicate).map(r => r.url).join('\n');
+                bulkInput.value = failedUrls; // leave failures in the box so they're easy to retry/inspect
+            } else {
+                bulkInput.value = '';
+            }
+            renderLists(data.data);
+        } else {
+            bulkStatus.style.color = '#B3261E';
+            bulkStatus.textContent = data.error || 'Could not process that batch';
+        }
+    } catch (e) {
+        bulkStatus.style.color = '#B3261E';
+        bulkStatus.textContent = 'Network error — try again';
+    } finally {
+        bulkAddBtn.disabled = false;
     }
 }
 

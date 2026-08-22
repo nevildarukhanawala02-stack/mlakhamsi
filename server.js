@@ -288,43 +288,86 @@ app.get('/api/social-posts', (req, res) => {
   res.json(readPosts());
 });
 
-app.post('/api/social-posts', requireAdmin, (req, res) => {
-  const { url } = req.body || {};
+// Adds a single post URL into `data` in place. Returns { ok: true, platform }
+// on success, or { ok: false, error, status } on failure. Does not read/write
+// the data file itself — callers do that once, after processing however many
+// URLs they have (a single add, or a whole bulk batch).
+function addPostFromUrl(data, url) {
   if (!url || typeof url !== 'string') {
-    return res.status(400).json({ error: 'Missing url' });
+    return { ok: false, status: 400, error: 'Missing url' };
   }
 
   let hostname;
   try {
     hostname = new URL(url).hostname.replace(/^www\./, '');
   } catch (e) {
-    return res.status(400).json({ error: 'That is not a valid URL' });
+    return { ok: false, status: 400, error: `Not a valid URL: ${url}` };
   }
-
-  const data = readPosts();
 
   if (hostname === 'linkedin.com') {
     const parsed = parseLinkedInUrl(url);
-    if (!parsed) return res.status(400).json({ error: "Couldn't find a LinkedIn post ID in that URL" });
+    if (!parsed) return { ok: false, status: 400, error: `Couldn't find a LinkedIn post ID in: ${url}` };
     if (data.linkedin.some(p => p.id === parsed.id)) {
-      return res.status(409).json({ error: 'That post is already added' });
+      return { ok: false, status: 409, error: `Already added (LinkedIn ${parsed.id})`, duplicate: true };
     }
     data.linkedin.unshift({ id: parsed.id, type: parsed.type, url, addedAt: new Date().toISOString() });
     data.linkedin = data.linkedin.slice(0, 30);
-  } else if (hostname === 'twitter.com' || hostname === 'x.com') {
+    return { ok: true, platform: 'linkedin' };
+  }
+
+  if (hostname === 'twitter.com' || hostname === 'x.com') {
     const parsed = parseTwitterUrl(url);
-    if (!parsed) return res.status(400).json({ error: "Couldn't find a tweet ID in that URL" });
+    if (!parsed) return { ok: false, status: 400, error: `Couldn't find a tweet ID in: ${url}` };
     if (data.twitter.some(p => p.id === parsed.id)) {
-      return res.status(409).json({ error: 'That post is already added' });
+      return { ok: false, status: 409, error: `Already added (Tweet ${parsed.id})`, duplicate: true };
     }
     data.twitter.unshift({ id: parsed.id, url, addedAt: new Date().toISOString() });
     data.twitter = data.twitter.slice(0, 30);
-  } else {
-    return res.status(400).json({ error: 'URL must be a linkedin.com or twitter.com / x.com link' });
+    return { ok: true, platform: 'twitter' };
   }
 
+  return { ok: false, status: 400, error: `Not a linkedin.com or twitter.com / x.com link: ${url}` };
+}
+
+app.post('/api/social-posts', requireAdmin, (req, res) => {
+  const { url } = req.body || {};
+  const data = readPosts();
+  const result = addPostFromUrl(data, url);
+  if (!result.ok) {
+    return res.status(result.status).json({ error: result.error });
+  }
   writePosts(data);
   res.json(data);
+});
+
+// Bulk import: accepts { urls: [...] } and adds each one in order. The first
+// URL in the array is treated as the newest — each is unshifted in turn, so
+// to preserve a "newest first" input order we process the array back-to-front.
+// Never fails the whole batch for one bad URL: collects per-URL results and
+// keeps going, so a typo three-quarters through a 46-post paste doesn't lose
+// the other 45.
+app.post('/api/social-posts/bulk', requireAdmin, (req, res) => {
+  const { urls } = req.body || {};
+  if (!Array.isArray(urls) || urls.length === 0) {
+    return res.status(400).json({ error: 'Missing urls array' });
+  }
+
+  const data = readPosts();
+  const results = [];
+  for (let i = urls.length - 1; i >= 0; i--) {
+    const url = typeof urls[i] === 'string' ? urls[i].trim() : urls[i];
+    if (!url) continue;
+    const result = addPostFromUrl(data, url);
+    results.push({ url, ...result });
+  }
+  // Report back in the original (newest-first) order the URLs were submitted.
+  results.reverse();
+
+  writePosts(data);
+  const added = results.filter(r => r.ok).length;
+  const skipped = results.filter(r => !r.ok && r.duplicate).length;
+  const failed = results.filter(r => !r.ok && !r.duplicate).length;
+  res.json({ added, skipped, failed, results, data });
 });
 
 app.delete('/api/social-posts/:platform/:id', requireAdmin, (req, res) => {
