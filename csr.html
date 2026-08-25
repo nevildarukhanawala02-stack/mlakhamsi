@@ -197,6 +197,26 @@
             border-radius: 2px;
             transition: all 150ms ease;
         }
+        @media (max-width: 768px) {
+            .nav-links.mobile-open {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--color-white);
+                padding: var(--space-4);
+                gap: var(--space-3);
+                box-shadow: 0 4px 16px rgba(27,58,92,0.10);
+                border-top: 1px solid #E8E4DF;
+                z-index: 99;
+            }
+            .nav-links.mobile-open a { padding: var(--space-2) 0; display: block; }
+        }
+        .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
         /* ===== TICKER BAR ===== */
         .ticker-bar {
@@ -1247,5 +1267,22 @@
         }
     </script>
 
+    <script>
+        (function () {
+            var hamburger = document.querySelector('.hamburger');
+            var navLinks = document.querySelector('.nav-links');
+            if (!hamburger || !navLinks) return;
+            hamburger.addEventListener('click', function () {
+                navLinks.classList.toggle('mobile-open');
+                hamburger.classList.toggle('active');
+            });
+            navLinks.querySelectorAll('a').forEach(function (link) {
+                link.addEventListener('click', function () {
+                    navLinks.classList.remove('mobile-open');
+                    hamburger.classList.remove('active');
+                });
+            });
+        })();
+    </script>
 </body>
 </html>
