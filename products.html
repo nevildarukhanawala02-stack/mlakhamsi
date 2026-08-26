@@ -937,6 +937,14 @@
         .quote-modal h3 { font-family: var(--font-serif); color: var(--color-navy); font-size:22px; margin-bottom:8px; font-weight:500; }
         .quote-modal p.modal-sub { font-size:13px; color: var(--color-gray); margin-bottom: var(--space-6); line-height:1.6; }
         .quote-modal-close { position:absolute; top:16px; right:16px; background:none; border:none; font-size:20px; color: var(--color-gray); cursor:pointer; line-height:1; }
+        .zoom-modal-overlay { display:none; position:fixed; inset:0; background:rgba(27,58,92,0.82); z-index:1001; align-items:center; justify-content:center; padding: var(--space-4); }
+        .zoom-modal-overlay.open { display:flex; }
+        .zoom-modal { background: var(--color-white); border-radius: var(--radius-lg); max-width:480px; width:100%; padding: var(--space-6); position:relative; max-height:90vh; overflow-y:auto; text-align:center; animation: zoomModalIn 200ms ease; }
+        @keyframes zoomModalIn { from { opacity:0; transform:scale(0.96); } to { opacity:1; transform:scale(1); } }
+        .zoom-modal-close { position:absolute; top:12px; right:12px; background:none; border:none; font-size:24px; color: var(--color-gray); cursor:pointer; line-height:1; width:44px; height:44px; display:flex; align-items:center; justify-content:center; }
+        .zoom-modal-close:hover { color: var(--color-navy); }
+        .zoom-modal img { width:100%; max-height:60vh; object-fit:contain; background: var(--color-offwhite); border-radius: var(--radius-md); margin-bottom: var(--space-4); }
+        .zoom-modal h3 { font-family: var(--font-sans); font-weight:600; font-size:16px; color: var(--color-charcoal); margin-bottom: var(--space-4); }
         .quote-modal .form-row { margin-bottom: var(--space-4); }
         .quote-modal .form-row label { display:block; font-family:var(--font-sans); font-weight:500; font-size:12px; color: var(--color-navy); margin-bottom:6px; }
         .quote-modal .form-row label .req { color: var(--color-gold); }
@@ -1104,31 +1112,31 @@
             </div>
             <div class="product-grid">
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/java-Peanut.png" alt="Java Peanuts" loading="lazy">
+                    <img class="pimg" src="/images/products/java-Peanut.png" alt="Java Peanuts" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Java Peanuts</h3>
                     <p class="pdesc">Small, sweet kernels — a global favourite for snacking and confectionery.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/Bold-Peanut-1.png" alt="Bold Peanuts" loading="lazy">
+                    <img class="pimg" src="/images/products/Bold-Peanut-1.png" alt="Bold Peanuts" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Bold Peanuts</h3>
                     <p class="pdesc">Large, uniform kernels for premium roasting and table use.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/Balanched-Peanut-1.png" alt="Blanched Peanuts" loading="lazy">
+                    <img class="pimg" src="/images/products/Balanched-Peanut-1.png" alt="Blanched Peanuts" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Blanched Peanuts</h3>
                     <p class="pdesc">Skin removed, clean and consistent — for butters, pastes, and ingredients.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/in-shell-peanut.png" alt="In-Shell Peanuts" loading="lazy">
+                    <img class="pimg" src="/images/products/in-shell-peanut.png" alt="In-Shell Peanuts" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>In-Shell Peanuts</h3>
                     <p class="pdesc">Roasting-grade, in the shell — cleaned and size-graded.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/Kibbled-blanched-peanut.png" alt="Roasted Kibbled Peanuts" loading="lazy">
+                    <img class="pimg" src="/images/products/Kibbled-blanched-peanut.png" alt="Roasted Kibbled Peanuts" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Roasted Kibbled Peanuts</h3>
                     <p class="pdesc">Blanched, split, and roasted — ready for bakery and confectionery lines.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
@@ -1148,19 +1156,19 @@
             </div>
             <div class="product-grid">
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/natural-sesame-seeds.png" alt="Natural Sesame" loading="lazy">
+                    <img class="pimg" src="/images/products/natural-sesame-seeds.png" alt="Natural Sesame" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Natural Sesame</h3>
                     <p class="pdesc">Whole natural seed — for oil, bakery, and general food use.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/Hulled-sesame-seeds.png" alt="Hulled Sesame" loading="lazy">
+                    <img class="pimg" src="/images/products/Hulled-sesame-seeds.png" alt="Hulled Sesame" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Hulled Sesame</h3>
                     <p class="pdesc">Mechanically hulled, bright and clean — for tahini and confectionery.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/Black-sesame-seeds.png" alt="Black Sesame" loading="lazy">
+                    <img class="pimg" src="/images/products/Black-sesame-seeds.png" alt="Black Sesame" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Black Sesame</h3>
                     <p class="pdesc">Whole black seed — for specialty food and East Asian markets.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
@@ -1180,37 +1188,37 @@
             </div>
             <div class="product-grid">
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/castor-seed.png" alt="Castor" loading="lazy">
+                    <img class="pimg" src="/images/products/castor-seed.png" alt="Castor" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Castor</h3>
                     <p class="pdesc">Castor seed for oil extraction and industrial use.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/safflower-seeds.png" alt="Safflower" loading="lazy">
+                    <img class="pimg" src="/images/products/safflower-seeds.png" alt="Safflower" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Safflower</h3>
                     <p class="pdesc">Safflower seed — for oil and bird-feed markets.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/sunflower-seeds.png" alt="Sunflower" loading="lazy">
+                    <img class="pimg" src="/images/products/sunflower-seeds.png" alt="Sunflower" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Sunflower</h3>
                     <p class="pdesc">Sunflower seed — confectionery and oil grades.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/oriental-seeds-1.png" alt="Oriental Mustard" loading="lazy">
+                    <img class="pimg" src="/images/products/oriental-seeds-1.png" alt="Oriental Mustard" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Oriental Mustard</h3>
                     <p class="pdesc">Oriental mustard seed — pungent, for oil and condiment use.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/mustard-seeds.png" alt="Yellow Mustard" loading="lazy">
+                    <img class="pimg" src="/images/products/mustard-seeds.png" alt="Yellow Mustard" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Yellow Mustard</h3>
                     <p class="pdesc">Yellow mustard seed — milder, for condiment and spice trade.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/Soyabean.png" alt="Soyabean" loading="lazy">
+                    <img class="pimg" src="/images/products/Soyabean.png" alt="Soyabean" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Soyabean</h3>
                     <p class="pdesc">Soyabean — for crushing, feed, and food processing.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
@@ -1230,67 +1238,67 @@
             </div>
             <div class="product-grid">
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/chick-peas-1.png" alt="Chick Peas" loading="lazy">
+                    <img class="pimg" src="/images/products/chick-peas-1.png" alt="Chick Peas" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Chick Peas</h3>
                     <p class="pdesc">Kabuli chickpeas — size-graded, for canning and retail.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/brown-chick-peas.png" alt="Brown Chick Peas" loading="lazy">
+                    <img class="pimg" src="/images/products/brown-chick-peas.png" alt="Brown Chick Peas" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Brown Chick Peas</h3>
                     <p class="pdesc">Desi brown chickpeas — for flour, dal, and snacks.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/pigeon-peas.png" alt="Pigeon Peas" loading="lazy">
+                    <img class="pimg" src="/images/products/pigeon-peas.png" alt="Pigeon Peas" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Pigeon Peas</h3>
                     <p class="pdesc">Toor / arhar — a staple pulse for dal markets.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/yellow-peas.png" alt="Yellow Peas" loading="lazy">
+                    <img class="pimg" src="/images/products/yellow-peas.png" alt="Yellow Peas" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Yellow Peas</h3>
                     <p class="pdesc">Whole and split yellow peas — for food and processing.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/Green-Peas.png" alt="Green Peas" loading="lazy">
+                    <img class="pimg" src="/images/products/Green-Peas.png" alt="Green Peas" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Green Peas</h3>
                     <p class="pdesc">Whole green peas — dried, for retail and processing.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/red-lentils.png" alt="Red Lentils" loading="lazy">
+                    <img class="pimg" src="/images/products/red-lentils.png" alt="Red Lentils" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Red Lentils</h3>
                     <p class="pdesc">Split and whole red lentils — fast-cooking, high demand.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/green-lentils.png" alt="Green Lentils" loading="lazy">
+                    <img class="pimg" src="/images/products/green-lentils.png" alt="Green Lentils" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Green Lentils</h3>
                     <p class="pdesc">Whole green lentils — for retail and food service.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/mung-beans.png" alt="Green Mung" loading="lazy">
+                    <img class="pimg" src="/images/products/mung-beans.png" alt="Green Mung" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Green Mung</h3>
                     <p class="pdesc">Whole green gram — for sprouting, dal, and processing.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/black-eyed-beans-1.png" alt="Black Eyed Beans" loading="lazy">
+                    <img class="pimg" src="/images/products/black-eyed-beans-1.png" alt="Black Eyed Beans" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Black Eyed Beans</h3>
                     <p class="pdesc">Black-eyed peas — cleaned and size-graded.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/Kidney-beans.png" alt="Kidney Beans" loading="lazy">
+                    <img class="pimg" src="/images/products/Kidney-beans.png" alt="Kidney Beans" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Kidney Beans</h3>
                     <p class="pdesc">Rajma — red kidney beans for retail and canning.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/black-matpe.png" alt="Black Matpe" loading="lazy">
+                    <img class="pimg" src="/images/products/black-matpe.png" alt="Black Matpe" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Black Matpe</h3>
                     <p class="pdesc">Whole urad / black gram — for dal and flour.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
@@ -1310,31 +1318,31 @@
             </div>
             <div class="product-grid">
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/sourgham.png" alt="Sorghum" loading="lazy">
+                    <img class="pimg" src="/images/products/sourgham.png" alt="Sorghum" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Sorghum</h3>
                     <p class="pdesc">Jowar — food and feed grades.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/wheat.png" alt="Wheat" loading="lazy">
+                    <img class="pimg" src="/images/products/wheat.png" alt="Wheat" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Wheat</h3>
                     <p class="pdesc">Milling and general-purpose wheat.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/rice.png" alt="Rice" loading="lazy">
+                    <img class="pimg" src="/images/products/rice.png" alt="Rice" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Rice</h3>
                     <p class="pdesc">Non-basmati and specialty rice for bulk export.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/maize.png" alt="Maize" loading="lazy">
+                    <img class="pimg" src="/images/products/maize.png" alt="Maize" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Maize</h3>
                     <p class="pdesc">Yellow maize — feed and industrial grades.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/Millet.png" alt="Millet" loading="lazy">
+                    <img class="pimg" src="/images/products/Millet.png" alt="Millet" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Millet</h3>
                     <p class="pdesc">Assorted millets — for food and health markets.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
@@ -1354,61 +1362,61 @@
             </div>
             <div class="product-grid">
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/Cumin-seeds.png" alt="Cumin Seeds" loading="lazy">
+                    <img class="pimg" src="/images/products/Cumin-seeds.png" alt="Cumin Seeds" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Cumin Seeds</h3>
                     <p class="pdesc">Whole cumin — machine-cleaned, export grade.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/coriender-seeds.png" alt="Coriander Seeds" loading="lazy">
+                    <img class="pimg" src="/images/products/coriender-seeds.png" alt="Coriander Seeds" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Coriander Seeds</h3>
                     <p class="pdesc">Whole coriander — single and double parrot grades.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/feenel-seeds.png" alt="Fennel Seeds" loading="lazy">
+                    <img class="pimg" src="/images/products/feenel-seeds.png" alt="Fennel Seeds" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Fennel Seeds</h3>
                     <p class="pdesc">Whole fennel — bright green, cleaned.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/whole-chilli.png" alt="Chilli Whole" loading="lazy">
+                    <img class="pimg" src="/images/products/whole-chilli.png" alt="Chilli Whole" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Chilli Whole</h3>
                     <p class="pdesc">Dried whole chilli — assorted varieties and heat levels.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/Turmeric-fingers.png" alt="Turmeric Fingers" loading="lazy">
+                    <img class="pimg" src="/images/products/Turmeric-fingers.png" alt="Turmeric Fingers" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Turmeric Fingers</h3>
                     <p class="pdesc">Whole turmeric fingers — high-curcumin varieties.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/fenugreek.png" alt="Fenugreek" loading="lazy">
+                    <img class="pimg" src="/images/products/fenugreek.png" alt="Fenugreek" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Fenugreek</h3>
                     <p class="pdesc">Whole methi seed — for spice and food use.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/dill.png" alt="Dill" loading="lazy">
+                    <img class="pimg" src="/images/products/dill.png" alt="Dill" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Dill</h3>
                     <p class="pdesc">Dill seed — cleaned and graded.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/chilli-Flakes-1.png" alt="Chilli Flakes" loading="lazy">
+                    <img class="pimg" src="/images/products/chilli-Flakes-1.png" alt="Chilli Flakes" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Chilli Flakes</h3>
                     <p class="pdesc">Crushed chilli flakes — for food processing.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/Turmeric-powder.png" alt="Turmeric Powder" loading="lazy">
+                    <img class="pimg" src="/images/products/Turmeric-powder.png" alt="Turmeric Powder" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Turmeric Powder</h3>
                     <p class="pdesc">Ground turmeric — colour and curcumin specified.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/chili-Powder.png" alt="Chilli Powder" loading="lazy">
+                    <img class="pimg" src="/images/products/chili-Powder.png" alt="Chilli Powder" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Chilli Powder</h3>
                     <p class="pdesc">Ground chilli — heat and colour to specification.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
@@ -1428,31 +1436,31 @@
             </div>
             <div class="product-grid">
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/mustered-oil.png" alt="Mustard Oil" loading="lazy">
+                    <img class="pimg" src="/images/products/mustered-oil.png" alt="Mustard Oil" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Mustard Oil</h3>
                     <p class="pdesc">Cold-pressed and refined mustard oil.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/seasame-oil.png" alt="Sesame Oil" loading="lazy">
+                    <img class="pimg" src="/images/products/seasame-oil.png" alt="Sesame Oil" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Sesame Oil</h3>
                     <p class="pdesc">Sesame oil — for food and specialty markets.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/peant-oil.png" alt="Peanut Oil" loading="lazy">
+                    <img class="pimg" src="/images/products/peant-oil.png" alt="Peanut Oil" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Peanut Oil</h3>
                     <p class="pdesc">Groundnut oil — filtered and refined grades.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/castor-oil.png" alt="Castor Oil" loading="lazy">
+                    <img class="pimg" src="/images/products/castor-oil.png" alt="Castor Oil" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Castor Oil</h3>
                     <p class="pdesc">Castor oil — commercial and industrial grades.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/oil-cakes.png" alt="Oil Cakes" loading="lazy">
+                    <img class="pimg" src="/images/products/oil-cakes.png" alt="Oil Cakes" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Oil Cakes</h3>
                     <p class="pdesc">De-oiled cakes — protein-rich feed ingredient.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
@@ -1472,31 +1480,31 @@
             </div>
             <div class="product-grid">
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/golden-raisins.png" alt="Golden Raisins" loading="lazy">
+                    <img class="pimg" src="/images/products/golden-raisins.png" alt="Golden Raisins" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Golden Raisins</h3>
                     <p class="pdesc">Golden seedless raisins — bright, cleaned, graded.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/brown-raisins.png" alt="Brown Raisins" loading="lazy">
+                    <img class="pimg" src="/images/products/brown-raisins.png" alt="Brown Raisins" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Brown Raisins</h3>
                     <p class="pdesc">Natural brown raisins — for retail and baking.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/Black-Raisins.png" alt="Black Raisins" loading="lazy">
+                    <img class="pimg" src="/images/products/Black-Raisins.png" alt="Black Raisins" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Black Raisins</h3>
                     <p class="pdesc">Black seedless raisins — for food and retail.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/Natural-gums.png" alt="Natural Gums" loading="lazy">
+                    <img class="pimg" src="/images/products/Natural-gums.png" alt="Natural Gums" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Natural Gums</h3>
                     <p class="pdesc">Natural gums — food and industrial grades.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
                 </div>
                 <div class="product-card">
-                    <img class="pimg" src="/images/products/sugar-1.png" alt="Sugar" loading="lazy">
+                    <img class="pimg" src="/images/products/sugar-1.png" alt="Sugar" loading="lazy" style="cursor:zoom-in;" onclick="openZoomModal(this.src, this.alt)">
                     <h3>Sugar</h3>
                     <p class="pdesc">Refined sugar — export grades.</p>
                     <a class="pcta" href="#" onclick="openQuoteModal(this.closest('.product-card').querySelector('h3').textContent); return false;">Request a Quote →</a>
@@ -1836,6 +1844,14 @@
             </form>
         </div>
     </div>
+    <div class="zoom-modal-overlay" id="zoom-modal-overlay">
+        <div class="zoom-modal">
+            <button class="zoom-modal-close" onclick="closeZoomModal()" aria-label="Close">&times;</button>
+            <img id="zoom-modal-img" src="" alt="">
+            <h3 id="zoom-modal-title"></h3>
+            <a href="#" class="btn btn-primary" onclick="zoomModalRequestQuote(); return false;">Request a Quote →</a>
+        </div>
+    </div>
     <script>
         function openQuoteModal(productName) {
             document.getElementById('quote-modal-overlay').classList.add('open');
@@ -1844,6 +1860,29 @@
         function closeQuoteModal() {
             document.getElementById('quote-modal-overlay').classList.remove('open');
         }
+        function openZoomModal(imgSrc, productName) {
+            document.getElementById('zoom-modal-img').src = imgSrc;
+            document.getElementById('zoom-modal-img').alt = productName || '';
+            document.getElementById('zoom-modal-title').textContent = productName || '';
+            document.getElementById('zoom-modal-overlay').classList.add('open');
+        }
+        function closeZoomModal() {
+            document.getElementById('zoom-modal-overlay').classList.remove('open');
+        }
+        function zoomModalRequestQuote() {
+            var productName = document.getElementById('zoom-modal-title').textContent;
+            closeZoomModal();
+            openQuoteModal(productName);
+        }
+        document.getElementById('zoom-modal-overlay').addEventListener('click', function(e) {
+            if (e.target === this) closeZoomModal();
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeZoomModal();
+                closeQuoteModal();
+            }
+        });
         document.getElementById('quote-modal-overlay').addEventListener('click', function(e) {
             if (e.target === this) closeQuoteModal();
         });
