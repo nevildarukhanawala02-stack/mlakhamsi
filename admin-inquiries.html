@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Inquiries Admin — M Lakhamsi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+    :root {
+        --navy: #1B3A5C; --navy-hover: #2A5280; --gold: #C9A84C; --gold-pale: #F5EDD6;
+        --offwhite: #F7F5F2; --charcoal: #2C2C2C; --gray: #6B6B6B; --lgray: #D0CCC6;
+        --white: #FFFFFF; --red: #B3261E; --green: #2E6B2E;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+        font-family: "Inter", system-ui, sans-serif;
+        background: var(--offwhite); color: var(--charcoal);
+        min-height: 100vh; padding: 32px 20px 80px;
+    }
+    .wrap { max-width: 1100px; margin: 0 auto; }
+    h1 { font-family: "Playfair Display", serif; font-size: 24px; color: var(--navy); margin-bottom: 4px; }
+    .subtitle { font-size: 13px; color: var(--gray); margin-bottom: 24px; }
+
+    .login-card {
+        background: var(--white); border: 1px solid var(--lgray); border-radius: 12px;
+        padding: 32px; width: 100%; max-width: 360px; text-align: center; margin: 60px auto;
+    }
+    .login-card i { font-size: 32px; color: var(--navy); margin-bottom: 12px; display:block; }
+    input[type="password"], input[type="text"] {
+        width: 100%; padding: 11px 14px; border: 1px solid var(--lgray); border-radius: 4px;
+        font-size: 14px; font-family: inherit; margin-bottom: 12px;
+    }
+    input:focus { outline: none; border-color: var(--navy); border-width: 2px; }
+    button {
+        font-family: inherit; font-size: 13px; font-weight: 500; border: none; border-radius: 4px;
+        padding: 11px 20px; cursor: pointer; transition: background 150ms ease;
+    }
+    .btn-primary { background: var(--navy); color: #fff; width: 100%; }
+    .btn-primary:hover { background: var(--navy-hover); }
+    .error-msg { color: var(--red); font-size: 12.5px; margin-top: 10px; min-height: 16px; }
+
+    .panel { display: none; }
+    .panel.visible { display: block; }
+    .topbar { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
+    .btn-logout, .btn-back { background: transparent; border: 1px solid var(--lgray); color: var(--gray); font-size: 12px; padding: 8px 14px; text-decoration: none; display: inline-block; }
+    .btn-logout:hover, .btn-back:hover { border-color: var(--navy); color: var(--navy); }
+    .topbar-actions { display: flex; gap: 8px; }
+
+    .stat-row { display: flex; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+    .stat-chip { background: var(--white); border: 1px solid var(--lgray); border-radius: 10px; padding: 14px 20px; }
+    .stat-chip .num { font-family: "Playfair Display", serif; font-size: 22px; color: var(--navy); font-weight: 600; }
+    .stat-chip .label { font-size: 11.5px; color: var(--gray); text-transform: uppercase; letter-spacing: 0.04em; margin-top: 2px; }
+    .stat-chip.spam .num { color: var(--red); }
+
+    .search-row { margin-bottom: 16px; }
+    .search-row input { max-width: 320px; margin-bottom: 0; }
+
+    .inquiry-list { display: flex; flex-direction: column; gap: 10px; }
+    .inquiry-card {
+        background: var(--white); border: 1px solid var(--lgray); border-radius: 10px;
+        padding: 16px 18px; cursor: pointer; transition: box-shadow 150ms ease, border-color 150ms ease;
+    }
+    .inquiry-card:hover { box-shadow: 0 4px 14px rgba(27,58,92,0.08); border-color: var(--navy); }
+    .inquiry-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+    .inquiry-name { font-weight: 600; color: var(--navy); font-size: 14.5px; }
+    .inquiry-company { font-size: 12.5px; color: var(--gray); margin-top: 1px; }
+    .inquiry-date { font-size: 11.5px; color: var(--gray); white-space: nowrap; }
+    .inquiry-meta { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+    .pill { font-size: 10.5px; padding: 3px 9px; border-radius: 20px; background: var(--gold-pale); color: #7A5C1E; font-weight: 600; }
+    .pill.source { background: var(--offwhite); color: var(--gray); border: 1px solid var(--lgray); }
+    .inquiry-preview { font-size: 12.5px; color: var(--charcoal); margin-top: 8px; opacity: 0.75; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .empty-note { font-size: 13.5px; color: var(--gray); padding: 40px 0; text-align: center; }
+
+    /* Detail modal */
+    .detail-overlay { display:none; position:fixed; inset:0; background:rgba(27,58,92,0.55); z-index:1000; align-items:center; justify-content:center; padding: 20px; }
+    .detail-overlay.open { display:flex; }
+    .detail-modal { background: var(--white); border-radius: 12px; max-width: 560px; width:100%; padding: 32px; position:relative; max-height:85vh; overflow-y:auto; }
+    .detail-close { position:absolute; top:16px; right:16px; background:none; border:none; font-size:22px; color: var(--gray); cursor:pointer; line-height:1; }
+    .detail-modal h2 { font-family: "Playfair Display", serif; color: var(--navy); font-size: 19px; margin-bottom: 2px; }
+    .detail-modal .detail-sub { font-size: 12.5px; color: var(--gray); margin-bottom: 20px; }
+    .detail-row { margin-bottom: 14px; }
+    .detail-row .dl { font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--gray); margin-bottom: 3px; }
+    .detail-row .dv { font-size: 14px; color: var(--charcoal); word-break: break-word; }
+    .detail-row .dv a { color: var(--navy); }
+    .detail-message { background: var(--offwhite); border-radius: 8px; padding: 14px 16px; font-size: 13.5px; line-height: 1.6; white-space: pre-wrap; }
+</style>
+</head>
+<body>
+<div class="wrap">
+    <h1>Inquiry Submissions</h1>
+    <p class="subtitle">Every "Request a Quote" and contact form submission from the site.</p>
+
+    <div class="login-card" id="loginCard">
+        <i class="ti ti-lock"></i>
+        <input type="password" id="passwordInput" placeholder="Admin password" autocomplete="current-password">
+        <button class="btn-primary" id="loginBtn">Log in</button>
+        <div class="error-msg" id="loginError"></div>
+    </div>
+
+    <div class="panel" id="panel">
+        <div class="topbar">
+            <a class="btn-back" href="/admin.html"><i class="ti ti-arrow-left"></i> Admin Home</a>
+            <div class="topbar-actions">
+                <button class="btn-logout" id="logoutBtn">Log out</button>
+            </div>
+        </div>
+
+        <div class="stat-row" id="statRow"></div>
+
+        <div class="search-row">
+            <input type="text" id="searchInput" placeholder="Search name, company, email, product…">
+        </div>
+
+        <div class="inquiry-list" id="inquiryList"></div>
+    </div>
+</div>
+
+<div class="detail-overlay" id="detailOverlay">
+    <div class="detail-modal">
+        <button class="detail-close" onclick="closeDetail()" aria-label="Close">&times;</button>
+        <div id="detailBody"></div>
+    </div>
+</div>
+
+<script>
+const loginCard = document.getElementById('loginCard');
+const panel = document.getElementById('panel');
+const passwordInput = document.getElementById('passwordInput');
+const loginBtn = document.getElementById('loginBtn');
+const loginError = document.getElementById('loginError');
+const logoutBtn = document.getElementById('logoutBtn');
+const searchInput = document.getElementById('searchInput');
+
+let allInquiries = [];
+
+function showPanel() { loginCard.style.display = 'none'; panel.classList.add('visible'); loadData(); }
+function showLogin() { loginCard.style.display = 'block'; panel.classList.remove('visible'); passwordInput.value = ''; }
+
+async function checkAuth() {
+    const res = await fetch('/api/admin/check');
+    const data = await res.json();
+    if (data.authenticated) showPanel(); else showLogin();
+}
+
+loginBtn.addEventListener('click', login);
+passwordInput.addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
+
+async function login() {
+    loginError.textContent = '';
+    const password = passwordInput.value;
+    if (!password) return;
+    try {
+        const res = await fetch('/api/admin/login', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password })
+        });
+        const data = await res.json();
+        if (res.ok) showPanel(); else loginError.textContent = data.error || 'Login failed';
+    } catch (e) {
+        loginError.textContent = 'Network error — try again';
+    }
+}
+
+logoutBtn.addEventListener('click', async () => {
+    await fetch('/api/admin/logout', { method: 'POST' });
+    showLogin();
+});
+
+function escapeHtml(s) {
+    return (s || '').toString().replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function fmtDate(iso) {
+    if (!iso) return '—';
+    const d = new Date(iso);
+    return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) +
+           ' · ' + d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+}
+
+async function loadData() {
+    const [inqRes, spamRes] = await Promise.all([
+        fetch('/api/admin/inquiries'),
+        fetch('/api/admin/spam-stats')
+    ]);
+    allInquiries = await inqRes.json();
+    const spamStats = await spamRes.json();
+    renderStats(spamStats);
+    renderList(allInquiries);
+}
+
+function renderStats(spamStats) {
+    const now = Date.now();
+    const last7d = allInquiries.filter(i => now - new Date(i.createdAt).getTime() < 7 * 86400000).length;
+    document.getElementById('statRow').innerHTML = `
+        <div class="stat-chip"><div class="num">${allInquiries.length}</div><div class="label">Total inquiries</div></div>
+        <div class="stat-chip"><div class="num">${last7d}</div><div class="label">Last 7 days</div></div>
+        <div class="stat-chip spam"><div class="num">${spamStats.spamBlockedCount || 0}</div><div class="label">Spam blocked</div></div>
+    `;
+}
+
+function renderList(list) {
+    const container = document.getElementById('inquiryList');
+    if (!list.length) {
+        container.innerHTML = '<p class="empty-note">No inquiries yet.</p>';
+        return;
+    }
+    container.innerHTML = list.map((i, idx) => `
+        <div class="inquiry-card" onclick="openDetail(${idx})">
+            <div class="inquiry-top">
+                <div>
+                    <div class="inquiry-name">${escapeHtml(i.name)}</div>
+                    <div class="inquiry-company">${escapeHtml(i.company)}</div>
+                </div>
+                <div class="inquiry-date">${fmtDate(i.createdAt)}</div>
+            </div>
+            <div class="inquiry-meta">
+                ${i.product ? `<span class="pill">${escapeHtml(i.product)}</span>` : ''}
+                ${i.country ? `<span class="pill">${escapeHtml(i.country)}</span>` : ''}
+                ${i.sourcePage ? `<span class="pill source">${escapeHtml(i.sourcePage)}</span>` : ''}
+            </div>
+            ${i.message ? `<div class="inquiry-preview">${escapeHtml(i.message)}</div>` : ''}
+        </div>
+    `).join('');
+}
+
+function openDetail(idx) {
+    const i = allInquiries[idx];
+    if (!i) return;
+    const body = document.getElementById('detailBody');
+    body.innerHTML = `
+        <h2>${escapeHtml(i.name)}</h2>
+        <p class="detail-sub">${escapeHtml(i.company)} · ${fmtDate(i.createdAt)}</p>
+        <div class="detail-row"><div class="dl">Email</div><div class="dv"><a href="mailto:${escapeHtml(i.email)}">${escapeHtml(i.email)}</a></div></div>
+        <div class="detail-row"><div class="dl">Website</div><div class="dv">${escapeHtml(i.website) || '—'}</div></div>
+        <div class="detail-row"><div class="dl">Country</div><div class="dv">${escapeHtml(i.country) || '—'}</div></div>
+        <div class="detail-row"><div class="dl">Product Interest</div><div class="dv">${escapeHtml(i.product) || '—'}</div></div>
+        ${i.certificates && i.certificates.length ? `<div class="detail-row"><div class="dl">Certificates Requested</div><div class="dv">${i.certificates.map(escapeHtml).join(', ')}</div></div>` : ''}
+        <div class="detail-row"><div class="dl">Message</div><div class="detail-message">${i.message ? escapeHtml(i.message) : '<em>No message provided</em>'}</div></div>
+        <div class="detail-row"><div class="dl">Source Page</div><div class="dv">${escapeHtml(i.sourcePage) || '—'}</div></div>
+        <div class="detail-row"><div class="dl">Mailing List Opt-in</div><div class="dv">${i.mailingOptIn ? 'Yes' : 'No'}</div></div>
+        <div class="detail-row"><div class="dl">Inquirer's Country (by IP)</div><div class="dv">${escapeHtml(i.ipCountry) || 'Unknown'}</div></div>
+    `;
+    document.getElementById('detailOverlay').classList.add('open');
+}
+function closeDetail() {
+    document.getElementById('detailOverlay').classList.remove('open');
+}
+document.getElementById('detailOverlay').addEventListener('click', function (e) {
+    if (e.target === this) closeDetail();
+});
+document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeDetail();
+});
+
+searchInput.addEventListener('input', function () {
+    const q = this.value.trim().toLowerCase();
+    if (!q) { renderList(allInquiries); return; }
+    const filtered = allInquiries.filter(i =>
+        (i.name || '').toLowerCase().includes(q) ||
+        (i.company || '').toLowerCase().includes(q) ||
+        (i.email || '').toLowerCase().includes(q) ||
+        (i.product || '').toLowerCase().includes(q) ||
+        (i.country || '').toLowerCase().includes(q) ||
+        (i.message || '').toLowerCase().includes(q)
+    );
+    renderList(filtered);
+});
+
+checkAuth();
+</script>
+</body>
+</html>

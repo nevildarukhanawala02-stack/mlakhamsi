@@ -1146,6 +1146,10 @@
                     <p style="font-size:13px; color:var(--color-gray); margin-bottom:22px;">No automated responses. Your inquiry goes directly to our trade team.</p>
 
                     <form id="inquiry-form-contact" onsubmit="submitInquiry(event, 'contact', 'inquiry-form-contact')">
+                        <div style="position:absolute; left:-9999px; top:-9999px;" aria-hidden="true">
+                            <label for="website_confirm-contact">Leave this field empty</label>
+                            <input type="text" id="website_confirm-contact" name="website_confirm" tabindex="-1" autocomplete="off">
+                        </div>
                         <div class="form-two">
                             <div class="form-row">
                                 <label>Your Name <span class="req">*</span></label>
@@ -1350,6 +1354,7 @@
         // Inquiry form submission — mirrors the homepage form's handler.
         // Persists to the trade team's inquiry log (Volume-backed) and fires
         // the analytics conversion event.
+        var mlFormLoadedAt = Date.now();
         function submitInquiry(evt, sourcePage, formId) {
             evt.preventDefault();
             var form = document.getElementById(formId);
@@ -1371,7 +1376,9 @@
                 product: field('product-contact'),
                 message: field('message-contact'),
                 mailingOptIn: form.querySelector('#consent-mailing') ? form.querySelector('#consent-mailing').checked : false,
-                sourcePage: sourcePage
+                sourcePage: sourcePage,
+                website_confirm: field('website_confirm-contact'),
+                formLoadedAt: mlFormLoadedAt
             };
             if (btn) btn.disabled = true;
             statusEl.style.color = '';

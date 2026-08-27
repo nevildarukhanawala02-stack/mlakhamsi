@@ -1478,6 +1478,10 @@
             <h3>Request a Quote</h3>
             <p class="modal-sub">Tell us what you need — we'll come back with specifications, pricing, and availability.</p>
             <form id="quote-request-form" onsubmit="submitQuoteRequest(event)">
+                <div style="position:absolute; left:-9999px; top:-9999px;" aria-hidden="true">
+                    <label for="quote_website_confirm">Leave this field empty</label>
+                    <input type="text" id="quote_website_confirm" name="website_confirm" tabindex="-1" autocomplete="off">
+                </div>
                 <div class="quote-modal-two">
                     <div class="form-row">
                         <label>Your Name <span class="req">*</span></label>
@@ -1529,6 +1533,7 @@
         document.getElementById('quote-modal-overlay').addEventListener('click', function(e) {
             if (e.target === this) closeQuoteModal();
         });
+        var mlQuoteFormLoadedAt = Date.now();
         function submitQuoteRequest(e) {
             e.preventDefault();
             const form = document.getElementById('quote-request-form');
@@ -1555,7 +1560,9 @@
                 body: JSON.stringify({
                     name: name, company: company, email: email, website: website,
                     country: country, product: product, message: message,
-                    sourcePage: 'quality-quote-modal'
+                    sourcePage: 'quality-quote-modal',
+                    website_confirm: document.getElementById('quote_website_confirm').value,
+                    formLoadedAt: mlQuoteFormLoadedAt
                 })
             }).then(function (res) { return res.json().then(function (data) { return { ok: res.ok, data: data }; }); })
               .then(function (r) {

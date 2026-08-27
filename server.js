@@ -6,6 +6,7 @@ const fs = require('fs');
 const crypto = require('crypto');
 const geoip = require('geoip-lite');
 const nodemailer = require('nodemailer');
+const rateLimit = require('express-rate-limit');
 
 const app = express();
 const PORT = process.env.PORT || 3000; // Railway injects PORT
@@ -123,6 +124,17 @@ function writePosts(data) {
 const ANALYTICS_FILE = path.join(DATA_DIR, 'analytics-events.json');
 const INQUIRIES_FILE = path.join(DATA_DIR, 'inquiries.json');
 const MAX_EVENTS = 200000; // safety cap so the JSON file can't grow unbounded
+
+// Rate limiter for the public inquiry endpoint -- a legitimate visitor submits
+// a handful of times at most; anything beyond this from one IP is almost
+// certainly automated.
+const inquiryLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Too many submissions from this address. Please try again later.' }
+});
 const EVENT_RETENTION_DAYS = 400;
 
 function ensureJsonFile(file, fallback) {
@@ -500,11 +512,43 @@ app.get('/api/admin/inquiries', requireAdmin, (req, res) => {
   res.json(readInquiries().slice(0, 200));
 });
 
+app.get('/api/admin/spam-stats', requireAdmin, (req, res) => {
+  res.json({ spamBlockedCount });
+});
+
 // ─────────────────────────────────────────────────────────────
 // Inquiry form
 // ─────────────────────────────────────────────────────────────
-app.post('/api/inquiry', (req, res) => {
+// In-memory counter of blocked spam attempts, surfaced in the admin inquiries
+// page as a peace-of-mind signal. Resets on server restart -- it's a rough
+// indicator, not a durable log.
+let spamBlockedCount = 0;
+
+app.post('/api/inquiry', inquiryLimiter, (req, res) => {
   const b = req.body || {};
+
+  // Honeypot: a field real visitors never see or fill (hidden off-screen in
+  // the form, never focused by a human). Bots that blindly fill every field
+  // trip this. Respond with the same success message as a real submission
+  // so the bot has no signal it was caught, but don't store or notify.
+  const honeypot = (b.website_confirm || '').toString().trim();
+  if (honeypot) {
+    spamBlockedCount++;
+    return res.json({ ok: true });
+  }
+
+  // Timing check: a hidden field records when the form was rendered
+  // client-side. Genuine visitors need at least a second or two to read the
+  // form and type into it; scripted submissions typically fire in
+  // milliseconds. This is a soft signal, not a hard proof, so the threshold
+  // is kept low to avoid catching fast genuine submissions (e.g. browser
+  // autofill).
+  const loadedAt = Number(b.formLoadedAt);
+  if (loadedAt && Date.now() - loadedAt < 1200) {
+    spamBlockedCount++;
+    return res.json({ ok: true });
+  }
+
   const name = (b.name || '').toString().trim().slice(0, 200);
   const company = (b.company || '').toString().trim().slice(0, 200);
   const email = (b.email || '').toString().trim().slice(0, 200);
