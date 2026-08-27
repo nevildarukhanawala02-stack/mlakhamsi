@@ -4,6 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us — Our Story | M. Lakhamsi Industries Limited</title>
+    <link rel="canonical" href="https://m.lakhamsi.com/about.html">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://m.lakhamsi.com/about.html">
+    <meta property="og:title" content="About Us — Our Story | M. Lakhamsi Industries Limited">
+    <meta property="og:description" content="M. Lakhamsi Industries — nine decades of verified agri-exports from India. BSE listed. Star Export House. ISO, Halal, Kosher, HACCP certified.">
+    <meta property="og:image" content="https://m.lakhamsi.com/images/logo.png">
+    <meta property="og:site_name" content="M Lakhamsi Industries Limited">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="About Us — Our Story | M. Lakhamsi Industries Limited">
+    <meta name="twitter:description" content="M. Lakhamsi Industries — nine decades of verified agri-exports from India. BSE listed. Star Export House. ISO, Halal, Kosher, HACCP certified.">
+    <meta name="twitter:image" content="https://m.lakhamsi.com/images/logo.png">
+
     <meta name="description" content="M. Lakhamsi Industries — nine decades of verified agri-exports from India. BSE listed. Star Export House. ISO, Halal, Kosher, HACCP certified.">
 
     <!-- Google Fonts -->
@@ -98,7 +114,7 @@
             font-weight: 700;
             letter-spacing: 0.12em;
             text-transform: uppercase;
-            color: var(--gold);
+            color: var(--navy);
             margin-bottom: var(--space-3);
         }
         .body-lg { font-size: 1.125rem; line-height: 1.7; color: var(--text-body); }
@@ -290,7 +306,7 @@
             font-weight: 700;
             letter-spacing: 0.14em;
             text-transform: uppercase;
-            color: var(--gold);
+            color: var(--navy);
             padding-left: 2px;
         }
         .nav-links {
@@ -472,7 +488,7 @@
             line-height: 1.2;
             margin-bottom: var(--space-5);
         }
-        .story-intro-text h2 em { font-style: italic; color: var(--gold); }
+        .story-intro-text h2 em { font-style: italic; color: var(--navy); }
         .story-intro-text p {
             font-size: 1.0625rem;
             line-height: 1.75;
@@ -657,7 +673,7 @@
             font-size: 0.75rem;
             letter-spacing: 0.08em;
             text-transform: uppercase;
-            color: var(--gold);
+            color: var(--navy);
             margin-bottom: var(--space-4);
             padding-bottom: var(--space-2);
             border-bottom: 1px solid var(--border);
@@ -702,7 +718,7 @@
             margin-top: var(--space-3);
             font-size: 0.8125rem;
             font-weight: 600;
-            color: var(--gold);
+            color: var(--navy);
         }
         @media (max-width: 900px) {
             .regions-grid { grid-template-columns: repeat(2, 1fr); }
@@ -840,7 +856,7 @@
         }
         .cert-card .cert-download {
             font-size: 0.7rem;
-            color: var(--gold);
+            color: var(--navy);
             font-weight: 600;
             display: flex;
             align-items: center;
@@ -868,7 +884,7 @@
         .cert-modal button[type=submit] { width:100%; background: var(--navy); color:#fff; border:none; border-radius: var(--radius-sm); padding:12px; font-family: var(--font-body); font-size:14px; font-weight:500; cursor:pointer; }
         .cert-modal button[type=submit]:hover { background: var(--navy-mid); }
         .cert-modal-note { font-size:11px; color: var(--text-muted); margin-top:10px; text-align:center; }
-        .req-asterisk { color: #C9A84C; }
+        .req-asterisk { color: var(--navy); }
         .cert-modal-success { display:none; text-align:center; padding: 12px 0 4px; }
         .cert-modal-success.show { display:block; }
         .cert-success-icon { width:56px; height:56px; border-radius:50%; background:#2E6B2E; display:flex; align-items:center; justify-content:center; margin:0 auto 16px; }
@@ -879,7 +895,7 @@
         .cert-modal-success button:hover { background: var(--navy-dark, var(--navy)); }
 
         /* ============================================================
-           BSE/NSE LISTED SECTION
+           BSE LISTED SECTION
         ============================================================ */
         .listing-split {
             display: grid;
@@ -999,7 +1015,7 @@
             line-height: 1.3;
             margin-bottom: var(--space-5);
         }
-        .promise-quote em { color: var(--gold); }
+        .promise-quote em { color: var(--navy); }
         .promise-attr {
             font-size: 0.875rem;
             font-weight: 600;
@@ -1296,6 +1312,11 @@
         .wa-modal button[type=submit]:hover { background: var(--gold-dark); }
         .wa-modal-note { font-size:11px; color: var(--text-muted); margin-top:10px; text-align:center; }
 
+    
+        /* WhatsApp feature temporarily hidden -- to be reintroduced later */
+        .whatsapp-float { display: none !important; }
+        .whatsapp-panel { display: none !important; }
+        a[aria-label="WhatsApp"] { display: none !important; }
     </style>
 <script src="/analytics.js" defer></script>
 </head>
@@ -1370,6 +1391,7 @@
             </div>
         </div>
     </div>
+    <main>
 
     <!-- ============================================================
          ABOUT HERO
@@ -1379,7 +1401,7 @@
         <div class="about-hero-overlay"></div>
         <div class="container">
             <div class="about-hero-content">
-                <p class="section-label">Since 1933 · BSE &amp; NSE Listed · Star Export House</p>
+                <p class="section-label">Since 1933 · BSE Listed · Star Export House</p>
                 <h1>We started small.<br><em>We stayed honest.</em></h1>
                 <p class="about-hero-sub">
                     Nine decades of verified agri-exports from India. Three generations of direct farmer relationships. One consistent promise: you can verify everything we do.
@@ -1664,7 +1686,7 @@
     </section>
 
     <!-- ============================================================
-         BSE / NSE LISTED
+         BSE LISTED
     ============================================================ -->
     <section class="section bg-navy">
         <div class="container">
@@ -2105,6 +2127,7 @@
     <!-- ============================================================
          FOOTER
     ============================================================ -->
+    </main>
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">

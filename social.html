@@ -5,6 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Follow M. Lakhamsi Industries on LinkedIn and Twitter/X for market updates, product news, and industry developments.">
     <title>Social — M. Lakhamsi Industries Limited</title>
+    <link rel="canonical" href="https://m.lakhamsi.com/social.html">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://m.lakhamsi.com/social.html">
+    <meta property="og:title" content="Social — M. Lakhamsi Industries Limited">
+    <meta property="og:description" content="Follow M. Lakhamsi Industries on LinkedIn and Twitter/X for market updates, product news, and industry developments.">
+    <meta property="og:image" content="https://m.lakhamsi.com/images/logo.png">
+    <meta property="og:site_name" content="M Lakhamsi Industries Limited">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Social — M. Lakhamsi Industries Limited">
+    <meta name="twitter:description" content="Follow M. Lakhamsi Industries on LinkedIn and Twitter/X for market updates, product news, and industry developments.">
+    <meta name="twitter:image" content="https://m.lakhamsi.com/images/logo.png">
+
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -159,7 +175,7 @@
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.08em;
-            color: var(--color-gold);
+            color: var(--color-navy);
             white-space: nowrap;
         }
         
@@ -332,7 +348,7 @@
         .mt-10 { margin-top: var(--space-10); }
         .mb-0 { margin-bottom: 0; }
 
-        .active-nav { color: var(--color-gold) !important; }
+        .active-nav { color: var(--color-navy) !important; }
 
         /* ===== SHARED INNER-PAGE PATTERNS ===== */
         .page-hero { background-color: var(--color-navy); color: var(--color-white); padding: var(--space-20) 0 var(--space-16); text-align: center; }
@@ -383,7 +399,7 @@
         .feed-scroll-hint i { font-size:13px; color: var(--color-gold); }
         .post-card { background: var(--color-white); border:0.5px solid #D0CCC6; border-radius: var(--radius-lg); padding: var(--space-4); }
         .post-card iframe { width:100%; border:none; border-radius: var(--radius-md); display:block; }
-        .post-view-link { display:inline-flex; align-items:center; gap:4px; margin-top: var(--space-3); font-size:12px; font-weight:500; color: var(--color-gold); text-decoration:none; }
+        .post-view-link { display:inline-flex; align-items:center; gap:4px; margin-top: var(--space-3); font-size:12px; font-weight:500; color: var(--color-navy); text-decoration:none; }
         .post-view-link:hover { text-decoration:underline; }
         .feed-empty { font-size:13px; color: var(--color-gray); text-align:center; padding: var(--space-8) 0; margin-bottom: 0; }
 
@@ -569,6 +585,11 @@
         .wa-modal button[type=submit]:hover { background: #B8963E; }
         .wa-modal-note { font-size:11px; color: var(--color-gray); margin-top:10px; text-align:center; }
 
+    
+        /* WhatsApp feature temporarily hidden -- to be reintroduced later */
+        .whatsapp-float { display: none !important; }
+        .whatsapp-panel { display: none !important; }
+        a[aria-label="WhatsApp"] { display: none !important; }
     </style>
 <script src="/analytics.js" defer></script>
 </head>
@@ -616,6 +637,7 @@
             </div>
         </div>
     </nav>
+    <main>
 
     <!-- ===== TICKER BAR ===== -->
     <div class="ticker-bar">
@@ -703,6 +725,7 @@
     </section>
 
 <!-- ===== FOOTER ===== -->
+    </main>
     <footer id="investors">
         <div class="container">
             <div class="footer-grid">
@@ -715,7 +738,7 @@
                     </div>
                 </div>
                 <div class="footer-col">
-                    <h4>Quick Links</h4>
+                    <h3>Quick Links</h3>
                     <div class="footer-links">
                         <a href="about.html">About Us</a>
                         <a href="products.html">Products</a>
@@ -728,7 +751,7 @@
                     </div>
                 </div>
                 <div class="footer-col footer-contact">
-                    <h4>Contact</h4>
+                    <h3>Contact</h3>
                     <p>505, Churchgate Chambers, 5 New Marine Lines, Mumbai 400 020, India</p>
                     <p>+91 22 2262 0722</p>
                     <p>info@m.lakhamsi.com</p>
@@ -875,7 +898,7 @@
                 twContainer.innerHTML = data.twitter.map(function (p) {
                     return '' +
                         '<div class="post-card">' +
-                        '<blockquote class="twitter-tweet" data-dnt="true"><a href="' + p.url + '"></a></blockquote>' +
+                        '<blockquote class="twitter-tweet" data-dnt="true"><a href="' + p.url + '" aria-label="View tweet on X">Loading tweet…</a></blockquote>' +
                         '<a class="post-view-link" href="' + p.url + '" target="_blank" rel="noopener">View on X →</a>' +
                         '</div>';
                 }).join('');
