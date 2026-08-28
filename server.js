@@ -7,6 +7,7 @@ const crypto = require('crypto');
 const geoip = require('geoip-lite');
 const nodemailer = require('nodemailer');
 const rateLimit = require('express-rate-limit');
+const multer = require('multer');
 
 const app = express();
 const PORT = process.env.PORT || 3000; // Railway injects PORT
@@ -175,6 +176,143 @@ function appendInquiry(inq) {
   list.unshift(inq);
   writeJsonArray(INQUIRIES_FILE, list.slice(0, 5000));
 }
+
+// ─────────────────────────────────────────────────────────────
+// Document library (Financial Results, Market Reports, ...)
+//
+// Each category maps to a folder under /documents that already exists on
+// disk (the same folders used by the site's static links elsewhere), so
+// uploaded files sit alongside documents that were added manually before
+// this system existed.
+// ─────────────────────────────────────────────────────────────
+const DOCUMENTS_INDEX_FILE = path.join(DATA_DIR, 'documents-index.json');
+const DOCUMENTS_SEED_FILE = path.join(__dirname, 'data-seed', 'documents-index.json');
+
+const DOCUMENT_CATEGORIES = {
+  'financial-results': { label: 'Financial Results', folder: 'documents/financial-results' },
+  'market-reports-groundnut': { label: 'Market Reports — Groundnut', folder: 'documents/market-reports' },
+  'market-reports-sesame': { label: 'Market Reports — Sesame', folder: 'documents/market-reports' },
+};
+
+function ensureDocumentsIndex() {
+  if (!fs.existsSync(DOCUMENTS_INDEX_FILE)) {
+    if (fs.existsSync(DOCUMENTS_SEED_FILE)) {
+      fs.copyFileSync(DOCUMENTS_SEED_FILE, DOCUMENTS_INDEX_FILE);
+    } else {
+      fs.writeFileSync(DOCUMENTS_INDEX_FILE, JSON.stringify([], null, 2));
+    }
+  }
+}
+function readDocumentsIndex() {
+  ensureDocumentsIndex();
+  try {
+    return JSON.parse(fs.readFileSync(DOCUMENTS_INDEX_FILE, 'utf8'));
+  } catch (e) {
+    return [];
+  }
+}
+function writeDocumentsIndex(list) {
+  fs.writeFileSync(DOCUMENTS_INDEX_FILE, JSON.stringify(list, null, 2));
+}
+
+// Multer stores new uploads under the persistent data volume (DATA_DIR), not
+// the app's own code directory -- __dirname is the ephemeral codebase on
+// Railway and gets replaced on every deploy, so anything written there
+// would be lost on the next push. Documents added manually before this
+// system existed live under __dirname/documents/... (committed to git) and
+// keep working via the existing static file server; new admin uploads live
+// under DATA_DIR/documents-uploads/... instead, served by a separate static
+// route below, so both survive redeploys correctly.
+const UPLOADS_ROOT = path.join(DATA_DIR, 'documents-uploads');
+
+const documentUpload = multer({
+  storage: multer.diskStorage({
+    destination: (req, file, cb) => {
+      const category = req.body && req.body.category;
+      const cfg = DOCUMENT_CATEGORIES[category];
+      if (!cfg) return cb(new Error('Unknown category'));
+      const dir = path.join(UPLOADS_ROOT, category);
+      fs.mkdirSync(dir, { recursive: true });
+      cb(null, dir);
+    },
+    filename: (req, file, cb) => {
+      const safe = file.originalname.replace(/[^a-zA-Z0-9.\- ]/g, '').slice(0, 150);
+      const unique = Date.now() + '-' + safe;
+      cb(null, unique);
+    }
+  }),
+  limits: { fileSize: 20 * 1024 * 1024 }, // 20MB
+  fileFilter: (req, file, cb) => {
+    const okType = file.mimetype === 'application/pdf' || /\.pdf$/i.test(file.originalname);
+    cb(okType ? null : new Error('Only PDF files are accepted'), okType);
+  }
+});
+
+app.get('/api/documents', (req, res) => {
+  const category = req.query.category;
+  let list = readDocumentsIndex();
+  if (category) list = list.filter(d => d.category === category);
+  list.sort((a, b) => new Date(b.date) - new Date(a.date));
+  res.json(list);
+});
+
+app.post('/api/admin/documents', requireAdmin, (req, res) => {
+  documentUpload.single('file')(req, res, (err) => {
+    if (err) return res.status(400).json({ error: err.message });
+    if (!req.file) return res.status(400).json({ error: 'No file received' });
+
+    const category = req.body.category;
+    const cfg = DOCUMENT_CATEGORIES[category];
+    if (!cfg) {
+      fs.unlinkSync(req.file.path);
+      return res.status(400).json({ error: 'Unknown category' });
+    }
+    const title = (req.body.title || '').toString().trim().slice(0, 200);
+    const date = (req.body.date || '').toString().trim();
+    if (!title || !date || isNaN(Date.parse(date))) {
+      fs.unlinkSync(req.file.path);
+      return res.status(400).json({ error: 'Title and a valid date are required' });
+    }
+
+    const entry = {
+      id: crypto.randomUUID(),
+      category,
+      title,
+      date,
+      filePath: '/documents-uploads/' + category + '/' + encodeURIComponent(req.file.filename),
+      fileName: req.file.filename,
+      fileSize: req.file.size,
+      source: 'uploaded',
+      uploadedAt: new Date().toISOString()
+    };
+    const list = readDocumentsIndex();
+    list.unshift(entry);
+    writeDocumentsIndex(list);
+    res.json({ ok: true, entry });
+  });
+});
+
+app.delete('/api/admin/documents/:id', requireAdmin, (req, res) => {
+  const list = readDocumentsIndex();
+  const idx = list.findIndex(d => d.id === req.params.id);
+  if (idx === -1) return res.status(404).json({ error: 'Not found' });
+  const [removed] = list.splice(idx, 1);
+
+  // Only genuinely unlink files this system uploaded itself (living on the
+  // writable persistent volume). Migrated/legacy documents live in the git-
+  // tracked codebase -- deleting them from the running container's disk
+  // wouldn't stick, since the next deploy re-creates them from the commit
+  // history. For those, removing the index entry (hiding it from the site)
+  // is the correct and complete action; the file staying in the repo,
+  // unreferenced, is harmless.
+  if (removed.source === 'uploaded') {
+    const filePath = path.join(UPLOADS_ROOT, removed.category, removed.fileName);
+    fs.unlink(filePath, () => {}); // best-effort; don't fail the request if already gone
+  }
+
+  writeDocumentsIndex(list);
+  res.json({ ok: true });
+});
 
 // ─────────────────────────────────────────────────────────────
 // Market Reports — email subscribers
@@ -642,6 +780,7 @@ app.post('/api/admin/settings', requireAdmin, (req, res) => {
 // ─────────────────────────────────────────────────────────────
 // Static files + page routes
 // ─────────────────────────────────────────────────────────────
+app.use('/documents-uploads', express.static(path.join(DATA_DIR, 'documents-uploads')));
 app.use(express.static(__dirname, { extensions: ['html'] }));
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
 app.get('/about', (req, res) => res.sendFile(path.join(__dirname, 'about.html')));

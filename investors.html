@@ -1143,12 +1143,7 @@
             </div>
             <div class="doc-group">
                 <h3>Recent Financial Results</h3>
-                <ul class="doc-list">
-                    <li><a href="/documents/financial-results/Financial-Results-March-2026.pdf" target="_blank" rel="noopener"><span class="doc-name">Financial Results — Quarter Ended March 2026</span><i class="ti ti-download doc-icon"></i></a></li>
-                    <li><a href="/documents/financial-results/Financial-Results-December-2025.pdf" target="_blank" rel="noopener"><span class="doc-name">Financial Results — Quarter Ended December 2025</span><i class="ti ti-download doc-icon"></i></a></li>
-                    <li><a href="/documents/financial-results/Financial-Results-September-2025.pdf" target="_blank" rel="noopener"><span class="doc-name">Financial Results — Quarter Ended September 2025</span><i class="ti ti-download doc-icon"></i></a></li>
-                    <li><a href="/documents/financial-results/Financial-Results-June-2025.pdf" target="_blank" rel="noopener"><span class="doc-name">Financial Results — Quarter Ended June 2025</span><i class="ti ti-download doc-icon"></i></a></li>
-                </ul>
+                <ul class="doc-list" id="fr-recent-list"><li class="doc-loading">Loading…</li></ul>
             </div>
             <div class="doc-group" style="margin-bottom:0;">
                 <h3>Newspaper Publications</h3>
@@ -1230,29 +1225,8 @@
                 </ul></div>
             </div>
             <div class="accordion-item">
-                <button class="accordion-toggle" onclick="toggleAcc(this)">Older Financial Results (2020–2025)<i class="ti ti-chevron-down"></i></button>
-                <div class="accordion-body"><ul class="doc-list">
-                    <li><a href="/documents/financial-results/Financial-Results-March-2025.pdf" target="_blank" rel="noopener"><span class="doc-name">Outcome of Board Meeting (Reg. 30 SEBI LODR) — March 2025</span><i class="ti ti-download doc-icon"></i></a></li>
-                    <li><a href="/documents/financial-results/M-Lakhamsi-Financial-30June2024.pdf" target="_blank" rel="noopener"><span class="doc-name">Financial Results — June 2024</span><i class="ti ti-download doc-icon"></i></a></li>
-                    <li><a href="/documents/financial-results/Clarification-M-lakhamsi-Financial-30052024.pdf" target="_blank" rel="noopener"><span class="doc-name">Financial Results — March 2024</span><i class="ti ti-download doc-icon"></i></a></li>
-                    <li><a href="/documents/financial-results/Financial%20Results_December%202023.pdf" target="_blank" rel="noopener"><span class="doc-name">Financial Results — December 2023</span><i class="ti ti-download doc-icon"></i></a></li>
-                    <li><a href="/documents/financial-results/Financial%20Results_September%202023.pdf" target="_blank" rel="noopener"><span class="doc-name">Financial Results — September 2023</span><i class="ti ti-download doc-icon"></i></a></li>
-                    <li><a href="/documents/financial-results/Financial-Results-June-2023.pdf" target="_blank" rel="noopener"><span class="doc-name">Financial Results — June 2023</span><i class="ti ti-download doc-icon"></i></a></li>
-                    <li><a href="/documents/financial-results/Outcome-BM-Financial-results-311222.pdf" target="_blank" rel="noopener"><span class="doc-name">Financial Results — 31.12.2022</span><i class="ti ti-download doc-icon"></i></a></li>
-                    <li><a href="/documents/financial-results/Financial-Results-September-M-Lakhamsi-30092022.pdf" target="_blank" rel="noopener"><span class="doc-name">Financial Results — 30.09.2022</span><i class="ti ti-download doc-icon"></i></a></li>
-                    <li><a href="/documents/financial-results/Financial-Results_M-Lakhamsi_31.03.2022.pdf" target="_blank" rel="noopener"><span class="doc-name">Financial Results — 31.03.2022</span><i class="ti ti-download doc-icon"></i></a></li>
-                    <li><a href="/documents/financial-results/Financial-Results-Decmber-2021.pdf" target="_blank" rel="noopener"><span class="doc-name">Financial Results — December 2021</span><i class="ti ti-download doc-icon"></i></a></li>
-                    <li><a href="/documents/financial-results/Financial%20Results_September%202021.pdf" target="_blank" rel="noopener"><span class="doc-name">Financial Results — September 2021</span><i class="ti ti-download doc-icon"></i></a></li>
-                    <li><a href="/documents/financial-results/Financial%20Results_June%202021.pdf" target="_blank" rel="noopener"><span class="doc-name">Financial Results — June 2021</span><i class="ti ti-download doc-icon"></i></a></li>
-                    <li><a href="/documents/financial-results/Financial%20Results_March%202021.pdf" target="_blank" rel="noopener"><span class="doc-name">Financial Results — March 2021</span><i class="ti ti-download doc-icon"></i></a></li>
-                    <li><a href="/documents/financial-results/Financial-Results-December-2020.pdf" target="_blank" rel="noopener"><span class="doc-name">Financial Results — December 2020</span><i class="ti ti-download doc-icon"></i></a></li>
-                    <li><a href="/documents/financial-results/Financial%20Results_Sept%202020.pdf" target="_blank" rel="noopener"><span class="doc-name">Financial Results — September 2020</span><i class="ti ti-download doc-icon"></i></a></li>
-                    <li><a href="/documents/financial-results/Financial%20Results_June%202020.pdf" target="_blank" rel="noopener"><span class="doc-name">Financial Results — June 2020</span><i class="ti ti-download doc-icon"></i></a></li>
-                    <li><a href="/documents/financial-results/Financial%20Results_March%202020.pdf" target="_blank" rel="noopener"><span class="doc-name">Financial Results — March 2020</span><i class="ti ti-download doc-icon"></i></a></li>
-                    <li><a href="/documents/financial-results/Financial%20Results_December%202019.pdf" target="_blank" rel="noopener"><span class="doc-name">Financial Results — December 2019</span><i class="ti ti-download doc-icon"></i></a></li>
-                    <li><a href="/documents/financial-results/Financial%20Results_Sept%202019.pdf" target="_blank" rel="noopener"><span class="doc-name">Financial Results — September 2019</span><i class="ti ti-download doc-icon"></i></a></li>
-                    <li><a href="/documents/financial-results/Financial%20Results_June2019.pdf" target="_blank" rel="noopener"><span class="doc-name">Financial Results — June 2019</span><i class="ti ti-download doc-icon"></i></a></li>
-                </ul></div>
+                <button class="accordion-toggle" onclick="toggleAcc(this)">Older Financial Results <i class="ti ti-chevron-down"></i></button>
+                <div class="accordion-body"><ul class="doc-list" id="fr-older-list"><li class="doc-loading">Loading…</li></ul></div>
             </div>
             <div class="accordion-item">
                 <button class="accordion-toggle" onclick="toggleAcc(this)">Non-Applicability of Corporate Governance Report <i class="ti ti-chevron-down"></i></button>
@@ -1465,6 +1439,36 @@
                     hamburger.classList.remove('active');
                 });
             });
+        })();
+    </script>
+    <script>
+        (function () {
+            function escapeHtml(s) {
+                return (s || '').toString().replace(/[&<>"']/g, function (c) {
+                    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+                });
+            }
+            function docLi(d) {
+                return '<li><a href="' + d.filePath + '" target="_blank" rel="noopener"><span class="doc-name">' +
+                       escapeHtml(d.title) + '</span><i class="ti ti-download doc-icon"></i></a></li>';
+            }
+            fetch('/api/documents?category=financial-results')
+                .then(function (res) { return res.json(); })
+                .then(function (docs) {
+                    var cutoff = new Date();
+                    cutoff.setMonth(cutoff.getMonth() - 12);
+                    var recent = docs.filter(function (d) { return new Date(d.date) >= cutoff; });
+                    var older = docs.filter(function (d) { return new Date(d.date) < cutoff; });
+
+                    var recentEl = document.getElementById('fr-recent-list');
+                    var olderEl = document.getElementById('fr-older-list');
+                    recentEl.innerHTML = recent.length ? recent.map(docLi).join('') : '<li class="doc-loading">No recent results.</li>';
+                    olderEl.innerHTML = older.length ? older.map(docLi).join('') : '<li class="doc-loading">Nothing here yet.</li>';
+                })
+                .catch(function () {
+                    document.getElementById('fr-recent-list').innerHTML = '<li class="doc-loading">Could not load.</li>';
+                    document.getElementById('fr-older-list').innerHTML = '<li class="doc-loading">Could not load.</li>';
+                });
         })();
     </script>
 </body>

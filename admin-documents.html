@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Documents Admin — M Lakhamsi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+    :root {
+        --navy: #1B3A5C; --navy-hover: #2A5280; --gold: #C9A84C; --gold-pale: #F5EDD6;
+        --offwhite: #F7F5F2; --charcoal: #2C2C2C; --gray: #6B6B6B; --lgray: #D0CCC6;
+        --white: #FFFFFF; --red: #B3261E; --green: #2E6B2E;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+        font-family: "Inter", system-ui, sans-serif;
+        background: var(--offwhite); color: var(--charcoal);
+        min-height: 100vh; padding: 32px 20px 80px;
+    }
+    .wrap { max-width: 900px; margin: 0 auto; }
+    h1 { font-family: "Playfair Display", serif; font-size: 24px; color: var(--navy); margin-bottom: 4px; }
+    .subtitle { font-size: 13px; color: var(--gray); margin-bottom: 24px; }
+
+    .login-card {
+        background: var(--white); border: 1px solid var(--lgray); border-radius: 12px;
+        padding: 32px; width: 100%; max-width: 360px; text-align: center; margin: 60px auto;
+    }
+    .login-card i { font-size: 32px; color: var(--navy); margin-bottom: 12px; display:block; }
+    input, select {
+        width: 100%; padding: 11px 14px; border: 1px solid var(--lgray); border-radius: 4px;
+        font-size: 14px; font-family: inherit; margin-bottom: 12px; background: var(--white);
+    }
+    input:focus, select:focus { outline: none; border-color: var(--navy); border-width: 2px; }
+    button {
+        font-family: inherit; font-size: 13px; font-weight: 500; border: none; border-radius: 4px;
+        padding: 11px 20px; cursor: pointer; transition: background 150ms ease;
+    }
+    .btn-primary { background: var(--navy); color: #fff; }
+    .btn-primary:hover { background: var(--navy-hover); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+    .error-msg { color: var(--red); font-size: 12.5px; margin-top: 10px; min-height: 16px; }
+
+    .panel { display: none; }
+    .panel.visible { display: block; }
+    .topbar { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
+    .btn-logout, .btn-back { background: transparent; border: 1px solid var(--lgray); color: var(--gray); font-size: 12px; padding: 8px 14px; text-decoration: none; display: inline-block; }
+    .btn-logout:hover, .btn-back:hover { border-color: var(--navy); color: var(--navy); }
+
+    .upload-card {
+        background: var(--white); border: 1px solid var(--lgray); border-radius: 12px;
+        padding: 24px; margin-bottom: 32px;
+    }
+    .upload-card h2 { font-size: 15px; color: var(--navy); margin-bottom: 16px; }
+    .field-row { display: flex; gap: 12px; flex-wrap: wrap; }
+    .field-row > div { flex: 1; min-width: 180px; }
+    label { font-size: 11.5px; font-weight: 600; color: var(--gray); text-transform: uppercase; letter-spacing: 0.03em; display: block; margin-bottom: 4px; }
+    .file-drop {
+        border: 1.5px dashed var(--lgray); border-radius: 8px; padding: 20px; text-align: center;
+        font-size: 13px; color: var(--gray); margin-bottom: 12px; cursor: pointer;
+    }
+    .file-drop.has-file { border-color: var(--navy); color: var(--navy); background: var(--offwhite); }
+    .file-drop i { font-size: 22px; display: block; margin-bottom: 6px; }
+    .upload-status { font-size: 13px; margin-top: 10px; min-height: 18px; }
+
+    .cat-section { margin-bottom: 28px; }
+    .cat-section h2 { font-size: 15px; color: var(--navy); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+    .cat-count { font-size: 11px; color: var(--gray); font-weight: 400; background: var(--white); border: 1px solid var(--lgray); border-radius: 20px; padding: 2px 10px; }
+
+    .doc-row {
+        background: var(--white); border: 1px solid var(--lgray); border-radius: 8px;
+        padding: 12px 16px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    }
+    .doc-info .doc-title { font-size: 13.5px; font-weight: 500; color: var(--charcoal); }
+    .doc-info .doc-meta { font-size: 11.5px; color: var(--gray); margin-top: 2px; }
+    .doc-info .doc-meta .source-tag { text-transform: uppercase; letter-spacing: 0.03em; font-size: 10px; }
+    .doc-actions { display: flex; gap: 8px; flex-shrink: 0; }
+    .btn-icon {
+        background: transparent; border: 1px solid var(--lgray); color: var(--gray);
+        width: 32px; height: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center;
+        font-size: 15px; padding: 0;
+    }
+    .btn-icon:hover { border-color: var(--navy); color: var(--navy); }
+    .btn-icon.danger:hover { border-color: var(--red); color: var(--red); }
+    .empty-note { font-size: 13px; color: var(--gray); padding: 16px 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+    <h1>Document Library</h1>
+    <p class="subtitle">Upload financial results and market reports — they appear on the site automatically, sorted by date.</p>
+
+    <div class="login-card" id="loginCard">
+        <i class="ti ti-lock"></i>
+        <input type="password" id="passwordInput" placeholder="Admin password" autocomplete="current-password">
+        <button class="btn-primary" id="loginBtn" style="width:100%;">Log in</button>
+        <div class="error-msg" id="loginError"></div>
+    </div>
+
+    <div class="panel" id="panel">
+        <div class="topbar">
+            <a class="btn-back" href="/admin.html"><i class="ti ti-arrow-left"></i> Admin Home</a>
+            <button class="btn-logout" id="logoutBtn">Log out</button>
+        </div>
+
+        <div class="upload-card">
+            <h2>Upload a new document</h2>
+            <div class="field-row">
+                <div>
+                    <label for="categorySelect">Category</label>
+                    <select id="categorySelect">
+                        <option value="financial-results">Financial Results</option>
+                        <option value="market-reports-groundnut">Market Reports — Groundnut</option>
+                        <option value="market-reports-sesame">Market Reports — Sesame</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="dateInput">Date</label>
+                    <input type="date" id="dateInput">
+                </div>
+            </div>
+            <label for="titleInput">Title (shown on the site)</label>
+            <input type="text" id="titleInput" placeholder="e.g. Financial Results — Quarter Ended June 2026">
+            <div class="file-drop" id="fileDrop" onclick="document.getElementById('fileInput').click()">
+                <i class="ti ti-file-upload"></i>
+                <span id="fileDropLabel">Click to choose a PDF, or drag one here</span>
+            </div>
+            <input type="file" id="fileInput" accept="application/pdf" style="display:none;">
+            <button class="btn-primary" id="uploadBtn" style="width:100%;">Upload</button>
+            <div class="upload-status" id="uploadStatus"></div>
+        </div>
+
+        <div id="categoryLists"></div>
+    </div>
+</div>
+
+<script>
+const loginCard = document.getElementById('loginCard');
+const panel = document.getElementById('panel');
+const passwordInput = document.getElementById('passwordInput');
+const loginBtn = document.getElementById('loginBtn');
+const loginError = document.getElementById('loginError');
+const logoutBtn = document.getElementById('logoutBtn');
+
+const CATEGORIES = [
+    { id: 'financial-results', label: 'Financial Results' },
+    { id: 'market-reports-groundnut', label: 'Market Reports — Groundnut' },
+    { id: 'market-reports-sesame', label: 'Market Reports — Sesame' },
+];
+
+function showPanel() { loginCard.style.display = 'none'; panel.classList.add('visible'); loadAllLists(); }
+function showLogin() { loginCard.style.display = 'block'; panel.classList.remove('visible'); passwordInput.value = ''; }
+
+async function checkAuth() {
+    const res = await fetch('/api/admin/check');
+    const data = await res.json();
+    if (data.authenticated) showPanel(); else showLogin();
+}
+
+loginBtn.addEventListener('click', login);
+passwordInput.addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
+
+async function login() {
+    loginError.textContent = '';
+    const password = passwordInput.value;
+    if (!password) return;
+    try {
+        const res = await fetch('/api/admin/login', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password })
+        });
+        const data = await res.json();
+        if (res.ok) showPanel(); else loginError.textContent = data.error || 'Login failed';
+    } catch (e) {
+        loginError.textContent = 'Network error — try again';
+    }
+}
+
+logoutBtn.addEventListener('click', async () => {
+    await fetch('/api/admin/logout', { method: 'POST' });
+    showLogin();
+});
+
+function escapeHtml(s) {
+    return (s || '').toString().replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function fmtDate(iso) {
+    if (!iso) return '—';
+    const d = new Date(iso + 'T00:00:00');
+    return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+}
+function fmtBytes(n) {
+    if (!n) return '';
+    if (n < 1024*1024) return (n/1024).toFixed(0) + ' KB';
+    return (n/(1024*1024)).toFixed(1) + ' MB';
+}
+
+// --- Upload form ---
+const fileInput = document.getElementById('fileInput');
+const fileDrop = document.getElementById('fileDrop');
+const fileDropLabel = document.getElementById('fileDropLabel');
+const uploadBtn = document.getElementById('uploadBtn');
+const uploadStatus = document.getElementById('uploadStatus');
+const titleInput = document.getElementById('titleInput');
+const dateInput = document.getElementById('dateInput');
+const categorySelect = document.getElementById('categorySelect');
+
+fileInput.addEventListener('change', () => {
+    if (fileInput.files[0]) {
+        fileDrop.classList.add('has-file');
+        fileDropLabel.textContent = fileInput.files[0].name;
+    }
+});
+fileDrop.addEventListener('dragover', e => e.preventDefault());
+fileDrop.addEventListener('drop', e => {
+    e.preventDefault();
+    if (e.dataTransfer.files[0]) {
+        fileInput.files = e.dataTransfer.files;
+        fileDrop.classList.add('has-file');
+        fileDropLabel.textContent = e.dataTransfer.files[0].name;
+    }
+});
+
+uploadBtn.addEventListener('click', async () => {
+    uploadStatus.textContent = '';
+    uploadStatus.style.color = '';
+    const file = fileInput.files[0];
+    const title = titleInput.value.trim();
+    const date = dateInput.value;
+    const category = categorySelect.value;
+    if (!file || !title || !date) {
+        uploadStatus.style.color = '#B3261E';
+        uploadStatus.textContent = 'Category, date, title, and a PDF file are all required.';
+        return;
+    }
+    const formData = new FormData();
+    formData.append('category', category);
+    formData.append('title', title);
+    formData.append('date', date);
+    formData.append('file', file);
+
+    uploadBtn.disabled = true;
+    uploadStatus.textContent = 'Uploading…';
+    try {
+        const res = await fetch('/api/admin/documents', { method: 'POST', body: formData });
+        const data = await res.json();
+        if (res.ok) {
+            uploadStatus.style.color = '#2E6B2E';
+            uploadStatus.textContent = 'Uploaded — now live on the site.';
+            titleInput.value = ''; dateInput.value = ''; fileInput.value = '';
+            fileDrop.classList.remove('has-file');
+            fileDropLabel.textContent = 'Click to choose a PDF, or drag one here';
+            loadAllLists();
+        } else {
+            uploadStatus.style.color = '#B3261E';
+            uploadStatus.textContent = data.error || 'Upload failed.';
+        }
+    } catch (e) {
+        uploadStatus.style.color = '#B3261E';
+        uploadStatus.textContent = 'Network error — try again.';
+    } finally {
+        uploadBtn.disabled = false;
+    }
+});
+
+// --- Lists per category ---
+async function loadAllLists() {
+    const container = document.getElementById('categoryLists');
+    container.innerHTML = CATEGORIES.map(c => `
+        <div class="cat-section" id="cat-${c.id}">
+            <h2>${c.label} <span class="cat-count" id="count-${c.id}">…</span></h2>
+            <div id="list-${c.id}"></div>
+        </div>
+    `).join('');
+
+    for (const c of CATEGORIES) {
+        const res = await fetch('/api/documents?category=' + c.id);
+        const docs = await res.json();
+        document.getElementById('count-' + c.id).textContent = docs.length;
+        const listEl = document.getElementById('list-' + c.id);
+        if (!docs.length) {
+            listEl.innerHTML = '<p class="empty-note">Nothing uploaded yet.</p>';
+            continue;
+        }
+        listEl.innerHTML = docs.map(d => `
+            <div class="doc-row">
+                <div class="doc-info">
+                    <div class="doc-title">${escapeHtml(d.title)}</div>
+                    <div class="doc-meta">
+                        ${fmtDate(d.date)} · <span class="source-tag">${d.source === 'uploaded' ? 'Uploaded' : 'Migrated'}</span>
+                        ${d.fileSize ? ' · ' + fmtBytes(d.fileSize) : ''}
+                    </div>
+                </div>
+                <div class="doc-actions">
+                    <a class="btn-icon" href="${d.filePath}" target="_blank" rel="noopener" title="View"><i class="ti ti-eye"></i></a>
+                    <button class="btn-icon danger" onclick="deleteDoc('${d.id}', '${escapeHtml(d.title).replace(/'/g,"\\'")}')" title="Delete"><i class="ti ti-trash"></i></button>
+                </div>
+            </div>
+        `).join('');
+    }
+}
+
+async function deleteDoc(id, title) {
+    if (!confirm('Delete "' + title + '"? This removes it from the site immediately' +
+        ' and cannot be undone for uploaded files.')) return;
+    const res = await fetch('/api/admin/documents/' + id, { method: 'DELETE' });
+    if (res.ok) loadAllLists();
+    else alert('Could not delete — try again.');
+}
+
+checkAuth();
+</script>
+</body>
+</html>
