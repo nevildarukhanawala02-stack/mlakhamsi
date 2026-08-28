@@ -192,6 +192,12 @@ const DOCUMENT_CATEGORIES = {
   'financial-results': { label: 'Financial Results', folder: 'documents/financial-results' },
   'market-reports-groundnut': { label: 'Market Reports — Groundnut', folder: 'documents/market-reports' },
   'market-reports-sesame': { label: 'Market Reports — Sesame', folder: 'documents/market-reports' },
+  'annual-reports': { label: 'Annual Reports', folder: 'documents/annual-reports' },
+  'newspaper-publications': { label: 'Newspaper Publications', folder: 'documents/newspaper-publications' },
+  'shareholding-patterns': { label: 'Shareholding Patterns', folder: 'documents/shareholding-patterns' },
+  'agm-egm-notices': { label: 'AGM / EGM Notices & Scrutinizer Reports', folder: 'documents/annual-reports' },
+  'corp-gov-non-applicability': { label: 'Non-Applicability of Corporate Governance Report', folder: 'documents/governance/corp-gov-non-applicability' },
+  'sebi-compliance-certificates': { label: 'SEBI Compliance Certificates', folder: 'documents/governance' },
 };
 
 function ensureDocumentsIndex() {
