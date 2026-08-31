@@ -659,12 +659,10 @@
 
         /* ===== FORM ===== */
         .form-section-inner {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: var(--space-16);
-            align-items: start;
+            display: block;
+            max-width: 540px;
+            margin: 0 auto;
         }
-        @media (max-width: 768px) { .form-section-inner { grid-template-columns: 1fr; gap: var(--space-8); } }
         .form-group { margin-bottom: var(--space-6); }
         .form-group label {
             display: block;
@@ -1541,17 +1539,6 @@
                     <button type="submit" class="btn btn-primary form-submit">Send Inquiry</button>
                     <p class="form-note">No automated responses. Your inquiry goes directly to our trade team.</p>
                 </form>
-                <div class="form-side">
-                    <div style="font-size: 48px; color: var(--color-navy); margin-bottom: var(--space-4);">
-                        <i class="ti ti-brand-whatsapp"></i>
-                    </div>
-                    <h3>Prefer to chat?</h3>
-                    <p>We're on WhatsApp. Send us a message directly and our trade team will respond within one business day.</p>
-                    <a href="#" class="btn btn-whatsapp" onclick="openWhatsAppModal(); return false;">
-                        <i class="ti ti-brand-whatsapp"></i>&nbsp; WhatsApp Us
-                    </a>
-                    <p class="whatsapp-note" style="margin-top: var(--space-4);">Typically responds within one business day.</p>
-                </div>
             </div>
         </div>
     </section>
