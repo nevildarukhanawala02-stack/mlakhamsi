@@ -59,6 +59,20 @@
     .search-row { margin-bottom: 16px; }
     .search-row input { max-width: 320px; margin-bottom: 0; }
 
+    .section-head { display: flex; align-items: baseline; justify-content: space-between; margin: 40px 0 12px; }
+    .section-head h2 { font-family: "Playfair Display", serif; font-size: 18px; color: var(--navy); }
+    .section-head .section-sub { font-size: 12px; color: var(--gray); }
+
+    .sub-list { display: flex; flex-direction: column; gap: 8px; }
+    .sub-card {
+        background: var(--white); border: 1px solid var(--lgray); border-radius: 10px;
+        padding: 12px 18px; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;
+    }
+    .sub-email { font-weight: 600; color: var(--navy); font-size: 13.5px; word-break: break-all; }
+    .sub-meta { display: flex; gap: 10px; align-items: center; }
+    .sub-country { font-size: 11.5px; color: var(--gray); }
+    .sub-date { font-size: 11.5px; color: var(--gray); white-space: nowrap; }
+
     .inquiry-list { display: flex; flex-direction: column; gap: 10px; }
     .inquiry-card {
         background: var(--white); border: 1px solid var(--lgray); border-radius: 10px;
@@ -116,6 +130,12 @@
         </div>
 
         <div class="inquiry-list" id="inquiryList"></div>
+
+        <div class="section-head">
+            <h2>Market Report Subscribers</h2>
+            <span class="section-sub" id="subCount"></span>
+        </div>
+        <div class="sub-list" id="subList"></div>
     </div>
 </div>
 
@@ -181,14 +201,35 @@ function fmtDate(iso) {
 }
 
 async function loadData() {
-    const [inqRes, spamRes] = await Promise.all([
+    const [inqRes, spamRes, subRes] = await Promise.all([
         fetch('/api/admin/inquiries'),
-        fetch('/api/admin/spam-stats')
+        fetch('/api/admin/spam-stats'),
+        fetch('/api/admin/subscribers')
     ]);
     allInquiries = await inqRes.json();
     const spamStats = await spamRes.json();
+    const subscribers = await subRes.json();
     renderStats(spamStats);
     renderList(allInquiries);
+    renderSubscribers(subscribers);
+}
+
+function renderSubscribers(list) {
+    document.getElementById('subCount').textContent = list.length + (list.length === 1 ? ' subscriber' : ' subscribers');
+    const container = document.getElementById('subList');
+    if (!list.length) {
+        container.innerHTML = '<p class="empty-note">No subscribers yet.</p>';
+        return;
+    }
+    container.innerHTML = list.map(s => `
+        <div class="sub-card">
+            <div class="sub-email">${escapeHtml(s.email)}</div>
+            <div class="sub-meta">
+                ${s.ipCountry ? `<span class="sub-country">${escapeHtml(s.ipCountry)}</span>` : ''}
+                <span class="sub-date">${fmtDate(s.createdAt)}</span>
+            </div>
+        </div>
+    `).join('');
 }
 
 function renderStats(spamStats) {
