@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>Admin — M Lakhamsi</title>
+<title>Restricted Admin — M Lakhamsi</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
@@ -65,11 +65,11 @@
 <body>
 
     <h1>M Lakhamsi Admin</h1>
-    <p class="subtitle">Site management tools.</p>
+    <p class="subtitle">Restricted tools.</p>
 
     <div class="login-card" id="loginCard">
         <i class="ti ti-lock"></i>
-        <input type="password" id="passwordInput" placeholder="Admin password" autocomplete="current-password">
+        <input type="password" id="passwordInput" placeholder="Password" autocomplete="current-password">
         <button class="btn-primary" id="loginBtn">Log in</button>
         <div class="error-msg" id="loginError"></div>
     </div>
@@ -80,15 +80,15 @@
             <button class="btn-logout" id="logoutBtn">Log out</button>
         </div>
         <div class="cards">
-            <a class="admin-card" href="/admin-analytics.html">
-                <i class="ti ti-chart-line"></i>
-                <h2>Analytics Dashboard</h2>
-                <p>Visits, funnel, traffic sources, top pages, and inquiry leads.</p>
+            <a class="admin-card" href="/admin-social.html">
+                <i class="ti ti-brand-linkedin"></i>
+                <h2>Social Feed Admin</h2>
+                <p>Add or remove LinkedIn and X posts shown on the Social page.</p>
             </a>
-            <a class="admin-card" href="/admin-inquiries.html">
-                <i class="ti ti-mail"></i>
-                <h2>Inquiry Submissions</h2>
-                <p>Full list of every quote request and contact form submission, searchable, with spam-blocked count.</p>
+            <a class="admin-card" href="/admin-documents.html">
+                <i class="ti ti-file-upload"></i>
+                <h2>Document Library</h2>
+                <p>Upload Financial Results and Market Reports — they go live on the site automatically, sorted by date.</p>
             </a>
         </div>
     </div>
@@ -105,7 +105,7 @@ function showPanel() { loginCard.style.display = 'none'; panel.classList.add('vi
 function showLogin() { loginCard.style.display = 'block'; panel.classList.remove('visible'); passwordInput.value = ''; }
 
 async function checkAuth() {
-    const res = await fetch('/api/admin/check');
+    const res = await fetch('/api/admin2/check');
     const data = await res.json();
     if (data.authenticated) showPanel(); else showLogin();
 }
@@ -118,7 +118,7 @@ async function login() {
     const password = passwordInput.value;
     if (!password) return;
     try {
-        const res = await fetch('/api/admin/login', {
+        const res = await fetch('/api/admin2/login', {
             method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password })
         });
         const data = await res.json();
@@ -129,7 +129,7 @@ async function login() {
 }
 
 logoutBtn.addEventListener('click', async () => {
-    await fetch('/api/admin/logout', { method: 'POST' });
+    await fetch('/api/admin2/logout', { method: 'POST' });
     showLogin();
 });
 

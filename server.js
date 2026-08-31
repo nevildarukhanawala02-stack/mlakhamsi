@@ -262,7 +262,7 @@ app.get('/api/documents', (req, res) => {
   res.json(list);
 });
 
-app.post('/api/admin/documents', requireAdmin, (req, res) => {
+app.post('/api/admin/documents', requireAdmin2, (req, res) => {
   documentUpload.single('file')(req, res, (err) => {
     if (err) return res.status(400).json({ error: err.message });
     if (!req.file) return res.status(400).json({ error: 'No file received' });
@@ -298,7 +298,7 @@ app.post('/api/admin/documents', requireAdmin, (req, res) => {
   });
 });
 
-app.delete('/api/admin/documents/:id', requireAdmin, (req, res) => {
+app.delete('/api/admin/documents/:id', requireAdmin2, (req, res) => {
   const list = readDocumentsIndex();
   const idx = list.findIndex(d => d.id === req.params.id);
   if (idx === -1) return res.status(404).json({ error: 'Not found' });
@@ -366,12 +366,23 @@ function classifyReferrer(referrer) {
 // ─────────────────────────────────────────────────────────────
 // Admin auth — single shared password, no user accounts.
 // Session is a deterministic HMAC token in an HttpOnly cookie.
+//
+// A second, separate password (ADMIN_PASSWORD_2) gates a restricted
+// tier — currently Social Feed Admin and Document Library — which is
+// not linked from the main /admin page and lives at /admin-restricted.html.
+// Knowing ADMIN_PASSWORD does not grant access to the restricted tier
+// and vice versa; they are independent secrets with independent cookies.
 // ─────────────────────────────────────────────────────────────
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || '';
+const ADMIN_PASSWORD_2 = process.env.ADMIN_PASSWORD_2 || '';
 const SESSION_SECRET = process.env.SESSION_SECRET || 'mlakhamsi-social-admin';
 
 function sessionToken() {
   return crypto.createHmac('sha256', SESSION_SECRET).update(ADMIN_PASSWORD).digest('hex');
+}
+
+function sessionToken2() {
+  return crypto.createHmac('sha256', SESSION_SECRET).update('tier2:' + ADMIN_PASSWORD_2).digest('hex');
 }
 
 function parseCookies(req) {
@@ -389,6 +400,12 @@ function parseCookies(req) {
 function requireAdmin(req, res, next) {
   const cookies = parseCookies(req);
   if (ADMIN_PASSWORD && cookies.admin_session === sessionToken()) return next();
+  return res.status(401).json({ error: 'Not authenticated' });
+}
+
+function requireAdmin2(req, res, next) {
+  const cookies = parseCookies(req);
+  if (ADMIN_PASSWORD_2 && cookies.admin2_session === sessionToken2()) return next();
   return res.status(401).json({ error: 'Not authenticated' });
 }
 
@@ -434,6 +451,32 @@ app.post('/api/admin/logout', (req, res) => {
 app.get('/api/admin/check', (req, res) => {
   const cookies = parseCookies(req);
   const authenticated = !!ADMIN_PASSWORD && cookies.admin_session === sessionToken();
+  res.json({ authenticated });
+});
+
+// ─────────────────────────────────────────────────────────────
+// Restricted-tier admin auth routes (separate password, separate cookie)
+// ─────────────────────────────────────────────────────────────
+app.post('/api/admin2/login', (req, res) => {
+  const { password } = req.body || {};
+  if (!ADMIN_PASSWORD_2) {
+    return res.status(500).json({ error: 'Server not configured: set ADMIN_PASSWORD_2' });
+  }
+  if (password === ADMIN_PASSWORD_2) {
+    res.setHeader('Set-Cookie', `admin2_session=${sessionToken2()}; HttpOnly; Path=/; Max-Age=2592000; SameSite=Lax`);
+    return res.json({ ok: true });
+  }
+  return res.status(401).json({ error: 'Incorrect password' });
+});
+
+app.post('/api/admin2/logout', (req, res) => {
+  res.setHeader('Set-Cookie', 'admin2_session=; HttpOnly; Path=/; Max-Age=0');
+  res.json({ ok: true });
+});
+
+app.get('/api/admin2/check', (req, res) => {
+  const cookies = parseCookies(req);
+  const authenticated = !!ADMIN_PASSWORD_2 && cookies.admin2_session === sessionToken2();
   res.json({ authenticated });
 });
 
@@ -485,7 +528,7 @@ function addPostFromUrl(data, url) {
   return { ok: false, status: 400, error: `Not a linkedin.com or twitter.com / x.com link: ${url}` };
 }
 
-app.post('/api/social-posts', requireAdmin, (req, res) => {
+app.post('/api/social-posts', requireAdmin2, (req, res) => {
   const { url } = req.body || {};
   const data = readPosts();
   const result = addPostFromUrl(data, url);
@@ -502,7 +545,7 @@ app.post('/api/social-posts', requireAdmin, (req, res) => {
 // Never fails the whole batch for one bad URL: collects per-URL results and
 // keeps going, so a typo three-quarters through a 46-post paste doesn't lose
 // the other 45.
-app.post('/api/social-posts/bulk', requireAdmin, (req, res) => {
+app.post('/api/social-posts/bulk', requireAdmin2, (req, res) => {
   const { urls } = req.body || {};
   if (!Array.isArray(urls) || urls.length === 0) {
     return res.status(400).json({ error: 'Missing urls array' });
@@ -526,7 +569,7 @@ app.post('/api/social-posts/bulk', requireAdmin, (req, res) => {
   res.json({ added, skipped, failed, results, data });
 });
 
-app.delete('/api/social-posts/:platform/:id', requireAdmin, (req, res) => {
+app.delete('/api/social-posts/:platform/:id', requireAdmin2, (req, res) => {
   const { platform, id } = req.params;
   if (platform !== 'linkedin' && platform !== 'twitter') {
     return res.status(400).json({ error: 'Invalid platform' });
