@@ -1108,13 +1108,13 @@
             <div class="doc-featured">
                 <div class="doc-featured-card">
                     <span class="tag">Annual Report</span>
-                    <h4>41st Annual Report — FY 2024-25</h4>
-                    <a href="/documents/annual-reports/Annual-Report-2024-25.pdf" target="_blank" rel="noopener"><i class="ti ti-download"></i> Download PDF</a>
+                    <h4 id="featured-ar-title">41st Annual Report — FY 2024-25</h4>
+                    <a id="featured-ar-link" href="/documents/annual-reports/Annual-Report-2024-25.pdf" target="_blank" rel="noopener"><i class="ti ti-download"></i> Download PDF</a>
                 </div>
                 <div class="doc-featured-card">
                     <span class="tag">Financial Results</span>
-                    <h4>Quarter Ended March 2026</h4>
-                    <a href="/documents/financial-results/Financial-Results-March-2026.pdf" target="_blank" rel="noopener"><i class="ti ti-download"></i> Download PDF</a>
+                    <h4 id="featured-fr-title">Quarter Ended March 2026</h4>
+                    <a id="featured-fr-link" href="/documents/financial-results/Financial-Results-March-2026.pdf" target="_blank" rel="noopener"><i class="ti ti-download"></i> Download PDF</a>
                 </div>
                 <div class="doc-featured-card">
                     <span class="tag">Shareholding Pattern</span>
@@ -1425,6 +1425,28 @@
             loadSimple('agm-egm-notices', 'agm-list', 'Nothing uploaded yet.');
             loadSimple('corp-gov-non-applicability', 'cgna-list', 'Nothing uploaded yet.');
             loadSimple('sebi-compliance-certificates', 'sebi-list', 'Nothing uploaded yet.');
+
+            // Featured "Start here" cards -- always reflect whatever the newest
+            // uploaded document is for that category. /api/documents already
+            // returns results sorted newest-first, so the top result is the
+            // one that belongs in the blue card; the previous latest document
+            // simply stays visible further down in the full list, which is
+            // already populated by loadSimple/loadRecentOlder above.
+            function loadFeatured(category, titleId, linkId) {
+                fetch('/api/documents?category=' + category)
+                    .then(function (res) { return res.json(); })
+                    .then(function (docs) {
+                        if (!docs.length) return; // keep existing fallback text/link
+                        var latest = docs[0];
+                        var titleEl = document.getElementById(titleId);
+                        var linkEl = document.getElementById(linkId);
+                        if (titleEl) titleEl.textContent = latest.title;
+                        if (linkEl) linkEl.setAttribute('href', latest.filePath);
+                    })
+                    .catch(function () { /* keep existing fallback text/link */ });
+            }
+            loadFeatured('annual-reports', 'featured-ar-title', 'featured-ar-link');
+            loadFeatured('financial-results', 'featured-fr-title', 'featured-fr-link');
         })();
     </script>
 </body>
