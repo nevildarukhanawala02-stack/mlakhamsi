@@ -1118,7 +1118,7 @@
                 </div>
                 <div class="doc-featured-card">
                     <span class="tag">Shareholding Pattern</span>
-                    <h4>As on 31 March 2026</h4>
+                    <h4 id="featured-sp-title">As on 31 March 2026</h4>
                     <a href="shareholding.html" rel="noopener"><i class="ti ti-chart-pie"></i> View Shareholding Pattern</a>
                 </div>
             </div>
@@ -1447,6 +1447,23 @@
             }
             loadFeatured('annual-reports', 'featured-ar-title', 'featured-ar-link');
             loadFeatured('financial-results', 'featured-fr-title', 'featured-fr-link');
+
+            // Shareholding Pattern card: only the "As on [date]" label is kept
+            // in sync with the latest shareholding-patterns upload. The link
+            // stays pointed at shareholding.html, since the actual data tables
+            // on that page are still updated by hand -- whoever adds a new
+            // quarter there should also upload the matching PDF here so the
+            // two stay consistent.
+            fetch('/api/documents?category=shareholding-patterns')
+                .then(function (res) { return res.json(); })
+                .then(function (docs) {
+                    if (!docs.length) return;
+                    var titleEl = document.getElementById('featured-sp-title');
+                    if (!titleEl) return;
+                    var d = new Date(docs[0].date + 'T00:00:00');
+                    titleEl.textContent = 'As on ' + d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+                })
+                .catch(function () { /* keep existing fallback text */ });
         })();
     </script>
 </body>

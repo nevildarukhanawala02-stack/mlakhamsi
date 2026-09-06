@@ -65,6 +65,11 @@
     .file-drop.has-file { border-color: var(--navy); color: var(--navy); background: var(--offwhite); }
     .file-drop i { font-size: 22px; display: block; margin-bottom: 6px; }
     .upload-status { font-size: 13px; margin-top: 10px; min-height: 18px; }
+    .mode-btn {
+        background: var(--white); border: 1px solid var(--lgray); color: var(--gray);
+        font-size: 12.5px; font-weight: 500; padding: 8px 14px; border-radius: 20px; cursor: pointer;
+    }
+    .mode-btn.active { background: var(--navy); border-color: var(--navy); color: #fff; }
 
     .cat-section { margin-bottom: 28px; }
     .cat-section h2 { font-size: 15px; color: var(--navy); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
@@ -108,6 +113,10 @@
 
         <div class="upload-card">
             <h2>Upload a new document</h2>
+            <div class="mode-toggle" style="display:flex; gap:8px; margin-bottom:16px;">
+                <button type="button" class="mode-btn active" id="modeFileBtn">Upload a PDF file</button>
+                <button type="button" class="mode-btn" id="modeContentBtn">Paste content (generate PDF)</button>
+            </div>
             <div class="field-row">
                 <div>
                     <label for="categorySelect">Category</label>
@@ -130,11 +139,21 @@
             </div>
             <label for="titleInput">Title (shown on the site)</label>
             <input type="text" id="titleInput" placeholder="e.g. Financial Results — Quarter Ended June 2026">
-            <div class="file-drop" id="fileDrop" onclick="document.getElementById('fileInput').click()">
-                <i class="ti ti-file-upload"></i>
-                <span id="fileDropLabel">Click to choose a PDF, or drag one here</span>
+
+            <div id="fileModeSection">
+                <div class="file-drop" id="fileDrop" onclick="document.getElementById('fileInput').click()">
+                    <i class="ti ti-file-upload"></i>
+                    <span id="fileDropLabel">Click to choose a PDF, or drag one here</span>
+                </div>
+                <input type="file" id="fileInput" accept="application/pdf" style="display:none;">
             </div>
-            <input type="file" id="fileInput" accept="application/pdf" style="display:none;">
+
+            <div id="contentModeSection" style="display:none;">
+                <label for="contentInput">Content (paste as HTML — e.g. a table copied from Excel/Word)</label>
+                <textarea id="contentInput" rows="10" placeholder="Paste your table or content here. Basic HTML (tables, paragraphs) is supported and will be styled automatically." style="width:100%; padding:11px 14px; border:1px solid var(--lgray); border-radius:4px; font-size:13px; font-family:'Courier New',monospace; margin-bottom:12px; resize:vertical;"></textarea>
+                <p style="font-size:12px; color:var(--gray); margin-top:-6px; margin-bottom:12px;">This gets wrapped in the M Lakhamsi document template and converted to a PDF automatically — no need to paste your own header or letterhead.</p>
+            </div>
+
             <button class="btn-primary" id="uploadBtn" style="width:100%;">Upload</button>
             <div class="upload-status" id="uploadStatus"></div>
         </div>
@@ -218,6 +237,23 @@ const uploadStatus = document.getElementById('uploadStatus');
 const titleInput = document.getElementById('titleInput');
 const dateInput = document.getElementById('dateInput');
 const categorySelect = document.getElementById('categorySelect');
+const contentInput = document.getElementById('contentInput');
+const modeFileBtn = document.getElementById('modeFileBtn');
+const modeContentBtn = document.getElementById('modeContentBtn');
+const fileModeSection = document.getElementById('fileModeSection');
+const contentModeSection = document.getElementById('contentModeSection');
+
+let uploadMode = 'file'; // 'file' | 'content'
+function setMode(mode) {
+    uploadMode = mode;
+    modeFileBtn.classList.toggle('active', mode === 'file');
+    modeContentBtn.classList.toggle('active', mode === 'content');
+    fileModeSection.style.display = mode === 'file' ? 'block' : 'none';
+    contentModeSection.style.display = mode === 'content' ? 'block' : 'none';
+    uploadStatus.textContent = '';
+}
+modeFileBtn.addEventListener('click', () => setMode('file'));
+modeContentBtn.addEventListener('click', () => setMode('content'));
 
 fileInput.addEventListener('change', () => {
     if (fileInput.files[0]) {
@@ -235,7 +271,11 @@ fileDrop.addEventListener('drop', e => {
     }
 });
 
-uploadBtn.addEventListener('click', async () => {
+uploadBtn.addEventListener('click', () => {
+    if (uploadMode === 'file') uploadFile(); else uploadFromContent();
+});
+
+async function uploadFile() {
     uploadStatus.textContent = '';
     uploadStatus.style.color = '';
     const file = fileInput.files[0];
@@ -275,7 +315,46 @@ uploadBtn.addEventListener('click', async () => {
     } finally {
         uploadBtn.disabled = false;
     }
-});
+}
+
+async function uploadFromContent() {
+    uploadStatus.textContent = '';
+    uploadStatus.style.color = '';
+    const title = titleInput.value.trim();
+    const date = dateInput.value;
+    const category = categorySelect.value;
+    const htmlContent = contentInput.value;
+    if (!title || !date || !htmlContent.trim()) {
+        uploadStatus.style.color = '#B3261E';
+        uploadStatus.textContent = 'Category, date, title, and some pasted content are all required.';
+        return;
+    }
+
+    uploadBtn.disabled = true;
+    uploadStatus.textContent = 'Generating PDF…';
+    try {
+        const res = await fetch('/api/admin/documents/from-html', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ category, title, date, htmlContent })
+        });
+        const data = await res.json();
+        if (res.ok) {
+            uploadStatus.style.color = '#2E6B2E';
+            uploadStatus.textContent = 'PDF generated and uploaded — now live on the site.';
+            titleInput.value = ''; dateInput.value = ''; contentInput.value = '';
+            loadAllLists();
+        } else {
+            uploadStatus.style.color = '#B3261E';
+            uploadStatus.textContent = data.error || 'Generation failed.';
+        }
+    } catch (e) {
+        uploadStatus.style.color = '#B3261E';
+        uploadStatus.textContent = 'Network error — try again.';
+    } finally {
+        uploadBtn.disabled = false;
+    }
+}
 
 // --- Lists per category ---
 async function loadAllLists() {
@@ -301,7 +380,7 @@ async function loadAllLists() {
                 <div class="doc-info">
                     <div class="doc-title">${escapeHtml(d.title)}</div>
                     <div class="doc-meta">
-                        ${fmtDate(d.date)} · <span class="source-tag">${d.source === 'uploaded' ? 'Uploaded' : 'Migrated'}</span>
+                        ${fmtDate(d.date)} · <span class="source-tag">${d.source === 'uploaded' ? 'Uploaded' : d.source === 'generated' ? 'Generated' : 'Migrated'}</span>
                         ${d.fileSize ? ' · ' + fmtBytes(d.fileSize) : ''}
                     </div>
                 </div>

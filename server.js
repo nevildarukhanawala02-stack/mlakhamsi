@@ -3,6 +3,8 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
+const os = require('os');
+const { execFileSync } = require('child_process');
 const crypto = require('crypto');
 const geoip = require('geoip-lite');
 const nodemailer = require('nodemailer');
@@ -298,20 +300,113 @@ app.post('/api/admin/documents', requireAdmin2, (req, res) => {
   });
 });
 
+// Wraps admin-pasted content (e.g. a shareholding pattern table) in a
+// branded, print-ready page before it's handed to wkhtmltopdf. Uses the
+// Brand Guide's own documented fallback fonts for document contexts
+// (Palatino Linotype / Calibri) rather than Google Fonts, so generation
+// doesn't depend on internet access at render time.
+function renderDocumentHtml(title, dateStr, bodyContent) {
+  const prettyDate = new Date(dateStr + 'T00:00:00').toLocaleDateString('en-GB', {
+    day: '2-digit', month: 'long', year: 'numeric'
+  });
+  return `<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<style>
+  @page { margin: 28mm 18mm; }
+  * { box-sizing: border-box; }
+  body { font-family: Calibri, "Segoe UI", Arial, sans-serif; color: #2C2C2C; font-size: 13px; line-height: 1.6; margin: 0; }
+  .doc-header { border-bottom: 3px solid #1B3A5C; padding-bottom: 14px; margin-bottom: 24px; }
+  .doc-header .company { font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif; font-size: 20px; font-weight: bold; color: #1B3A5C; }
+  .doc-header .meta { font-size: 11px; color: #6B6B6B; margin-top: 2px; }
+  h1.doc-title { font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif; font-size: 17px; color: #1B3A5C; margin: 0 0 4px; }
+  .doc-date { font-size: 11.5px; color: #6B6B6B; margin-bottom: 22px; }
+  table { border-collapse: collapse; width: 100%; margin-bottom: 16px; }
+  th, td { border: 1px solid #D0CCC6; padding: 6px 10px; text-align: left; font-size: 12.5px; }
+  th { background: #E8F0F7; color: #1B3A5C; font-weight: 600; }
+  .doc-footer { margin-top: 32px; padding-top: 10px; border-top: 1px solid #D0CCC6; font-size: 10px; color: #6B6B6B; }
+</style>
+</head>
+<body>
+  <div class="doc-header">
+    <div class="company">M Lakhamsi Industries Limited</div>
+    <div class="meta">BSE: MLINDLTD &middot; Scrip 512153</div>
+  </div>
+  <h1 class="doc-title">${title}</h1>
+  <div class="doc-date">As on ${prettyDate}</div>
+  ${bodyContent}
+  <div class="doc-footer">Generated ${new Date().toISOString().slice(0, 10)} &middot; m.lakhamsi.com</div>
+</body></html>`;
+}
+
+app.post('/api/admin/documents/from-html', requireAdmin2, express.json({ limit: '5mb' }), (req, res) => {
+  const body = req.body || {};
+  const category = body.category;
+  const cfg = DOCUMENT_CATEGORIES[category];
+  if (!cfg) return res.status(400).json({ error: 'Unknown category' });
+
+  const title = (body.title || '').toString().trim().slice(0, 200);
+  const date = (body.date || '').toString().trim();
+  const htmlContent = (body.htmlContent || '').toString();
+  if (!title || !date || isNaN(Date.parse(date))) {
+    return res.status(400).json({ error: 'Title and a valid date are required' });
+  }
+  if (!htmlContent.trim()) {
+    return res.status(400).json({ error: 'Paste some content to convert' });
+  }
+
+  const dir = path.join(UPLOADS_ROOT, category);
+  fs.mkdirSync(dir, { recursive: true });
+
+  const safe = title.replace(/[^a-zA-Z0-9.\- ]/g, '').slice(0, 150);
+  const baseName = Date.now() + '-' + safe;
+  const tmpHtmlPath = path.join(os.tmpdir(), baseName + '.html');
+  const outPdfPath = path.join(dir, baseName + '.pdf');
+
+  fs.writeFileSync(tmpHtmlPath, renderDocumentHtml(title, date, htmlContent), 'utf8');
+
+  try {
+    execFileSync('wkhtmltopdf', ['--quiet', tmpHtmlPath, outPdfPath], { stdio: 'pipe' });
+  } catch (e) {
+    fs.unlink(tmpHtmlPath, () => {});
+    console.error('wkhtmltopdf failed:', (e.stderr && e.stderr.toString()) || e.message);
+    return res.status(500).json({ error: 'PDF generation failed on the server.' });
+  }
+  fs.unlink(tmpHtmlPath, () => {});
+
+  let fileSize = null;
+  try { fileSize = fs.statSync(outPdfPath).size; } catch (e) { /* leave null */ }
+
+  const entry = {
+    id: crypto.randomUUID(),
+    category,
+    title,
+    date,
+    filePath: '/documents-uploads/' + category + '/' + encodeURIComponent(baseName + '.pdf'),
+    fileName: baseName + '.pdf',
+    fileSize,
+    source: 'generated',
+    uploadedAt: new Date().toISOString()
+  };
+  const list = readDocumentsIndex();
+  list.unshift(entry);
+  writeDocumentsIndex(list);
+  res.json({ ok: true, entry });
+});
+
 app.delete('/api/admin/documents/:id', requireAdmin2, (req, res) => {
   const list = readDocumentsIndex();
   const idx = list.findIndex(d => d.id === req.params.id);
   if (idx === -1) return res.status(404).json({ error: 'Not found' });
   const [removed] = list.splice(idx, 1);
 
-  // Only genuinely unlink files this system uploaded itself (living on the
-  // writable persistent volume). Migrated/legacy documents live in the git-
-  // tracked codebase -- deleting them from the running container's disk
-  // wouldn't stick, since the next deploy re-creates them from the commit
-  // history. For those, removing the index entry (hiding it from the site)
-  // is the correct and complete action; the file staying in the repo,
-  // unreferenced, is harmless.
-  if (removed.source === 'uploaded') {
+  // Only genuinely unlink files this system created itself (living on the
+  // writable persistent volume) -- both direct uploads and generated PDFs.
+  // Migrated/legacy documents live in the git-tracked codebase -- deleting
+  // them from the running container's disk wouldn't stick, since the next
+  // deploy re-creates them from the commit history. For those, removing the
+  // index entry (hiding it from the site) is the correct and complete
+  // action; the file staying in the repo, unreferenced, is harmless.
+  if (removed.source === 'uploaded' || removed.source === 'generated') {
     const filePath = path.join(UPLOADS_ROOT, removed.category, removed.fileName);
     fs.unlink(filePath, () => {}); // best-effort; don't fail the request if already gone
   }

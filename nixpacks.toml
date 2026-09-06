@@ -1,0 +1,6 @@
+# Extends Railway's auto-detected Node build with the wkhtmltopdf binary,
+# used by server.js (/api/admin/documents/from-html) to convert admin-pasted
+# HTML content into a PDF. The "..." keeps Nixpacks' own auto-detected
+# packages instead of replacing them -- this file only adds to that list.
+[phases.setup]
+aptPkgs = ["...", "wkhtmltopdf"]
