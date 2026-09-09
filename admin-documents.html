@@ -75,6 +75,13 @@
     .cat-section h2 { font-size: 15px; color: var(--navy); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
     .cat-count { font-size: 11px; color: var(--gray); font-weight: 400; background: var(--white); border: 1px solid var(--lgray); border-radius: 20px; padding: 2px 10px; }
 
+    .group-block { margin-bottom: 12px; }
+    .group-header {
+        font-family: "Playfair Display", serif; font-size: 19px; color: var(--navy);
+        border-bottom: 2px solid var(--gold); padding-bottom: 8px; margin-bottom: 20px; margin-top: 8px;
+    }
+    .group-header .group-subtitle { font-family: "Inter", sans-serif; font-size: 12px; font-weight: 400; color: var(--gray); }
+
     .doc-row {
         background: var(--white); border: 1px solid var(--lgray); border-radius: 8px;
         padding: 12px 16px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; gap: 12px;
@@ -107,7 +114,7 @@
 
     <div class="panel" id="panel">
         <div class="topbar">
-            <a class="btn-back" href="/admin.html"><i class="ti ti-arrow-left"></i> Admin Home</a>
+            <a class="btn-back" href="/admin-restricted.html"><i class="ti ti-arrow-left"></i> Admin Home</a>
             <button class="btn-logout" id="logoutBtn">Log out</button>
         </div>
 
@@ -120,17 +127,7 @@
             <div class="field-row">
                 <div>
                     <label for="categorySelect">Category</label>
-                    <select id="categorySelect">
-                        <option value="financial-results">Financial Results</option>
-                        <option value="market-reports-groundnut">Market Reports — Groundnut</option>
-                        <option value="market-reports-sesame">Market Reports — Sesame</option>
-                        <option value="annual-reports">Annual Reports</option>
-                        <option value="newspaper-publications">Newspaper Publications</option>
-                        <option value="shareholding-patterns">Shareholding Patterns</option>
-                        <option value="agm-egm-notices">AGM / EGM Notices &amp; Scrutinizer Reports</option>
-                        <option value="corp-gov-non-applicability">Non-Applicability of Corporate Governance Report</option>
-                        <option value="sebi-compliance-certificates">SEBI Compliance Certificates</option>
-                    </select>
+                    <select id="categorySelect"></select>
                 </div>
                 <div>
                     <label for="dateInput">Date</label>
@@ -170,17 +167,44 @@ const loginBtn = document.getElementById('loginBtn');
 const loginError = document.getElementById('loginError');
 const logoutBtn = document.getElementById('logoutBtn');
 
-const CATEGORIES = [
-    { id: 'financial-results', label: 'Financial Results' },
-    { id: 'market-reports-groundnut', label: 'Market Reports — Groundnut' },
-    { id: 'market-reports-sesame', label: 'Market Reports — Sesame' },
-    { id: 'annual-reports', label: 'Annual Reports' },
-    { id: 'newspaper-publications', label: 'Newspaper Publications' },
-    { id: 'shareholding-patterns', label: 'Shareholding Patterns' },
-    { id: 'agm-egm-notices', label: 'AGM / EGM Notices & Scrutinizer Reports' },
-    { id: 'corp-gov-non-applicability', label: 'Non-Applicability of Corporate Governance Report' },
-    { id: 'sebi-compliance-certificates', label: 'SEBI Compliance Certificates' },
+const GROUPS = [
+    {
+        label: 'Market Reports',
+        subtitle: 'Sesame & Groundnuts',
+        categories: [
+            { id: 'market-reports-groundnut', label: 'Groundnut' },
+            { id: 'market-reports-sesame', label: 'Sesame' },
+        ]
+    },
+    {
+        label: 'Investors',
+        categories: [
+            { id: 'annual-reports', label: 'A. Annual Reports' },
+            { id: 'financial-results', label: 'B. Financial Results' },
+            { id: 'shareholding-patterns', label: 'C. Share Holding Pattern' },
+            { id: 'corp-governance-publications', label: 'D. Corporate Governance & Publications' },
+            { id: 'newspaper-publications', label: 'E. Newspaper Publication' },
+            { id: 'agm-egm-notices', label: 'F. AGM / EGM Notices & Scrutinizer Reports' },
+            { id: 'corp-gov-non-applicability', label: 'G. Non-Applicability of Corporate Governance Report' },
+            { id: 'sebi-compliance-certificates', label: 'H. SEBI Compliance Certificates' },
+        ]
+    }
 ];
+// Flat lookup, e.g. for building the upload <select> and for iterating every
+// category regardless of which group it's filed under.
+const CATEGORIES = GROUPS.flatMap(g => g.categories);
+
+// Populate the upload form's category dropdown as <optgroup>s straight from
+// GROUPS, so the dropdown and the document-list layout below can never drift
+// out of sync with each other.
+(function populateCategorySelect() {
+    const select = document.getElementById('categorySelect');
+    select.innerHTML = GROUPS.map(g => `
+        <optgroup label="${g.label}${g.subtitle ? ' — ' + g.subtitle : ''}">
+            ${g.categories.map(c => `<option value="${c.id}">${c.label}</option>`).join('')}
+        </optgroup>
+    `).join('');
+})();
 
 function showPanel() { loginCard.style.display = 'none'; panel.classList.add('visible'); loadAllLists(); }
 function showLogin() { loginCard.style.display = 'block'; panel.classList.remove('visible'); passwordInput.value = ''; }
@@ -359,16 +383,21 @@ async function uploadFromContent() {
 // --- Lists per category ---
 async function loadAllLists() {
     const container = document.getElementById('categoryLists');
-    container.innerHTML = CATEGORIES.map(c => `
-        <div class="cat-section" id="cat-${c.id}">
-            <h2>${c.label} <span class="cat-count" id="count-${c.id}">…</span></h2>
-            <div id="list-${c.id}"></div>
+    container.innerHTML = GROUPS.map(g => `
+        <div class="group-block">
+            <div class="group-header">${g.label}${g.subtitle ? ' <span class="group-subtitle">— ' + g.subtitle + '</span>' : ''}</div>
+            ${g.categories.map(c => `
+                <div class="cat-section" id="cat-${c.id}">
+                    <h2>${c.label} <span class="cat-count" id="count-${c.id}">…</span></h2>
+                    <div id="list-${c.id}"></div>
+                </div>
+            `).join('')}
         </div>
     `).join('');
 
     for (const c of CATEGORIES) {
         const res = await fetch('/api/documents?category=' + c.id);
-        const docs = await res.json();
+        const docs = await res.json(); // already sorted newest-first by the server
         document.getElementById('count-' + c.id).textContent = docs.length;
         const listEl = document.getElementById('list-' + c.id);
         if (!docs.length) {

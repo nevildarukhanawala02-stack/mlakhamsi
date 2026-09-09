@@ -1161,19 +1161,8 @@
                 <div class="accordion-body"><ul class="doc-list" id="np-older-list"><li class="doc-loading">Loading…</li></ul></div>
             </div>
             <div class="accordion-item">
-                <button class="accordion-toggle" onclick="toggleAcc(this)">Corporate Governance &amp; Policies <i class="ti ti-chevron-down"></i></button>
-                <div class="accordion-body"><ul class="doc-list">
-                    <li><a href="/documents/governance/Board-Compoistion.pdf" target="_blank" rel="noopener"><span class="doc-name">Board Composition</span><i class="ti ti-download doc-icon"></i></a></li>
-                    <li><a href="/documents/governance/Committees-compostion.pdf" target="_blank" rel="noopener"><span class="doc-name">Committees Composition</span><i class="ti ti-download doc-icon"></i></a></li>
-                    <li><a href="/documents/governance/Code-of-Conduct.pdf" target="_blank" rel="noopener"><span class="doc-name">Code of Conduct</span><i class="ti ti-download doc-icon"></i></a></li>
-                    <li><a href="/documents/governance/Whistle-Blower-Policy.pdf" target="_blank" rel="noopener"><span class="doc-name">Whistle Blower Policy</span><i class="ti ti-download doc-icon"></i></a></li>
-                    <li><a href="/documents/governance/Insider-Trading-policy.pdf" target="_blank" rel="noopener"><span class="doc-name">Insider Trading Policy</span><i class="ti ti-download doc-icon"></i></a></li>
-                    <li><a href="/documents/governance/Policy-on-dealing-with-related-party-transactions-1.pdf" target="_blank" rel="noopener"><span class="doc-name">Related Party Transactions Policy</span><i class="ti ti-download doc-icon"></i></a></li>
-                    <li><a href="/documents/governance/Materiality-Policy.pdf" target="_blank" rel="noopener"><span class="doc-name">Materiality Policy</span><i class="ti ti-download doc-icon"></i></a></li>
-                    <li><a href="/documents/governance/Policy%20on%20determining%20material%20subsidiaries.pdf" target="_blank" rel="noopener"><span class="doc-name">Policy on Determining Material Subsidiaries</span><i class="ti ti-download doc-icon"></i></a></li>
-                    <li><a href="/documents/governance/Terms-and-Conditions-of-appointment-of-Independent-Director.pdf" target="_blank" rel="noopener"><span class="doc-name">Terms of Appointment — Independent Directors</span><i class="ti ti-download doc-icon"></i></a></li>
-                    <li><a href="/documents/governance/vigil-mechanism.pdf" target="_blank" rel="noopener"><span class="doc-name">Vigil Mechanism</span><i class="ti ti-download doc-icon"></i></a></li>
-                </ul></div>
+                <button class="accordion-toggle" onclick="toggleAcc(this)">Corporate Governance &amp; Publications <i class="ti ti-chevron-down"></i></button>
+                <div class="accordion-body"><ul class="doc-list" id="cgp-list"><li class="doc-loading">Loading…</li></ul></div>
             </div>
             <div class="accordion-item">
                 <button class="accordion-toggle" onclick="toggleAcc(this)">AGM / EGM Notices &amp; Scrutinizer Reports <i class="ti ti-chevron-down"></i></button>
@@ -1425,6 +1414,7 @@
             loadSimple('agm-egm-notices', 'agm-list', 'Nothing uploaded yet.');
             loadSimple('corp-gov-non-applicability', 'cgna-list', 'Nothing uploaded yet.');
             loadSimple('sebi-compliance-certificates', 'sebi-list', 'Nothing uploaded yet.');
+            loadSimple('corp-governance-publications', 'cgp-list', 'Nothing uploaded yet.');
 
             // Featured "Start here" cards -- always reflect whatever the newest
             // uploaded document is for that category. /api/documents already

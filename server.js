@@ -197,6 +197,7 @@ const DOCUMENT_CATEGORIES = {
   'annual-reports': { label: 'Annual Reports', folder: 'documents/annual-reports' },
   'newspaper-publications': { label: 'Newspaper Publications', folder: 'documents/newspaper-publications' },
   'shareholding-patterns': { label: 'Shareholding Patterns', folder: 'documents/shareholding-patterns' },
+  'corp-governance-publications': { label: 'Corporate Governance & Publications', folder: 'documents/governance' },
   'agm-egm-notices': { label: 'AGM / EGM Notices & Scrutinizer Reports', folder: 'documents/annual-reports' },
   'corp-gov-non-applicability': { label: 'Non-Applicability of Corporate Governance Report', folder: 'documents/governance/corp-gov-non-applicability' },
   'sebi-compliance-certificates': { label: 'SEBI Compliance Certificates', folder: 'documents/governance' },
