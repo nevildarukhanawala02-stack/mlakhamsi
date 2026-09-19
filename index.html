@@ -237,7 +237,7 @@
         /* ===== TICKER BAR ===== */
         .ticker-bar {
             background-color: var(--color-navy);
-            padding: 6px 0;
+            padding: 10px 0;
             font-family: var(--font-mono);
             font-size: 14px;
             font-weight: 600;
@@ -254,15 +254,15 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 12px;
             flex-wrap: wrap;
         }
         .ticker-bar-inner .tradingview-widget-container {
             width: 100%;
-            max-width: 280px;
+            max-width: 340px;
         }
         @media (max-width: 480px) {
-            .ticker-bar-inner .tradingview-widget-container { max-width: 220px; }
+            .ticker-bar-inner .tradingview-widget-container { max-width: 260px; }
         }
         .ticker-live { 
             color: var(--color-gold); 
@@ -975,14 +975,11 @@
             <span class="ticker-symbol">BSE Listed</span>
             <div class="tradingview-widget-container" id="bse-ticker-tape">
                 <div class="tradingview-widget-container__widget"></div>
-                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
                 {
-                    "symbols": [
-                        { "description": "MLINDLTD", "proName": "BSE:MLINDLTD" }
-                    ],
-                    "showSymbolLogo": false,
+                    "symbol": "BSE:MLINDLTD",
+                    "width": "100%",
                     "isTransparent": true,
-                    "displayMode": "compact",
                     "colorTheme": "dark",
                     "locale": "en"
                 }
