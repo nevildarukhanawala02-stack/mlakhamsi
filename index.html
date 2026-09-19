@@ -237,7 +237,7 @@
         /* ===== TICKER BAR ===== */
         .ticker-bar {
             background-color: var(--color-navy);
-            padding: 10px 0;
+            padding: 6px 0;
             font-family: var(--font-mono);
             font-size: 14px;
             font-weight: 600;
@@ -258,8 +258,8 @@
             flex-wrap: wrap;
         }
         .ticker-bar-inner .tradingview-widget-container {
-            width: 100%;
-            max-width: 340px;
+            width: 220px;
+            max-width: 220px;
         }
         @media (max-width: 480px) {
             .ticker-bar-inner .tradingview-widget-container { max-width: 260px; }
@@ -978,7 +978,7 @@
                 <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
                 {
                     "symbol": "BSE:MLINDLTD",
-                    "width": "100%",
+                    "width": 220,
                     "isTransparent": true,
                     "colorTheme": "dark",
                     "locale": "en"
