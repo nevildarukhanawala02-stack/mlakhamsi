@@ -257,12 +257,21 @@
             gap: 12px;
             flex-wrap: wrap;
         }
-        .ticker-bar-inner .tradingview-widget-container {
-            width: 220px;
-            max-width: 220px;
+        .ticker-bar-inner .ticker-scale-wrap {
+            width: 255px;
+            height: 68px;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-start;
+        }
+        .ticker-scale-wrap .tradingview-widget-container {
+            width: 340px;
+            transform: scale(0.75);
+            transform-origin: top left;
         }
         @media (max-width: 480px) {
-            .ticker-bar-inner .tradingview-widget-container { max-width: 260px; }
+            .ticker-bar-inner .ticker-scale-wrap { width: 210px; height: 56px; }
+            .ticker-scale-wrap .tradingview-widget-container { transform: scale(0.62); }
         }
         .ticker-live { 
             color: var(--color-gold); 
@@ -973,17 +982,19 @@
     <div class="ticker-bar">
         <div class="ticker-bar-inner">
             <span class="ticker-symbol">BSE Listed</span>
-            <div class="tradingview-widget-container" id="bse-ticker-tape">
-                <div class="tradingview-widget-container__widget"></div>
-                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
-                {
-                    "symbol": "BSE:MLINDLTD",
-                    "width": 220,
-                    "isTransparent": true,
-                    "colorTheme": "dark",
-                    "locale": "en"
-                }
-                </script>
+            <div class="ticker-scale-wrap">
+                <div class="tradingview-widget-container" id="bse-ticker-tape">
+                    <div class="tradingview-widget-container__widget"></div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+                    {
+                        "symbol": "BSE:MLINDLTD",
+                        "width": 340,
+                        "isTransparent": true,
+                        "colorTheme": "dark",
+                        "locale": "en"
+                    }
+                    </script>
+                </div>
             </div>
         </div>
     </div>
