@@ -237,7 +237,7 @@
         /* ===== TICKER BAR ===== */
         .ticker-bar {
             background-color: var(--color-navy);
-            padding: 8px 0;
+            padding: 6px 0;
             font-family: var(--font-mono);
             font-size: 14px;
             font-weight: 600;
@@ -247,6 +247,23 @@
             border-bottom: 2px solid var(--color-gold);
         }
         .ticker-bar p { margin: 0; font-size: 14px; color: var(--color-white); }
+        .ticker-bar-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .ticker-bar-inner .tradingview-widget-container {
+            width: 100%;
+            max-width: 280px;
+        }
+        @media (max-width: 480px) {
+            .ticker-bar-inner .tradingview-widget-container { max-width: 220px; }
+        }
         .ticker-live { 
             color: var(--color-gold); 
             font-weight: 700;
@@ -954,7 +971,24 @@
 
     <!-- ===== TICKER BAR ===== -->
     <div class="ticker-bar">
-        <p><span class="ticker-symbol">BSE Listed</span> &nbsp;·&nbsp; MLINDLTD</p>
+        <div class="ticker-bar-inner">
+            <span class="ticker-symbol">BSE Listed</span>
+            <div class="tradingview-widget-container" id="bse-ticker-tape">
+                <div class="tradingview-widget-container__widget"></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+                {
+                    "symbols": [
+                        { "description": "MLINDLTD", "proName": "BSE:MLINDLTD" }
+                    ],
+                    "showSymbolLogo": false,
+                    "isTransparent": true,
+                    "displayMode": "compact",
+                    "colorTheme": "dark",
+                    "locale": "en"
+                }
+                </script>
+            </div>
+        </div>
     </div>
 
     <!-- ===== CREDENTIAL MARQUEE ===== -->
