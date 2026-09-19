@@ -229,133 +229,67 @@
            TICKER BAR
         ============================================================ */
         .ticker-bar {
-            background: var(--navy);
-            padding: 14px 0;
-            border-bottom: 3px solid var(--gold);
-            overflow: hidden;
-        }
-        .ticker-inner {
-            display: flex;
-            align-items: center;
-            gap: var(--space-8);
-            white-space: nowrap;
-        }
-        .ticker-label {
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            color: var(--gold);
-            text-transform: uppercase;
-            flex-shrink: 0;
-            padding-right: var(--space-4);
-            border-right: 1px solid rgba(255,255,255,0.2);
-        }
-        .ticker-item {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--space-3);
-            font-size: 0.9375rem;
+            background-color: var(--navy);
+            padding: 16px 0;
+            font-family: var(--font-mono, 'Courier New', Courier, monospace);
+            font-size: 14px;
             font-weight: 600;
             color: var(--white);
+            text-align: center;
+            letter-spacing: 0.05em;
+            border-bottom: 2px solid var(--gold);
         }
-        .ticker-item .exchange { color: var(--gold); font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.06em; }
-        .ticker-item .price { color: var(--white); }
-        .ticker-item .change.up { color: #4ADE80; }
-        .ticker-item .change.down { color: #F87171; }
-        .ticker-divider { color: rgba(255,255,255,0.25); font-size: 1.2rem; }
-        .live-dot {
-            width: 8px; height: 8px;
-            background: #4ADE80;
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-            flex-shrink: 0;
-        }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(0.8); }
-        }
+        .ticker-bar p { margin: 0; font-size: 14px; color: var(--white); }
+        .ticker-symbol { color: var(--gold); font-weight: 700; }
 
         /* ============================================================
            NAVIGATION
         ============================================================ */
-        .nav-wrapper {
+        nav {
             position: sticky;
             top: 32px;
-            z-index: 1000;
-            background: var(--white);
-            box-shadow: 0 2px 12px rgba(27,58,92,0.10);
-        }
-        .nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 0;
-        }
-        .nav-logo {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 2px;
-        }
-        .nav-logo img {
-            height: 72px;
-            width: auto;
-        }
-        .nav-tagline {
-            font-size: 0.65rem;
-            font-weight: 700;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--navy);
-            padding-left: 2px;
-        }
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: var(--space-4);
-        }
-        .nav-links a {
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: var(--text-body);
-            transition: color 0.2s;
-            position: relative;
-        }
-        .nav-links a:hover, .nav-links a.active { color: var(--navy); font-weight: 600; }
-        .nav-links a.active::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0; right: 0;
-            height: 2px;
-            background: var(--gold);
-            border-radius: 2px;
-        }
-        .nav-cta { margin-left: var(--space-4); }
-        .nav-hamburger { display: none; flex-direction: column; gap: 5px; padding: 8px; }
-        .nav-hamburger span { display: block; width: 24px; height: 2px; background: var(--navy); border-radius: 2px; transition: all 0.3s; }
-        .mobile-menu {
-            display: none;
-            flex-direction: column;
-            padding: var(--space-4) 0;
-            border-top: 1px solid var(--border);
-        }
-        .mobile-menu a {
-            padding: var(--space-3) var(--space-4);
-            font-size: 0.9375rem;
-            font-weight: 500;
-            color: var(--text-body);
+            z-index: 100;
+            background-color: var(--white);
             border-bottom: 1px solid var(--border);
+            padding: var(--space-2) 0;
+            box-shadow: 0 1px 8px rgba(27,58,92,0.06);
         }
-        .mobile-menu a:last-child { border-bottom: none; }
-        @media (max-width: 1024px) {
-            .nav-links, .nav-cta { display: none; }
-            .nav-hamburger { display: flex; }
-            .mobile-menu.open { display: flex; }
+        .nav-container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 var(--space-10);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: var(--space-6);
         }
-        @media (max-width: 640px) {
-            .nav-logo img { height: 52px; }
+        @media (max-width: 640px) { .nav-container { padding: 0 var(--space-4); } }
+        .logo-section { display: flex; align-items: center; gap: var(--space-3); flex-shrink: 0; }
+        .logo-img { height: 72px; width: auto; object-fit: contain; }
+        @media (max-width: 768px) { .logo-img { height: 60px; } }
+        @media (max-width: 640px) { .logo-img { height: 52px; } }
+        .nav-links { display: flex; gap: var(--space-8); list-style: none; flex: 1; justify-content: center; margin: 0; padding: 0; }
+        @media (max-width: 1024px) { .nav-links { gap: var(--space-4); } }
+        @media (max-width: 768px) { .nav-links { display: none; } }
+        .nav-links a { font-size: 14px; font-weight: 500; color: var(--navy); text-decoration: none; transition: color 150ms ease; white-space: nowrap; }
+        .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; margin-left: auto; }
+        @media (max-width: 768px) { .hamburger { display: flex; } }
+        .hamburger span { width: 24px; height: 2px; background-color: var(--navy); border-radius: 2px; transition: all 150ms ease; }
+        @media (max-width: 768px) {
+            .nav-links.mobile-open {
+                display: flex; flex-direction: column; position: absolute;
+                top: 100%; left: 0; right: 0;
+                background: var(--white); padding: var(--space-4); gap: var(--space-3);
+                box-shadow: 0 4px 16px rgba(27,58,92,0.10);
+                border-top: 1px solid var(--border);
+                z-index: 99;
+            }
+            .nav-links.mobile-open a { padding: var(--space-2) 0; display: block; }
         }
+        .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
         /* ============================================================
            PAGE HERO — ABOUT US
@@ -1343,54 +1277,34 @@
          TICKER BAR
     ============================================================ -->
     <div class="ticker-bar">
-        <div class="container">
-            <div class="ticker-inner">
-                <div class="ticker-item">
-                    <span class="exchange">BSE Listed</span>
-                    <span class="ticker-divider">·</span>
-                    <span class="price">MLINDLTD</span>
-                </div>
-            </div>
-        </div>
+        <p><span class="ticker-symbol">BSE Listed</span> &nbsp;·&nbsp; MLINDLTD</p>
     </div>
 
     <!-- ============================================================
          NAVIGATION
     ============================================================ -->
-    <div class="nav-wrapper">
-        <div class="container">
-            <nav class="nav">
-                <a href="/" class="nav-logo">
-                    <img src="/images/logo.png" alt="M. Lakhamsi Industries Limited">
-                    <span class="nav-tagline">Since 1933 · Star Export House</span>
+    <nav>
+        <div class="nav-container">
+            <div class="logo-section">
+                <a href="/">
+                    <img src="/images/logo.png" alt="M. Lakhamsi Industries" class="logo-img">
                 </a>
-                <div class="nav-links">
-                    <a href="about.html" class="active">About Us</a>
-                    <a href="products.html">Products</a>
-                    <a href="quality.html">Quality &amp; Compliance</a>
-                    <a href="reports.html">Market Reports</a>
-                    <a href="investors.html">Investors</a>
-                    <a href="csr.html">CSR</a>
-                    <a href="social.html">Social</a>
-                    <a href="contact.html">Contact</a>
-                </div>
-                <a href="#contact" class="btn btn-primary nav-cta">Request a Quote</a>
-                <button class="nav-hamburger" onclick="toggleMenu()" aria-label="Menu">
-                    <span></span><span></span><span></span>
-                </button>
-            </nav>
-            <div class="mobile-menu" id="mobileMenu">
-                <a href="about.html" style="color:var(--navy);font-weight:700;">About Us</a>
-                <a href="products.html">Products</a>
-                <a href="quality.html">Quality &amp; Compliance</a>
-                <a href="reports.html">Market Reports</a>
-                <a href="investors.html">Investors</a>
-                <a href="csr.html">CSR</a>
-                <a href="social.html">Social</a>
-                <a href="contact.html">Contact</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="about.html" class="active">About Us</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="quality.html">Quality &amp; Compliance</a></li>
+                <li><a href="reports.html">Market Reports</a></li>
+                <li><a href="investors.html">Investors</a></li>
+                <li><a href="csr.html">CSR</a></li>
+                <li><a href="social.html">Social</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span><span></span><span></span>
             </div>
         </div>
-    </div>
+    </nav>
     <main>
 
     <!-- ============================================================
@@ -2278,10 +2192,21 @@
             var sel = document.querySelector('.goog-te-combo');
             if (sel) { sel.value = lang; sel.dispatchEvent(new Event('change')); }
         }
-        function toggleMenu() {
-            const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('open');
-        }
+        (function () {
+            var hamburger = document.querySelector('.hamburger');
+            var navLinks = document.querySelector('.nav-links');
+            if (!hamburger || !navLinks) return;
+            hamburger.addEventListener('click', function () {
+                navLinks.classList.toggle('mobile-open');
+                hamburger.classList.toggle('active');
+            });
+            navLinks.querySelectorAll('a').forEach(function (link) {
+                link.addEventListener('click', function () {
+                    navLinks.classList.remove('mobile-open');
+                    hamburger.classList.remove('active');
+                });
+            });
+        })();
     </script>
 
 </body>
