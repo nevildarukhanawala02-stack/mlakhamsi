@@ -261,7 +261,9 @@ app.get('/api/documents', (req, res) => {
   const category = req.query.category;
   let list = readDocumentsIndex();
   if (category) list = list.filter(d => d.category === category);
-  list.sort((a, b) => new Date(b.date) - new Date(a.date));
+  // Newest report date first; same-date ties broken by most recent upload.
+  list.sort((a, b) => (new Date(b.date) - new Date(a.date)) ||
+    (new Date(b.uploadedAt || 0) - new Date(a.uploadedAt || 0)));
   res.json(list);
 });
 

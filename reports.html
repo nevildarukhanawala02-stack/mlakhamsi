@@ -1026,27 +1026,8 @@
                 <div class="eyebrow">Latest Reports</div>
                 <h2>Start here.</h2>
             </div>
-            <div class="doc-featured">
-                <div class="doc-featured-card">
-                    <span class="tag">Sesame · Current</span>
-                    <h4>Indian Sesame Market Report: Current Scenario &amp; Outlook</h4>
-                    <a href="/documents/market-reports/Indian_Sesame_Market_Report-Current_Scenario_and_Outlook.pdf" target="_blank" rel="noopener"><i class="ti ti-download"></i> Download PDF</a>
-                </div>
-                <div class="doc-featured-card">
-                    <span class="tag">Sesame · May 2026</span>
-                    <h4>Indian Sesame Seed Markets — May 2026</h4>
-                    <a href="/documents/market-reports/Indian%20Sesame%20Seed%20Markets%20-%20May%202026.pdf" target="_blank" rel="noopener"><i class="ti ti-download"></i> Download PDF</a>
-                </div>
-                <div class="doc-featured-card">
-                    <span class="tag">Groundnuts · Current</span>
-                    <h4>Groundnut Market Report: Current Scenario &amp; Outlook</h4>
-                    <a href="/documents/market-reports/Indian_Groundnut_Market_Report-Current_Scenario_and_Outlook.pdf" target="_blank" rel="noopener"><i class="ti ti-download"></i> Download PDF</a>
-                </div>
-                <div class="doc-featured-card">
-                    <span class="tag">Groundnuts · Jan 2026</span>
-                    <h4>Indian Groundnut Markets — January 2026</h4>
-                    <a href="/documents/market-reports/Indian_Groundnut_Markets-Jan2026.pdf" target="_blank" rel="noopener"><i class="ti ti-download"></i> Download PDF</a>
-                </div>
+            <div class="doc-featured" id="doc-featured">
+                <div class="doc-featured-card"><h4>Loading latest reports…</h4></div>
             </div>
         </div>
     </section>
@@ -1309,29 +1290,68 @@
                     return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
                 });
             }
-            function renderCategory(category, listId, countId) {
-                fetch('/api/documents?category=' + category)
-                    .then(function (res) { return res.json(); })
-                    .then(function (docs) {
-                        var listEl = document.getElementById(listId);
-                        var countEl = document.getElementById(countId);
-                        if (!docs.length) {
-                            listEl.innerHTML = '<li class="report-loading">No reports yet.</li>';
-                            countEl.textContent = '';
-                            return;
-                        }
-                        listEl.innerHTML = docs.map(function (d) {
-                            return '<li><a href="' + d.filePath + '" target="_blank" rel="noopener"><span>' +
-                                   escapeHtml(d.title) + '</span><i class="ti ti-download doc-icon"></i></a></li>';
-                        }).join('');
-                        countEl.textContent = docs.length + (docs.length === 1 ? ' report' : ' reports');
-                    })
-                    .catch(function () {
-                        document.getElementById(listId).innerHTML = '<li class="report-loading">Could not load reports.</li>';
-                    });
+            // Newest N reports per commodity are featured in the navy "Start here"
+            // cards; everything older flows into that commodity's archive column.
+            // Both come from the same /api/documents data, so a new upload
+            // automatically takes a top slot and pushes the oldest featured
+            // report down into the archive.
+            var FEATURED_PER_COMMODITY = 2;
+            var MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+            var COMMODITIES = [
+                { category: 'market-reports-sesame',    label: 'Sesame',     listId: 'report-list-sesame',    countId: 'report-count-sesame' },
+                { category: 'market-reports-groundnut', label: 'Groundnuts', listId: 'report-list-groundnut', countId: 'report-count-groundnut' }
+            ];
+            function formatMonthYear(dateStr) {
+                var d = new Date(dateStr);
+                if (isNaN(d)) return '';
+                return MONTHS[d.getUTCMonth()] + ' ' + d.getUTCFullYear();
             }
-            renderCategory('market-reports-sesame', 'report-list-sesame', 'report-count-sesame');
-            renderCategory('market-reports-groundnut', 'report-list-groundnut', 'report-count-groundnut');
+            function byNewest(a, b) {
+                var diff = new Date(b.date) - new Date(a.date);
+                if (diff) return diff;
+                return new Date(b.uploadedAt || 0) - new Date(a.uploadedAt || 0);
+            }
+            function renderArchive(c, docs) {
+                var listEl = document.getElementById(c.listId);
+                var countEl = document.getElementById(c.countId);
+                if (!docs.length) {
+                    listEl.innerHTML = '<li class="report-loading">No older reports yet.</li>';
+                    countEl.textContent = '';
+                    return;
+                }
+                listEl.innerHTML = docs.map(function (d) {
+                    return '<li><a href="' + escapeHtml(d.filePath) + '" target="_blank" rel="noopener"><span>' +
+                           escapeHtml(d.title) + '</span><i class="ti ti-download doc-icon"></i></a></li>';
+                }).join('');
+                countEl.textContent = docs.length + (docs.length === 1 ? ' report' : ' reports');
+            }
+            function featuredCard(c, d) {
+                return '<div class="doc-featured-card">' +
+                       '<span class="tag">' + escapeHtml(c.label) + ' · ' + escapeHtml(formatMonthYear(d.date)) + '</span>' +
+                       '<h4>' + escapeHtml(d.title) + '</h4>' +
+                       '<a href="' + escapeHtml(d.filePath) + '" target="_blank" rel="noopener"><i class="ti ti-download"></i> Download PDF</a>' +
+                       '</div>';
+            }
+            Promise.all(COMMODITIES.map(function (c) {
+                return fetch('/api/documents?category=' + c.category)
+                    .then(function (res) { return res.json(); })
+                    .then(function (docs) { return docs.slice().sort(byNewest); });
+            })).then(function (results) {
+                var cards = [];
+                COMMODITIES.forEach(function (c, i) {
+                    var docs = results[i];
+                    docs.slice(0, FEATURED_PER_COMMODITY).forEach(function (d) { cards.push(featuredCard(c, d)); });
+                    renderArchive(c, docs.slice(FEATURED_PER_COMMODITY));
+                });
+                document.getElementById('doc-featured').innerHTML = cards.length
+                    ? cards.join('')
+                    : '<div class="doc-featured-card"><h4>No reports yet.</h4></div>';
+            }).catch(function () {
+                document.getElementById('doc-featured').innerHTML = '<div class="doc-featured-card"><h4>Could not load reports.</h4></div>';
+                COMMODITIES.forEach(function (c) {
+                    document.getElementById(c.listId).innerHTML = '<li class="report-loading">Could not load reports.</li>';
+                });
+            });
         })();
     </script>
 </body>
