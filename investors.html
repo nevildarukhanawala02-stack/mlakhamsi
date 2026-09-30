@@ -1380,10 +1380,24 @@
                 return '<li><a href="' + d.filePath + '" target="_blank" rel="noopener"><span class="doc-name">' +
                        escapeHtml(d.title) + '</span><i class="ti ti-download doc-icon"></i></a></li>';
             }
-            function loadSimple(category, listId, emptyMsg) {
+            // Featured "Start here" card: the newest document of a category goes
+            // in the navy card and is removed from that category's list below,
+            // so each document appears exactly once. The previous latest
+            // automatically becomes the first item in the list. /api/documents
+            // returns newest-first.
+            function takeFeatured(docs, featured) {
+                if (!featured || !docs.length) return docs;
+                var titleEl = document.getElementById(featured.titleId);
+                var linkEl = document.getElementById(featured.linkId);
+                if (titleEl) titleEl.textContent = docs[0].title;
+                if (linkEl) linkEl.setAttribute('href', docs[0].filePath);
+                return docs.slice(1);
+            }
+            function loadSimple(category, listId, emptyMsg, featured) {
                 fetch('/api/documents?category=' + category)
                     .then(function (res) { return res.json(); })
                     .then(function (docs) {
+                        docs = takeFeatured(docs, featured);
                         var el = document.getElementById(listId);
                         el.innerHTML = docs.length ? docs.map(docLi).join('') : '<li class="doc-loading">' + emptyMsg + '</li>';
                     })
@@ -1391,10 +1405,11 @@
                         document.getElementById(listId).innerHTML = '<li class="doc-loading">Could not load.</li>';
                     });
             }
-            function loadRecentOlder(category, recentId, olderId) {
+            function loadRecentOlder(category, recentId, olderId, featured) {
                 fetch('/api/documents?category=' + category)
                     .then(function (res) { return res.json(); })
                     .then(function (docs) {
+                        docs = takeFeatured(docs, featured);
                         var cutoff = new Date();
                         cutoff.setMonth(cutoff.getMonth() - 12);
                         var recent = docs.filter(function (d) { return new Date(d.date) >= cutoff; });
@@ -1407,36 +1422,14 @@
                         document.getElementById(olderId).innerHTML = '<li class="doc-loading">Could not load.</li>';
                     });
             }
-            loadRecentOlder('financial-results', 'fr-recent-list', 'fr-older-list');
+            loadRecentOlder('financial-results', 'fr-recent-list', 'fr-older-list', { titleId: 'featured-fr-title', linkId: 'featured-fr-link' });
             loadRecentOlder('newspaper-publications', 'np-recent-list', 'np-older-list');
-            loadSimple('annual-reports', 'ar-list', 'Nothing uploaded yet.');
+            loadSimple('annual-reports', 'ar-list', 'Nothing uploaded yet.', { titleId: 'featured-ar-title', linkId: 'featured-ar-link' });
             loadSimple('shareholding-patterns', 'sp-list', 'Nothing uploaded yet.');
             loadSimple('agm-egm-notices', 'agm-list', 'Nothing uploaded yet.');
             loadSimple('corp-gov-non-applicability', 'cgna-list', 'Nothing uploaded yet.');
             loadSimple('sebi-compliance-certificates', 'sebi-list', 'Nothing uploaded yet.');
             loadSimple('corp-governance-publications', 'cgp-list', 'Nothing uploaded yet.');
-
-            // Featured "Start here" cards -- always reflect whatever the newest
-            // uploaded document is for that category. /api/documents already
-            // returns results sorted newest-first, so the top result is the
-            // one that belongs in the blue card; the previous latest document
-            // simply stays visible further down in the full list, which is
-            // already populated by loadSimple/loadRecentOlder above.
-            function loadFeatured(category, titleId, linkId) {
-                fetch('/api/documents?category=' + category)
-                    .then(function (res) { return res.json(); })
-                    .then(function (docs) {
-                        if (!docs.length) return; // keep existing fallback text/link
-                        var latest = docs[0];
-                        var titleEl = document.getElementById(titleId);
-                        var linkEl = document.getElementById(linkId);
-                        if (titleEl) titleEl.textContent = latest.title;
-                        if (linkEl) linkEl.setAttribute('href', latest.filePath);
-                    })
-                    .catch(function () { /* keep existing fallback text/link */ });
-            }
-            loadFeatured('annual-reports', 'featured-ar-title', 'featured-ar-link');
-            loadFeatured('financial-results', 'featured-fr-title', 'featured-fr-link');
 
             // Shareholding Pattern card: only the "As on [date]" label is kept
             // in sync with the latest shareholding-patterns upload. The link
