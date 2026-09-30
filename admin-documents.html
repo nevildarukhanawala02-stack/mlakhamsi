@@ -97,6 +97,23 @@
     }
     .btn-icon:hover { border-color: var(--navy); color: var(--navy); }
     .btn-icon.danger:hover { border-color: var(--red); color: var(--red); }
+    .doc-edit {
+        background: var(--white); border: 1px solid var(--navy); border-radius: 8px;
+        padding: 14px 16px; margin: -4px 0 12px; display: grid; gap: 10px;
+    }
+    .doc-edit[hidden] { display: none; }
+    .doc-edit label { display: grid; gap: 4px; font-size: 12px; font-weight: 500; color: var(--navy); }
+    .doc-edit input, .doc-edit select {
+        font: inherit; font-size: 13px; font-weight: 400; color: var(--charcoal);
+        border: 1px solid var(--lgray); border-radius: 4px; padding: 8px 10px; background: var(--white);
+    }
+    .doc-edit input:focus, .doc-edit select:focus { outline: none; border: 2px solid var(--navy); }
+    .doc-edit-actions { display: flex; justify-content: flex-end; gap: 8px; }
+    .btn-small {
+        font: inherit; font-size: 13px; font-weight: 500; padding: 8px 16px; border-radius: 4px;
+        border: 1.5px solid var(--navy); background: transparent; color: var(--navy); cursor: pointer;
+    }
+    .btn-small.primary { background: var(--navy); color: var(--white); }
     .empty-note { font-size: 13px; color: var(--gray); padding: 16px 0; }
 </style>
 </head>
@@ -415,11 +432,47 @@ async function loadAllLists() {
                 </div>
                 <div class="doc-actions">
                     <a class="btn-icon" href="${d.filePath}" target="_blank" rel="noopener" title="View"><i class="ti ti-eye"></i></a>
+                    <button class="btn-icon" onclick="toggleEdit('${d.id}')" title="Edit title, category or date"><i class="ti ti-pencil"></i></button>
                     <button class="btn-icon danger" onclick="deleteDoc('${d.id}', '${escapeHtml(d.title).replace(/'/g,"\\'")}')" title="Delete"><i class="ti ti-trash"></i></button>
+                </div>
+            </div>
+            <div class="doc-edit" id="edit-${d.id}" hidden>
+                <label>Title <input type="text" data-field="title" value="${escapeHtml(d.title)}"></label>
+                <label>Category <select data-field="category" data-current="${d.category}"></select></label>
+                <label>Date <input type="date" data-field="date" value="${(d.date || '').slice(0, 10)}"></label>
+                <div class="doc-edit-actions">
+                    <button type="button" class="btn-small" onclick="toggleEdit('${d.id}')">Cancel</button>
+                    <button type="button" class="btn-small primary" onclick="saveEdit('${d.id}')">Save</button>
                 </div>
             </div>
         `).join('');
     }
+}
+
+function toggleEdit(id) {
+    const panel = document.getElementById('edit-' + id);
+    if (panel.hidden) {
+        // Reuse the upload form's category options so both always match.
+        const sel = panel.querySelector('[data-field="category"]');
+        sel.innerHTML = document.getElementById('categorySelect').innerHTML;
+        sel.value = sel.dataset.current;
+    }
+    panel.hidden = !panel.hidden;
+}
+
+async function saveEdit(id) {
+    const panel = document.getElementById('edit-' + id);
+    const payload = {};
+    panel.querySelectorAll('[data-field]').forEach(el => { payload[el.dataset.field] = el.value; });
+    const res = await fetch('/api/admin/documents/' + id, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    });
+    if (res.ok) { loadAllLists(); return; }
+    let msg = 'Could not save — try again.';
+    try { msg = (await res.json()).error || msg; } catch (e) { /* keep default */ }
+    alert(msg);
 }
 
 async function deleteDoc(id, title) {

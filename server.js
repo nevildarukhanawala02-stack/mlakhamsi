@@ -396,6 +396,47 @@ app.post('/api/admin/documents/from-html', requireAdmin2, express.json({ limit: 
   res.json({ ok: true, entry });
 });
 
+// Edit a document's title, category and/or date -- e.g. a report filed
+// under the wrong commodity. For files this system created (uploaded or
+// generated), the PDF physically lives in UPLOADS_ROOT/<category>/, and the
+// delete handler relies on that layout, so a category change moves the file
+// too. Migrated/legacy files live in the git-tracked codebase and are only
+// referenced by path, so for those only the index entry changes.
+app.patch('/api/admin/documents/:id', requireAdmin2, express.json(), (req, res) => {
+  const body = req.body || {};
+  const list = readDocumentsIndex();
+  const doc = list.find(d => d.id === req.params.id);
+  if (!doc) return res.status(404).json({ error: 'Not found' });
+
+  const title = body.title !== undefined ? body.title.toString().trim().slice(0, 200) : doc.title;
+  const date = body.date !== undefined ? body.date.toString().trim() : doc.date;
+  const category = body.category !== undefined ? body.category.toString() : doc.category;
+  if (!title) return res.status(400).json({ error: 'Title is required' });
+  if (!date || isNaN(Date.parse(date))) return res.status(400).json({ error: 'A valid date is required' });
+  if (!DOCUMENT_CATEGORIES[category]) return res.status(400).json({ error: 'Unknown category' });
+
+  if (category !== doc.category && (doc.source === 'uploaded' || doc.source === 'generated')) {
+    const from = path.join(UPLOADS_ROOT, doc.category, doc.fileName);
+    const toDir = path.join(UPLOADS_ROOT, category);
+    const to = path.join(toDir, doc.fileName);
+    try {
+      fs.mkdirSync(toDir, { recursive: true });
+      fs.renameSync(from, to);
+    } catch (e) {
+      console.error('Document move failed:', e.message);
+      return res.status(500).json({ error: 'Could not move the file to the new category.' });
+    }
+    doc.filePath = '/documents-uploads/' + category + '/' + encodeURIComponent(doc.fileName);
+  }
+
+  doc.title = title;
+  doc.date = date;
+  doc.category = category;
+  doc.editedAt = new Date().toISOString();
+  writeDocumentsIndex(list);
+  res.json({ ok: true, entry: doc });
+});
+
 app.delete('/api/admin/documents/:id', requireAdmin2, (req, res) => {
   const list = readDocumentsIndex();
   const idx = list.findIndex(d => d.id === req.params.id);
