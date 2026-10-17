@@ -111,17 +111,6 @@
       "uploadedAt": "2026-10-17T06:00:00.000Z"
     },
     {
-      "id": "514667ce-4e9f-48a9-bdb0-7ec7dd758d69",
-      "category": "market-reports-sesame",
-      "title": "Indian Hulled Sesame Seed - June 2025",
-      "date": "2025-06-16",
-      "filePath": "/documents/market-reports/Indian-Hulled-Sesame-Seed-June-2025.pdf",
-      "fileName": "Indian-Hulled-Sesame-Seed-June-2025.pdf",
-      "fileSize": 441894,
-      "source": "archive-2026-10",
-      "uploadedAt": "2026-10-17T06:00:00.000Z"
-    },
-    {
       "id": "7f2c38ad-44f7-4e6a-8095-0cca375745aa",
       "category": "market-reports-groundnut",
       "title": "Indian Groundnut Markets - Sept-Oct 2026",
@@ -151,6 +140,12 @@
       "set": {
         "date": "2023-09-30"
       }
+    }
+  ],
+  "remove": [
+    {
+      "id": "514667ce-4e9f-48a9-bdb0-7ec7dd758d69",
+      "reason": "quotation, not for publication"
     }
   ]
 }

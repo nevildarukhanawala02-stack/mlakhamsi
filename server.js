@@ -400,6 +400,13 @@ function applyDocumentAdditions() {
       } else { list.push(doc); added++; }
       done.add(doc.id);
     });
+    (spec.remove || []).forEach(r => {
+      const key = 'remove:' + r.id;
+      if (done.has(key)) return;
+      const i = list.findIndex(x => x.id === r.id);
+      if (i !== -1) { console.log('Additions: removed:', list[i].title); list.splice(i, 1); patched++; }
+      done.add(key);
+    });
     (spec.patch || []).forEach(p => {
       const key = 'patch:' + p.id;
       if (done.has(key)) return;
