@@ -135,6 +135,8 @@
             <button class="btn-logout" id="logoutBtn">Log out</button>
         </div>
 
+        <div id="storageStatus" style="font-size:12px; margin:0 0 16px; padding:10px 14px; border-radius:4px; display:none;"></div>
+
         <div class="upload-card">
             <h2>Upload a new document</h2>
             <div class="mode-toggle" style="display:flex; gap:8px; margin-bottom:16px;">
@@ -223,7 +225,19 @@ const CATEGORIES = GROUPS.flatMap(g => g.categories);
     `).join('');
 })();
 
-function showPanel() { loginCard.style.display = 'none'; panel.classList.add('visible'); loadAllLists(); }
+function loadStorageStatus() {
+    fetch('/api/admin/storage-status').then(r => r.json()).then(st => {
+        const el = document.getElementById('storageStatus');
+        if (st.persistent === false) {
+            el.style.cssText += 'display:block; background:#791F1F; color:#FFFFFF;';
+            el.textContent = 'Warning: storage is NOT persistent. Uploads will be lost on the next deploy. Contact your developer.';
+        } else {
+            el.style.cssText += 'display:block; background:#E8F0F7; color:#1B3A5C;';
+            el.textContent = 'Storage: persistent volume active. Automatic backups kept: ' + st.backupFiles + '.';
+        }
+    }).catch(() => {});
+}
+function showPanel() { loginCard.style.display = 'none'; panel.classList.add('visible'); loadAllLists(); loadStorageStatus(); }
 function showLogin() { loginCard.style.display = 'block'; panel.classList.remove('visible'); passwordInput.value = ''; }
 
 async function checkAuth() {

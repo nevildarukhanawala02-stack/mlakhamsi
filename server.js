@@ -91,6 +91,116 @@ const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, 'data');
 const DATA_FILE = path.join(DATA_DIR, 'social-posts.json');
 const SEED_FILE = path.join(__dirname, 'data-seed', 'social-posts.json');
 
+// ─────────────────────────────────────────────────────────────
+// Safe persistence helpers
+//  - atomicWrite: write to a temp file then rename, so a crash mid-write can
+//    never leave a half-written (corrupt) JSON file behind.
+//  - backupBeforeWrite: keep rolling copies of the important JSON files under
+//    DATA_DIR/backups so an accidental overwrite is recoverable.
+//  - readJsonWithBackup: if the live file is unreadable, fall back to the
+//    newest valid backup instead of silently treating it as empty (which would
+//    cause the next save to wipe everything).
+//  - checkStorage: tells you whether DATA_DIR is a real mounted volume.
+// ─────────────────────────────────────────────────────────────
+const BACKUP_DIR = path.join(DATA_DIR, 'backups');
+const BACKUP_KEEP = 30;           // copies kept per file
+const BACKUP_MIN_GAP_MS = 10 * 60 * 1000; // at most one backup per file per 10 min
+
+function atomicWrite(file, content) {
+  const tmp = file + '.tmp-' + process.pid;
+  fs.writeFileSync(tmp, content);
+  fs.renameSync(tmp, file);
+}
+
+function backupBeforeWrite(file) {
+  try {
+    if (!fs.existsSync(file)) return;
+    // Only back up files that currently parse -- never rotate a corrupt file in.
+    JSON.parse(fs.readFileSync(file, 'utf8'));
+    fs.mkdirSync(BACKUP_DIR, { recursive: true });
+    const base = path.basename(file, '.json');
+    const existing = fs.readdirSync(BACKUP_DIR)
+      .filter(f => f.startsWith(base + '.') && f.endsWith('.json'))
+      .sort();
+    if (existing.length) {
+      const newest = fs.statSync(path.join(BACKUP_DIR, existing[existing.length - 1]));
+      if (Date.now() - newest.mtimeMs < BACKUP_MIN_GAP_MS) return;
+    }
+    const stamp = new Date().toISOString().replace(/[:.]/g, '-');
+    fs.copyFileSync(file, path.join(BACKUP_DIR, base + '.' + stamp + '.json'));
+    const all = fs.readdirSync(BACKUP_DIR)
+      .filter(f => f.startsWith(base + '.') && f.endsWith('.json'))
+      .sort();
+    all.slice(0, Math.max(0, all.length - BACKUP_KEEP))
+      .forEach(f => fs.unlink(path.join(BACKUP_DIR, f), () => {}));
+  } catch (e) {
+    console.error('Backup skipped for', file, '-', e.message);
+  }
+}
+
+function safeWriteJson(file, value, opts) {
+  const o = opts || {};
+  if (o.backup !== false) backupBeforeWrite(file);
+  atomicWrite(file, JSON.stringify(value, null, 2));
+}
+
+function readJsonWithBackup(file) {
+  // Returns parsed JSON, or throws if neither the file nor any backup parses.
+  try {
+    return JSON.parse(fs.readFileSync(file, 'utf8'));
+  } catch (err) {
+    console.error('UNREADABLE JSON:', file, '-', err.message, '-- trying backups');
+    const base = path.basename(file, '.json');
+    let names = [];
+    try {
+      names = fs.readdirSync(BACKUP_DIR)
+        .filter(f => f.startsWith(base + '.') && f.endsWith('.json')).sort().reverse();
+    } catch (e) { /* no backup dir */ }
+    for (const n of names) {
+      try {
+        const v = JSON.parse(fs.readFileSync(path.join(BACKUP_DIR, n), 'utf8'));
+        console.error('RESTORED', file, 'from backup', n);
+        atomicWrite(file, JSON.stringify(v, null, 2));
+        return v;
+      } catch (e) { /* try the next one */ }
+    }
+    throw err;
+  }
+}
+
+function isRealMount(dir) {
+  // True if `dir` is its own mount point (i.e. a Railway Volume) rather than
+  // just a folder on the container's throwaway filesystem.
+  try {
+    const mounts = fs.readFileSync('/proc/self/mountinfo', 'utf8').split('\n');
+    const target = path.resolve(dir);
+    return mounts.some(line => line.split(' ')[4] === target);
+  } catch (e) {
+    return null; // can't tell (e.g. non-Linux dev machine)
+  }
+}
+
+function checkStorage() {
+  const mount = isRealMount(DATA_DIR);
+  const list = f => { try { return fs.readdirSync(f).length; } catch (e) { return 0; } };
+  return {
+    dataDir: DATA_DIR,
+    persistent: mount,
+    backupFiles: list(BACKUP_DIR),
+    uploadedPdfFolders: list(path.join(DATA_DIR, 'documents-uploads'))
+  };
+}
+{
+  const st = checkStorage();
+  if (st.persistent === false) {
+    console.error('\n!!! WARNING: DATA_DIR (' + DATA_DIR + ') is NOT a mounted volume. ' +
+      'Uploads, documents and social posts will be LOST on the next deploy or restart. ' +
+      'Attach a Railway Volume at this path. !!!\n');
+  } else {
+    console.log('Storage OK: DATA_DIR=' + DATA_DIR + ' persistent=' + st.persistent);
+  }
+}
+
 function ensureDataFile() {
   if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
   if (!fs.existsSync(DATA_FILE)) {
@@ -106,7 +216,7 @@ ensureDataFile();
 function readPosts() {
   ensureDataFile();
   try {
-    const raw = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
+    const raw = readJsonWithBackup(DATA_FILE);
     return {
       linkedin: Array.isArray(raw.linkedin) ? raw.linkedin : [],
       twitter: Array.isArray(raw.twitter) ? raw.twitter : []
@@ -118,7 +228,7 @@ function readPosts() {
 
 function writePosts(data) {
   ensureDataFile();
-  fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
+  safeWriteJson(DATA_FILE, data);
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -148,7 +258,7 @@ function ensureJsonFile(file, fallback) {
 function readJsonArray(file) {
   ensureJsonFile(file, []);
   try {
-    const raw = JSON.parse(fs.readFileSync(file, 'utf8'));
+    const raw = readJsonWithBackup(file);
     return Array.isArray(raw) ? raw : [];
   } catch (e) {
     return [];
@@ -157,7 +267,8 @@ function readJsonArray(file) {
 
 function writeJsonArray(file, arr) {
   ensureJsonFile(file, []);
-  fs.writeFileSync(file, JSON.stringify(arr, null, 2));
+  // Analytics is high-volume and re-creatable, so it gets atomic writes but no rolling backups.
+  safeWriteJson(file, arr, { backup: file !== ANALYTICS_FILE });
 }
 
 function readEvents() { return readJsonArray(ANALYTICS_FILE); }
@@ -215,13 +326,13 @@ function ensureDocumentsIndex() {
 function readDocumentsIndex() {
   ensureDocumentsIndex();
   try {
-    return JSON.parse(fs.readFileSync(DOCUMENTS_INDEX_FILE, 'utf8'));
+    return readJsonWithBackup(DOCUMENTS_INDEX_FILE);
   } catch (e) {
     return [];
   }
 }
 function writeDocumentsIndex(list) {
-  fs.writeFileSync(DOCUMENTS_INDEX_FILE, JSON.stringify(list, null, 2));
+  safeWriteJson(DOCUMENTS_INDEX_FILE, list);
 }
 
 // Multer stores new uploads under the persistent data volume (DATA_DIR), not
@@ -437,6 +548,10 @@ app.patch('/api/admin/documents/:id', requireAdmin2, express.json(), (req, res) 
   res.json({ ok: true, entry: doc });
 });
 
+app.get('/api/admin/storage-status', requireAdmin2, (req, res) => {
+  res.json(checkStorage());
+});
+
 app.delete('/api/admin/documents/:id', requireAdmin2, (req, res) => {
   const list = readDocumentsIndex();
   const idx = list.findIndex(d => d.id === req.params.id);
@@ -485,7 +600,7 @@ function readSettings() {
 
 function writeSettings(settings) {
   ensureJsonFile(SETTINGS_FILE, { subscribeEnabled: true });
-  fs.writeFileSync(SETTINGS_FILE, JSON.stringify(settings, null, 2));
+  safeWriteJson(SETTINGS_FILE, settings);
 }
 
 function classifyReferrer(referrer) {
