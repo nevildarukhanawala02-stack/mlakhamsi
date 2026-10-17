@@ -1,0 +1,156 @@
+{
+  "add": [
+    {
+      "id": "adb177b3-f225-42fc-8cce-1e214509027a",
+      "category": "newspaper-publications",
+      "title": "Newspaper Publication — 31.03.2026",
+      "date": "2026-05-28",
+      "filePath": "/documents/newspaper-publications/Newspaper-Publication-31.03.2026.pdf",
+      "fileName": "Newspaper-Publication-31.03.2026.pdf",
+      "fileSize": 3366290,
+      "source": "archive-2026-10",
+      "uploadedAt": "2026-10-17T06:00:00.000Z"
+    },
+    {
+      "id": "65806a0c-be85-4e92-b777-3c24127468d1",
+      "category": "agm-egm-notices",
+      "title": "Scrutinizer Report — 41st AGM 2024-25",
+      "date": "2025-09-29",
+      "filePath": "/documents/annual-reports/Scrutinizer-Report-41st-AGM-2024-25.pdf",
+      "fileName": "Scrutinizer-Report-41st-AGM-2024-25.pdf",
+      "fileSize": 2186784,
+      "source": "archive-2026-10",
+      "uploadedAt": "2026-10-17T06:00:00.000Z"
+    },
+    {
+      "id": "aa8768d7-beb7-4715-9112-de79882bfd44",
+      "category": "agm-egm-notices",
+      "title": "Scrutinizer Report and Voting Result — 42nd AGM 2025-26",
+      "date": "2026-09-24",
+      "filePath": "/documents/annual-reports/Scrutinizer-Report-and-Voting-Result-42nd-AGM-2025-26.pdf",
+      "fileName": "Scrutinizer-Report-and-Voting-Result-42nd-AGM-2025-26.pdf",
+      "fileSize": 3922140,
+      "source": "archive-2026-10",
+      "uploadedAt": "2026-10-17T06:00:00.000Z"
+    },
+    {
+      "id": "5724ae4a-56a8-4c15-810f-0058469fd878",
+      "category": "annual-reports",
+      "title": "42nd Annual Report — FY 2025-26",
+      "date": "2026-03-31",
+      "filePath": "/documents/annual-reports/Annual-Report-2025-26.pdf",
+      "fileName": "Annual-Report-2025-26.pdf",
+      "fileSize": 8516395,
+      "source": "archive-2026-10",
+      "uploadedAt": "2026-10-17T06:00:00.000Z"
+    },
+    {
+      "id": "265175af-a112-40a0-9cb7-c8ebc87a7cc0",
+      "category": "corp-gov-non-applicability",
+      "title": "Non-Applicability of Corporate Governance Report — June 2026",
+      "date": "2026-07-13",
+      "filePath": "/documents/governance/corp-gov-non-applicability/Non-applicability-of-Corporate-Governance-June-2026.pdf",
+      "fileName": "Non-applicability-of-Corporate-Governance-June-2026.pdf",
+      "fileSize": 1198731,
+      "source": "archive-2026-10",
+      "uploadedAt": "2026-10-17T06:00:00.000Z"
+    },
+    {
+      "id": "dc012313-78eb-4a04-aab3-f98ae7559f75",
+      "category": "corp-gov-non-applicability",
+      "title": "Non-Applicability of Corporate Governance Report — Sept 2026",
+      "date": "2026-10-13",
+      "filePath": "/documents/governance/corp-gov-non-applicability/Non-applicability-of-Corporate-Governance-September-2026.pdf",
+      "fileName": "Non-applicability-of-Corporate-Governance-September-2026.pdf",
+      "fileSize": 504995,
+      "source": "archive-2026-10",
+      "uploadedAt": "2026-10-17T06:00:00.000Z"
+    },
+    {
+      "id": "715e24be-5993-498b-b351-b59491f4b865",
+      "category": "shareholding-patterns",
+      "title": "Shareholding Pattern — as on 30.06.2026 (Source PDF)",
+      "date": "2026-06-30",
+      "filePath": "/documents/shareholding-patterns/Shareholding-Pattern-as-on-30.06.2026.pdf",
+      "fileName": "Shareholding-Pattern-as-on-30.06.2026.pdf",
+      "fileSize": 419847,
+      "source": "archive-2026-10",
+      "uploadedAt": "2026-10-17T06:00:00.000Z"
+    },
+    {
+      "id": "24a63b18-b050-42d6-b9ee-c300efa69deb",
+      "category": "shareholding-patterns",
+      "title": "Shareholding Pattern — as on 30.09.2026 (Source PDF)",
+      "date": "2026-09-30",
+      "filePath": "/documents/shareholding-patterns/Shareholding-Pattern-as-on-30.09.2026.pdf",
+      "fileName": "Shareholding-Pattern-as-on-30.09.2026.pdf",
+      "fileSize": 420568,
+      "source": "archive-2026-10",
+      "uploadedAt": "2026-10-17T06:00:00.000Z"
+    },
+    {
+      "id": "cc2e818f-0097-46b3-b7a0-2a1efe301093",
+      "category": "market-reports-sesame",
+      "title": "Indian Sesame Markets - Sept 2026",
+      "date": "2026-09-18",
+      "filePath": "/documents/market-reports/Indian-Sesame-Markets-Sept-2026.pdf",
+      "fileName": "Indian-Sesame-Markets-Sept-2026.pdf",
+      "fileSize": 797647,
+      "source": "archive-2026-10",
+      "uploadedAt": "2026-10-17T06:00:00.000Z"
+    },
+    {
+      "id": "54d2cd7b-9b86-4ef0-b4a7-591214281865",
+      "category": "market-reports-sesame",
+      "title": "Indian Sesame Markets - October 2026",
+      "date": "2026-10-12",
+      "filePath": "/documents/market-reports/Indian-Sesame-Markets-October-2026.pdf",
+      "fileName": "Indian-Sesame-Markets-October-2026.pdf",
+      "fileSize": 582154,
+      "source": "archive-2026-10",
+      "uploadedAt": "2026-10-17T06:00:00.000Z"
+    },
+    {
+      "id": "514667ce-4e9f-48a9-bdb0-7ec7dd758d69",
+      "category": "market-reports-sesame",
+      "title": "Indian Hulled Sesame Seed - June 2025",
+      "date": "2025-06-16",
+      "filePath": "/documents/market-reports/Indian-Hulled-Sesame-Seed-June-2025.pdf",
+      "fileName": "Indian-Hulled-Sesame-Seed-June-2025.pdf",
+      "fileSize": 441894,
+      "source": "archive-2026-10",
+      "uploadedAt": "2026-10-17T06:00:00.000Z"
+    },
+    {
+      "id": "7f2c38ad-44f7-4e6a-8095-0cca375745aa",
+      "category": "market-reports-groundnut",
+      "title": "Indian Groundnut Markets - Sept-Oct 2026",
+      "date": "2026-09-30",
+      "filePath": "/documents/market-reports/Indian-Groundnut-Markets-Sept-Oct-2026.pdf",
+      "fileName": "Indian-Groundnut-Markets-Sept-Oct-2026.pdf",
+      "fileSize": 611369,
+      "source": "archive-2026-10",
+      "uploadedAt": "2026-10-17T06:00:00.000Z"
+    },
+    {
+      "id": "e571f255-12ab-4197-b75c-9c7d9678e1ff",
+      "category": "market-reports-groundnut",
+      "title": "Indian Peanut Markets - Jan 2023",
+      "date": "2023-01-10",
+      "filePath": "/documents/market-reports/Indian-Peanut-Markets-Jan-2023.pdf",
+      "fileName": "Indian-Peanut-Markets-Jan-2023.pdf",
+      "fileSize": 332337,
+      "source": "archive-2026-10",
+      "uploadedAt": "2026-10-17T06:00:00.000Z"
+    }
+  ],
+  "patch": [
+    {
+      "id": "71cfbaf3-c71a-4c74-9db7-b028066211d4",
+      "ifDate": "2002-12-31",
+      "set": {
+        "date": "2023-09-30"
+      }
+    }
+  ]
+}

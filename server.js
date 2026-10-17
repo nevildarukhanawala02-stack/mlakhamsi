@@ -368,6 +368,54 @@ const documentUpload = multer({
   }
 });
 
+
+// ─────────────────────────────────────────────────────────────
+// One-time document additions (data-seed/documents-additions.json)
+// Merges documents shipped inside the repo into the live index on startup.
+//  - Each addition is applied at most once (tracked in DATA_DIR/applied-additions.json),
+//    so deleting one later from the admin will NOT bring it back.
+//  - An addition is skipped if the index already has an entry in the same
+//    category with the same date or the same file size (e.g. already re-uploaded).
+//  - Patches only change a field if it still holds the expected old value.
+// ─────────────────────────────────────────────────────────────
+function applyDocumentAdditions() {
+  const file = path.join(__dirname, 'data-seed', 'documents-additions.json');
+  if (!fs.existsSync(file)) return;
+  try {
+    const spec = JSON.parse(fs.readFileSync(file, 'utf8'));
+    const markerFile = path.join(DATA_DIR, 'applied-additions.json');
+    let applied = [];
+    try { applied = JSON.parse(fs.readFileSync(markerFile, 'utf8')); } catch (e) { /* first run */ }
+    const done = new Set(applied);
+    const list = readDocumentsIndex();
+    let added = 0, skipped = 0, patched = 0;
+
+    (spec.add || []).forEach(doc => {
+      if (done.has(doc.id)) return;
+      const dup = list.find(x => x.category === doc.category &&
+        (x.date === doc.date || (x.fileSize && x.fileSize === doc.fileSize)));
+      if (dup) { skipped++; console.log('Additions: skipped (already present):', doc.title); }
+      else if (!fs.existsSync(path.join(__dirname, doc.filePath.replace(/%20/g, ' ')))) {
+        console.error('Additions: file missing, not added:', doc.filePath); return;
+      } else { list.push(doc); added++; }
+      done.add(doc.id);
+    });
+    (spec.patch || []).forEach(p => {
+      const key = 'patch:' + p.id;
+      if (done.has(key)) return;
+      const t = list.find(x => x.id === p.id);
+      if (t && (!p.ifDate || t.date === p.ifDate)) { Object.assign(t, p.set); patched++; }
+      done.add(key);
+    });
+    if (added || patched) safeWriteJson(DOCUMENTS_INDEX_FILE, list);
+    safeWriteJson(markerFile, Array.from(done), { backup: false });
+    console.log('Document additions: added ' + added + ', skipped ' + skipped + ', patched ' + patched);
+  } catch (e) {
+    console.error('Document additions failed (site unaffected):', e.message);
+  }
+}
+applyDocumentAdditions();
+
 app.get('/api/documents', (req, res) => {
   const category = req.query.category;
   let list = readDocumentsIndex();
