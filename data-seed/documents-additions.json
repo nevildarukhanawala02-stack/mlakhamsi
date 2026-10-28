@@ -131,6 +131,116 @@
       "fileSize": 332337,
       "source": "archive-2026-10",
       "uploadedAt": "2026-10-17T06:00:00.000Z"
+    },
+    {
+      "id": "07a2b16a-65cd-48e7-a4aa-3f4e5428a69f",
+      "category": "annual-return",
+      "title": "Annual Return — FY 2022-23 (Form MGT-7)",
+      "date": "2023-03-31",
+      "filePath": "/documents/annual-returns/MGT-7-FY-22-23.pdf",
+      "fileName": "MGT-7-FY-22-23.pdf",
+      "fileSize": 1011986,
+      "source": "archive-2026-10",
+      "uploadedAt": "2026-10-28T06:00:00.000Z"
+    },
+    {
+      "id": "61d34d9f-994f-472b-8fc1-7fbefaea86ef",
+      "category": "annual-return",
+      "title": "Annual Return — FY 2023-24 (Form MGT-7)",
+      "date": "2024-03-31",
+      "filePath": "/documents/annual-returns/MGT-7-FY-23-24.pdf",
+      "fileName": "MGT-7-FY-23-24.pdf",
+      "fileSize": 1020397,
+      "source": "archive-2026-10",
+      "uploadedAt": "2026-10-28T06:00:00.000Z"
+    },
+    {
+      "id": "0954acf0-4ec8-4892-b642-a7210828fa17",
+      "category": "annual-return",
+      "title": "Annual Return — FY 2024-25 (Form MGT-7)",
+      "date": "2025-03-31",
+      "filePath": "/documents/annual-returns/MGT-7-FY-24-25.pdf",
+      "fileName": "MGT-7-FY-24-25.pdf",
+      "fileSize": 403943,
+      "source": "archive-2026-10",
+      "uploadedAt": "2026-10-28T06:00:00.000Z"
+    },
+    {
+      "id": "2bdbf98b-9b70-45d2-8209-d3ce2a03c757",
+      "category": "board-meeting-intimation",
+      "title": "Board Meeting Intimation — 28.05.2025",
+      "date": "2025-05-28",
+      "filePath": "/documents/board-meeting-intimations/Board-Meeting-Intimation-28.05.2025.pdf",
+      "fileName": "Board-Meeting-Intimation-28.05.2025.pdf",
+      "fileSize": 613143,
+      "source": "archive-2026-10",
+      "uploadedAt": "2026-10-28T06:00:00.000Z"
+    },
+    {
+      "id": "3a659d7a-c3dd-4ec1-b773-38aa088aa58c",
+      "category": "board-meeting-intimation",
+      "title": "Board Meeting Intimation — 11.08.2025",
+      "date": "2025-08-11",
+      "filePath": "/documents/board-meeting-intimations/Board-Meeting-Intimation-11.08.2025.pdf",
+      "fileName": "Board-Meeting-Intimation-11.08.2025.pdf",
+      "fileSize": 2907775,
+      "source": "archive-2026-10",
+      "uploadedAt": "2026-10-28T06:00:00.000Z"
+    },
+    {
+      "id": "e59d2650-73ec-4585-88ad-2a3d1e575e72",
+      "category": "board-meeting-intimation",
+      "title": "Board Meeting Intimation — 12.11.2025",
+      "date": "2025-11-12",
+      "filePath": "/documents/board-meeting-intimations/Board-Meeting-Intimation-12.11.2025.pdf",
+      "fileName": "Board-Meeting-Intimation-12.11.2025.pdf",
+      "fileSize": 682862,
+      "source": "archive-2026-10",
+      "uploadedAt": "2026-10-28T06:00:00.000Z"
+    },
+    {
+      "id": "2db596b5-182b-4c19-b3f5-c80e1e5cdc64",
+      "category": "board-meeting-intimation",
+      "title": "Intimation for Postponement of Board Meeting — 14.11.2025",
+      "date": "2025-11-14",
+      "filePath": "/documents/board-meeting-intimations/Intimation-for-Postponement-of-Board-Meeting-14.11.2025.pdf",
+      "fileName": "Intimation-for-Postponement-of-Board-Meeting-14.11.2025.pdf",
+      "fileSize": 675561,
+      "source": "archive-2026-10",
+      "uploadedAt": "2026-10-28T06:00:00.000Z"
+    },
+    {
+      "id": "2604e6d0-e738-49ad-a99c-f28ff02579cb",
+      "category": "board-meeting-intimation",
+      "title": "Board Meeting Intimation — 14.02.2026",
+      "date": "2026-02-14",
+      "filePath": "/documents/board-meeting-intimations/Board-Meeting-Intimation-14.02.2026.pdf",
+      "fileName": "Board-Meeting-Intimation-14.02.2026.pdf",
+      "fileSize": 674597,
+      "source": "archive-2026-10",
+      "uploadedAt": "2026-10-28T06:00:00.000Z"
+    },
+    {
+      "id": "4de40a02-4bb9-47c2-8bd9-430b0182e3bf",
+      "category": "board-meeting-intimation",
+      "title": "Board Meeting Intimation — 28.05.2026",
+      "date": "2026-05-28",
+      "filePath": "/documents/board-meeting-intimations/Board-Meeting-Intimation-28.05.2026.pdf",
+      "fileName": "Board-Meeting-Intimation-28.05.2026.pdf",
+      "fileSize": 677291,
+      "source": "archive-2026-10",
+      "uploadedAt": "2026-10-28T06:00:00.000Z"
+    },
+    {
+      "id": "dd741640-fa05-42b0-b6e7-2e32d5261bee",
+      "category": "board-meeting-intimation",
+      "title": "Board Meeting Intimation — 13.08.2026",
+      "date": "2026-08-13",
+      "filePath": "/documents/board-meeting-intimations/Board-Meeting-Intimation-13.08.2026.pdf",
+      "fileName": "Board-Meeting-Intimation-13.08.2026.pdf",
+      "fileSize": 671610,
+      "source": "archive-2026-10",
+      "uploadedAt": "2026-10-28T06:00:00.000Z"
     }
   ],
   "patch": [

@@ -1133,6 +1133,15 @@
                 <ul class="doc-list" id="ar-list"><li class="doc-loading">Loading…</li></ul>
             </div>
             <div class="doc-group">
+                <h3>Board Meeting Intimation</h3>
+                <ul class="doc-list" id="bmi-list"><li class="doc-loading">Loading…</li></ul>
+            </div>
+            <div class="doc-group">
+                <h3>Annual Return</h3>
+                <p style="font-size:13px; color:var(--color-gray); margin:-4px 0 var(--space-4);">Annual Return filed under the Companies Act, 2013 (Form MGT-7), with the Registrar of Companies. This is separate from the Annual Report.</p>
+                <ul class="doc-list" id="aret-list"><li class="doc-loading">Loading…</li></ul>
+            </div>
+            <div class="doc-group">
                 <h3>Recent Financial Results</h3>
                 <ul class="doc-list" id="fr-recent-list"><li class="doc-loading">Loading…</li></ul>
             </div>
@@ -1425,6 +1434,8 @@
             loadRecentOlder('financial-results', 'fr-recent-list', 'fr-older-list', { titleId: 'featured-fr-title', linkId: 'featured-fr-link' });
             loadRecentOlder('newspaper-publications', 'np-recent-list', 'np-older-list');
             loadSimple('annual-reports', 'ar-list', 'Nothing uploaded yet.', { titleId: 'featured-ar-title', linkId: 'featured-ar-link' });
+            loadSimple('board-meeting-intimation', 'bmi-list', 'Nothing uploaded yet.');
+            loadSimple('annual-return', 'aret-list', 'Nothing uploaded yet.');
             loadSimple('shareholding-patterns', 'sp-list', 'Nothing uploaded yet.');
             loadSimple('agm-egm-notices', 'agm-list', 'Nothing uploaded yet.');
             loadSimple('corp-gov-non-applicability', 'cgna-list', 'Nothing uploaded yet.');

@@ -312,7 +312,47 @@ const DOCUMENT_CATEGORIES = {
   'agm-egm-notices': { label: 'AGM / EGM Notices & Scrutinizer Reports', folder: 'documents/annual-reports' },
   'corp-gov-non-applicability': { label: 'Non-Applicability of Corporate Governance Report', folder: 'documents/governance/corp-gov-non-applicability' },
   'sebi-compliance-certificates': { label: 'SEBI Compliance Certificates', folder: 'documents/governance' },
+  'board-meeting-intimation': { label: 'Board Meeting Intimation', folder: 'documents/board-meeting-intimations' },
+  'annual-return': { label: 'Annual Return', folder: 'documents/annual-returns' },
 };
+
+// Categories whose documents are dated by the date written in the FILE NAME,
+// not by the day they are uploaded (the client often uploads older filings).
+// e.g. "Board Meeting Intimation-12.11.2025.pdf" -> 2025-11-12
+//      "MGT-7 FY 24-25.pdf"                     -> 2025-03-31 (financial year end)
+const FILENAME_DATED_CATEGORIES = new Set(['board-meeting-intimation', 'annual-return']);
+
+function dateFromFilename(name) {
+  const base = String(name || '');
+  let m = base.match(/(\d{1,2})[.\-_](\d{1,2})[.\-_](\d{4})/);
+  if (m) {
+    const d = +m[1], mo = +m[2], y = +m[3];
+    if (mo >= 1 && mo <= 12 && d >= 1 && d <= 31 && y >= 2000 && y <= 2100) {
+      return y + '-' + String(mo).padStart(2, '0') + '-' + String(d).padStart(2, '0');
+    }
+  }
+  m = base.match(/FY[\s_\-]*(\d{2,4})[\s_\-]+(\d{2,4})/i);   // financial year -> 31 March of the end year
+  if (m) {
+    let y = +m[2]; if (y < 100) y += 2000;
+    if (y >= 2000 && y <= 2100) return y + '-03-31';
+  }
+  return null;
+}
+
+function titleFromFilename(category, name) {
+  const base = String(name || '').replace(/\.pdf$/i, '').replace(/[_]+/g, ' ').replace(/\s+/g, ' ').trim();
+  if (category === 'annual-return') {
+    const m = base.match(/FY[\s\-]*(\d{2,4})[\s\-]+(\d{2,4})/i);
+    if (m) {
+      const a = m[1].length === 2 ? '20' + m[1] : m[1];
+      const b = m[2].length === 4 ? m[2].slice(2) : m[2];
+      return 'Annual Return — FY ' + a + '-' + b + ' (Form MGT-7)';
+    }
+  }
+  const m2 = base.match(/^(.*?)[\s\-]*(\d{1,2}[.\-]\d{1,2}[.\-]\d{4})$/);
+  if (m2 && m2[1]) return m2[1].trim() + ' — ' + m2[2].replace(/-/g, '.');
+  return base;
+}
 
 function ensureDocumentsIndex() {
   if (!fs.existsSync(DOCUMENTS_INDEX_FILE)) {
@@ -444,11 +484,19 @@ app.post('/api/admin/documents', requireAdmin2, (req, res) => {
       fs.unlinkSync(req.file.path);
       return res.status(400).json({ error: 'Unknown category' });
     }
-    const title = (req.body.title || '').toString().trim().slice(0, 200);
-    const date = (req.body.date || '').toString().trim();
+    let title = (req.body.title || '').toString().trim().slice(0, 200);
+    let date = (req.body.date || '').toString().trim();
+    if (FILENAME_DATED_CATEGORIES.has(category)) {
+      // The file name decides the date (and the title, if left blank), never the upload day.
+      const fromName = dateFromFilename(req.file.originalname);
+      if (fromName) date = fromName;
+      if (!title) title = titleFromFilename(category, req.file.originalname).slice(0, 200);
+    }
     if (!title || !date || isNaN(Date.parse(date))) {
       fs.unlinkSync(req.file.path);
-      return res.status(400).json({ error: 'Title and a valid date are required' });
+      return res.status(400).json({ error: FILENAME_DATED_CATEGORIES.has(category)
+        ? 'Could not read a date from the file name (expected e.g. 12.11.2025 or FY 24-25). Please enter the date and title.'
+        : 'Title and a valid date are required' });
     }
 
     const entry = {
