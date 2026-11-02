@@ -153,8 +153,8 @@
                     <input type="date" id="dateInput">
                 </div>
             </div>
-            <div id="filenameDateHint" style="display:none; font-size:12px; color:var(--navy); background:#E8F0F7; padding:10px 14px; border-radius:4px; margin-bottom:12px;">
-                For this category the <strong>date and title are read from the file name</strong> (e.g. <em>Board Meeting Intimation-12.11.2025.pdf</em> or <em>MGT-7 FY 24-25.pdf</em>) — not from the upload day. You can leave Date and Title empty. Entries sort by that date automatically.
+            <div id="filenameDateHint" style="font-size:12px; color:var(--navy); background:#E8F0F7; padding:10px 14px; border-radius:4px; margin-bottom:12px;">
+                <strong>The report date is read from the file name</strong> — e.g. <em>12.11.2025</em>, <em>FY 24-25</em>, <em>October 2026</em> — never from the day you upload. Documents sort newest-first by that date automatically. Only type a Date if the file name has none. Title is optional (built from the file name if left empty).
             </div>
             <label for="titleInput">Title (shown on the site)</label>
             <input type="text" id="titleInput" placeholder="e.g. Financial Results — Quarter Ended June 2026">
@@ -217,8 +217,7 @@ const GROUPS = [
 // Flat lookup, e.g. for building the upload <select> and for iterating every
 // category regardless of which group it's filed under.
 const CATEGORIES = GROUPS.flatMap(g => g.categories);
-// Categories where date + title come from the uploaded file's name (see server.js)
-const FILENAME_DATED = ['board-meeting-intimation', 'annual-return'];
+
 
 // Populate the upload form's category dropdown as <optgroup>s straight from
 // GROUPS, so the dropdown and the document-list layout below can never drift
@@ -231,10 +230,6 @@ const FILENAME_DATED = ['board-meeting-intimation', 'annual-return'];
         </optgroup>
     `).join('');
 })();
-
-document.getElementById('categorySelect').addEventListener('change', function () {
-    document.getElementById('filenameDateHint').style.display = FILENAME_DATED.indexOf(this.value) !== -1 ? 'block' : 'none';
-});
 
 function loadStorageStatus() {
     fetch('/api/admin/storage-status').then(r => r.json()).then(st => {
@@ -348,10 +343,9 @@ async function uploadFile() {
     const title = titleInput.value.trim();
     const date = dateInput.value;
     const category = categorySelect.value;
-    const nameDated = FILENAME_DATED.indexOf(category) !== -1;
-    if (!file || (!nameDated && (!title || !date))) {
+    if (!file) {
         uploadStatus.style.color = '#B3261E';
-        uploadStatus.textContent = nameDated ? 'Please choose a PDF file.' : 'Category, date, title, and a PDF file are all required.';
+        uploadStatus.textContent = 'Please choose a PDF file.';
         return;
     }
     const formData = new FormData();
@@ -367,7 +361,7 @@ async function uploadFile() {
         const data = await res.json();
         if (res.ok) {
             uploadStatus.style.color = '#2E6B2E';
-            uploadStatus.textContent = 'Uploaded — now live on the site.';
+            uploadStatus.textContent = 'Uploaded — now live on the site, dated ' + data.entry.date + ' (from ' + (data.dateSource || 'the Date field') + ').';
             titleInput.value = ''; dateInput.value = ''; fileInput.value = '';
             fileDrop.classList.remove('has-file');
             fileDropLabel.textContent = 'Click to choose a PDF, or drag one here';
