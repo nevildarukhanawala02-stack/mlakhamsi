@@ -241,6 +241,17 @@
       "fileSize": 671610,
       "source": "archive-2026-10",
       "uploadedAt": "2026-10-28T06:00:00.000Z"
+    },
+    {
+      "id": "5a083aee-ac46-4288-aef9-653135123e7e",
+      "category": "investor-contact",
+      "title": "Investors’ Contacts",
+      "date": "2026-11-03",
+      "filePath": "/documents/investor-contact/Investors-Contact.pdf",
+      "fileName": "Investors-Contact.pdf",
+      "fileSize": 186101,
+      "source": "archive-2026-10",
+      "uploadedAt": "2026-11-03T06:00:00.000Z"
     }
   ],
   "patch": [

@@ -314,6 +314,7 @@ const DOCUMENT_CATEGORIES = {
   'sebi-compliance-certificates': { label: 'SEBI Compliance Certificates', folder: 'documents/governance' },
   'board-meeting-intimation': { label: 'Board Meeting Intimation', folder: 'documents/board-meeting-intimations' },
   'annual-return': { label: 'Annual Return', folder: 'documents/annual-returns' },
+  'investor-contact': { label: 'Investor Contact', folder: 'documents/investor-contact' },
 };
 
 // Every document is dated by the date written in its FILE NAME (see doc-dates.js),
